@@ -2,15 +2,17 @@
 
 Welcome to my personal developer portfolio! This project is a showcase of my journey, skills, and the projects I've built as a Full Stack Developer.
 
-### 🌐 Live Website: [Visit Now](https://your-portfolio-url.netlify.app)
+### 🌐 Live Website: [Visit Now](https://usmanmurtaza.netlify.app)
 
 ---
 
 ## 🖼️ Preview Screenshots
 
-<img width="450px" src="https://your-screenshot-link.com/1.png"/>
-<img width="450px" src="https://your-screenshot-link.com/2.png"/>
-<img width="450px" src="https://your-screenshot-link.com/3.png"/>
+<img width="450px" src="./src/images/one (1).png"/>
+<img width="450px" src="./src/images/one (2).png"/>
+<img width="450px" src="./src/images/one (3).png"/>
+<img width="450px" src="./src/images/one (4).png"/>
+<img width="450px" src="./src/images/one (5).png"/>
 
 ---
 
