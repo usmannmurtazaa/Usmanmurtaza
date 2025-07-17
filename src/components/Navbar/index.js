@@ -10,9 +10,9 @@ import {
   ButtonContainer,
   MobileIcon,
   MobileMenu,
-  MobileNavLogo,
   MobileLink
-} from './NavbarStyledComponent';
+} 
+from './NavbarStyledComponent';
 import { DiCssdeck } from 'react-icons/di';
 import { FaBars } from 'react-icons/fa';
 import { Bio } from '../../data/constants';
@@ -25,7 +25,7 @@ const Navbar = () => {
   return (
     <Nav>
       <NavbarContainer>
-        <NavLogo to="/">
+        <NavLogo to='/'>
           <a
             href="/"
             style={{
