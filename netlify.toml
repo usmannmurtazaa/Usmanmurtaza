@@ -80,39 +80,17 @@
         https://fonts.googleapis.com;
       font-src 'self' 
         https://fonts.gstatic.com;
-      img-src 'self' data: blob:
-        https://cdn.jsdelivr.net
-        https://devicons.github.io
-        https://devicons.railway.app
-        https://upload.wikimedia.org
-        https://mui.com
-        https://firebasestorage.googleapis.com
-        https://user-images.githubusercontent.com
-        https://www.google-analytics.com 
-        https://www.googletagmanager.com
-        https://ssl.gstatic.com
-        https://www.gstatic.com
-        https://*.githubusercontent.com;
+      img-src 'self' data: blob: https:;
       connect-src 'self' 
         https://api.emailjs.com 
         https://www.google-analytics.com 
         https://analytics.google.com
         https://region1.google-analytics.com 
         https://www.googletagmanager.com
-        https://*.googleapis.com
-        https://*.firebaseapp.com
-        https://*.firebaseio.com
-        https://*.firebasedatabase.app;
-      frame-src 'self'
-        https://www.google.com;
-      worker-src 'self' blob:;
-      manifest-src 'self';
-      base-uri 'self';
-      form-action 'self';
+        https://*.googleapis.com;
       frame-ancestors 'none';
-      upgrade-insecure-requests;
     """
-    
+
 # Static assets caching - Long-term cache
 [[headers]]
   for = "/static/*"
