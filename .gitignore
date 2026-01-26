@@ -98,7 +98,6 @@ jest-html-reporters-attach/
 
 # Optional Gatsby
 .cache/
-public
 
 # Optional Nuxt.js
 .nuxt/
