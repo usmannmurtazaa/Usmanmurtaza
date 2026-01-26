@@ -35,7 +35,7 @@ const HeroBgAnimation = () => (
         ry="1.07433"
         fill="#945DD6"
       >
-        <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+        <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_2" />
         </animateMotion>
       </ellipse>
@@ -44,7 +44,7 @@ const HeroBgAnimation = () => (
         transform="translate(-294.685 -193.474) rotate(45 294.685 193.474)"
         stroke="url(#paint3_linear)"
       >
-        <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+        <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_2" />
         </animateMotion>
       </path>
@@ -56,12 +56,7 @@ const HeroBgAnimation = () => (
         ry="1.07433"
         fill="#46737"
       >
-        <animateMotion
-          dur="5s"
-          begin="1"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="5s" begin="1" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_2" />
         </animateMotion>
       </ellipse>
@@ -70,12 +65,7 @@ const HeroBgAnimation = () => (
         transform="translate(-294.685 -193.474) rotate(45 294.685 193.474)"
         stroke="url(#paint7_linear)"
       >
-        <animateMotion
-          dur="5s"
-          begin="1"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="5s" begin="1" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_2" />
         </animateMotion>
       </path>
@@ -108,12 +98,7 @@ const HeroBgAnimation = () => (
         transform="translate(-382.164 -155.029) rotate(90 382.164 155.029)"
         fill="#F46737"
       >
-        <animateMotion
-          dur="10s"
-          begin="1"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="10s" begin="1" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_0" />
         </animateMotion>
       </ellipse>
@@ -122,12 +107,7 @@ const HeroBgAnimation = () => (
         transform="translate(-381.81 -154.669) rotate(-45 381.81 154.669)"
         stroke="url(#paint5_linear)"
       >
-        <animateMotion
-          dur="10s"
-          begin="1"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="10s" begin="1" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_0" />
         </animateMotion>
       </path>
@@ -139,12 +119,7 @@ const HeroBgAnimation = () => (
         transform="translate(-333.324 -382.691) rotate(-180 333.324 382.691)"
         fill="#F46737"
       >
-        <animateMotion
-          dur="5s"
-          begin="0"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="5s" begin="0" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_1" />
         </animateMotion>
       </ellipse>
@@ -153,12 +128,7 @@ const HeroBgAnimation = () => (
         transform="scale(-1 1) translate(-333.667 -382.335) rotate(45 333.667 382.335)"
         stroke="url(#paint6_linear)"
       >
-        <animateMotion
-          dur="5s"
-          begin="0"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="5s" begin="0" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_1" />
         </animateMotion>
       </path>
@@ -170,12 +140,7 @@ const HeroBgAnimation = () => (
         transform="translate(-165.524 -93.9596)"
         fill="#F46737"
       >
-        <animateMotion
-          dur="10s"
-          begin="3"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="10s" begin="3" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_0" />
         </animateMotion>
       </ellipse>
@@ -184,12 +149,7 @@ const HeroBgAnimation = () => (
         transform="translate(-165.182 -94.3159) rotate(45 165.182 94.3159)"
         stroke="url(#paint7_linear)"
       >
-        <animateMotion
-          dur="10s"
-          begin="3"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="10s" begin="3" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_0" />
         </animateMotion>
       </path>
@@ -201,12 +161,7 @@ const HeroBgAnimation = () => (
         transform="translate(-476.525 -363.313) rotate(90 476.525 363.313)"
         fill="#13ADC7"
       >
-        <animateMotion
-          dur="12s"
-          begin="4"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="12s" begin="4" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_0" />
         </animateMotion>
       </ellipse>
@@ -215,12 +170,7 @@ const HeroBgAnimation = () => (
         transform="translate(-476.525 -363.313) rotate(-45 476.171 362.952)"
         stroke="url(#paint11_linear)"
       >
-        <animateMotion
-          dur="12s"
-          begin="4"
-          repeatCount="indefinite"
-          rotate="auto"
-        >
+        <animateMotion dur="12s" begin="4" repeatCount="indefinite" rotate="auto">
           <mpath xlinkHref="#path_0" />
         </animateMotion>
       </path>

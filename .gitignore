@@ -1,14 +1,23 @@
 # Dependencies
 /node_modules
 /.pnp
-.pnp.js
-
-# Testing
-/coverage
+.pnp.*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.cjs
+.pnp.loader.mjs
 
 # Production
 /build
 /.next
+/out
+/dist
+
+# Testing
+/coverage
+/.nyc_output
 
 # Environment Variables
 .env
@@ -16,26 +25,163 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env.staging.local
+.env.*.local
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+*.log
+logs
 
-# System Files
-.DS_Store
-Thumbs.db
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# Editor Directories and Files
+# IDE and Editor
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+.DS_Store
+._*
+Thumbs.db
 
-# Netlify / Firebase (Optional if used)
+# OS generated files
+Desktop.ini
+.eslintcache
+.stylelintcache
+
+# Netlify / Firebase / Vercel
 .netlify/
 .firebase/
+.vercel/
+.netlify/functions/
+
+# Package Manager specific
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+shrinkwrap.yaml
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Optional stylelint output
+.stylelintcache
+
+# Optional ESLint cache
+.eslintcache
+
+# Optional Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/fixtures/example.json
+
+# Optional Jest
+jest-cache/
+jest-html-reporters-attach/
+
+# Optional TypeScript
+*.tsbuildinfo
+
+# Optional Next.js
+.next/
+
+# Optional Gatsby
+.cache/
+public
+
+# Optional Nuxt.js
+.nuxt/
+
+# Optional Vue.js
+node_modules/.cache/
+
+# Optional Storybook
+storybook-static/
+
+# Optional documentation
+/docs/.vuepress/dist
+/docs/.vitepress/dist
+
+# Optional serverless
+.serverless/
+
+# Optional debug
+debug/
+*.pem
+
+# Optional misc
+.cache
+.parcel-cache
+.rollup.cache
+.svelte-kit
 
 # Mac folder metadata
 __MACOSX/
 
+# Windows
+[Tt]humbs.db
+*.stackdump
+
+# Linux
+*~
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.tgz
+
+# Backup files
+*.bak
+*.backup
+*.back
+
+# Temporary files
+*.tmp
+*.temp
+
+# Performance reports
+.perf
+.profile
+
+# Secrets
+secrets.yml
+.secrets
+*.secret
+
 # Optional: ignore generated .tgz packages
 *.tgz
+
+# Optional: ignore compiled files
+*.class
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Optional: ignore generated source maps
+*.map
+
+# Optional: ignore generated documentation
+/docs/build/
+/docs/public/
+
+# Optional: ignore deployed files
+/deploy/
+/deployment/

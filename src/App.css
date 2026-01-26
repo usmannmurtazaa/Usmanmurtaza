@@ -1,41 +1,460 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* App.css - Optimized for SEO, Performance & Accessibility */
 
-*{
+/* Google Fonts with display=swap and font-display strategy */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap&display=optional');
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    
 }
 
-html{
-  scroll-behavior: smooth;
+/* Performance: Optimize font loading */
+@font-face {
+    font-family: 'Poppins';
+    font-display: swap;
 }
 
-body{
-  margin: 0px !important;
-  padding: 0;
-  font-family: 'Montserrat', sans-serif;
+/* Base HTML improvements for SEO */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
-/* width */
+/* Body styles with SEO considerations */
+body {
+    margin: 0 !important;
+    padding: 0;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* SEO: Semantic elements default styling */
+section {
+    display: block;
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, main, nav, section, summary {
+    display: block;
+}
+
+/* SEO: Heading hierarchy for better content structure */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* SEO: Paragraph and text elements */
+p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+/* SEO: Link styling for better UX */
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+a:hover, a:focus {
+    outline: none;
+}
+
+/* SEO: Image optimization for performance */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-style: none;
+}
+
+/* SEO: Button and form element styling */
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    margin: 0;
+}
+
+button, input {
+    overflow: visible;
+}
+
+button, select {
+    text-transform: none;
+}
+
+/* SEO: List styling */
+ul, ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Custom Scrollbar with better accessibility */
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 80px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background:#222A35;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #222A35;
+}
+
+::-webkit-scrollbar-thumb {
     background: #575C66;
     border-radius: 6px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+    border: 2px solid #222A35;
+}
+
+::-webkit-scrollbar-thumb:hover {
     background: #626970;
-  }
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #575C66 #222A35;
+}
+
+/* SEO: Focus styles for accessibility */
+:focus {
+    outline: 2px solid #854CE6;
+    outline-offset: 3px;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.focus-visible:focus {
+    outline: 2px solid #854CE6;
+    outline-offset: 3px;
+}
+
+/* SEO: Selection color for better UX */
+::selection {
+    background-color: rgba(133, 76, 230, 0.3);
+    color: #ffffff;
+}
+
+::-moz-selection {
+    background-color: rgba(133, 76, 230, 0.3);
+    color: #ffffff;
+}
+
+/* SEO: Smooth transitions */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* SEO: Print styles for better printing experience */
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]::after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]::after {
+        content: " (" attr(title) ")";
+    }
+
+    pre {
+        white-space: pre-wrap !important;
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+
+/* SEO: Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* SEO: Dark mode preference */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+}
+
+/* SEO: High contrast mode */
+@media (prefers-contrast: high) {
+    :root {
+        --primary: #6a11cb;
+        --secondary: #2575fc;
+    }
+    
+    ::selection {
+        background-color: #6a11cb;
+        color: #ffffff;
+    }
+}
+
+/* SEO: Content visibility for performance */
+@media (min-width: 768px) {
+    .content-visibility-auto {
+        content-visibility: auto;
+        contain-intrinsic-size: 500px;
+    }
+}
+
+/* SEO: Utility classes */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #854CE6;
+    color: white;
+    padding: 8px;
+    z-index: 9999;
+    text-decoration: none;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
+/* SEO: Typography improvements */
+.strong {
+    font-weight: 600;
+}
+
+.emphasis {
+    font-style: italic;
+}
+
+/* SEO: Container for better content structure */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* SEO: Grid system for responsive layout */
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+/* SEO: Animation classes for engagement */
+.fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* SEO: Loading states */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(133, 76, 230, 0.3);
+    border-radius: 50%;
+    border-top-color: #854CE6;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* SEO: Card styling for content blocks */
+.card {
+    background: var(--card-bg, #fff);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* SEO: Button component styling */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.btn-primary {
+    background: linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
+    color: white;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(133, 76, 230, 0.4);
+}
+
+/* SEO: Mobile responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    html {
+        scroll-padding-top: 60px;
+    }
+}
+
+/* SEO: Desktop optimizations */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1350px;
+    }
+}
+
+/* SEO: Performance optimizations */
+@media (prefers-reduced-data: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .bg-image {
+        display: none !important;
+    }
+}
+
+/* SEO: Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        min-height: 48px;
+        min-width: 48px;
+    }
+    
+    a, button {
+        -webkit-tap-highlight-color: rgba(133, 76, 230, 0.3);
+    }
+}

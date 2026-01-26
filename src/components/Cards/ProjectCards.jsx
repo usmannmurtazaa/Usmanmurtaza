@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Button = styled.button`
   display: none;
@@ -21,7 +22,7 @@ const Card = styled.div`
   background-color: ${({ theme }) => theme.card};
   cursor: pointer;
   border-radius: 10px;
-  box-shadow: 0 0 12px 4px rgba(0,0,0,0.4);
+  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.4);
   overflow: hidden;
   padding: 26px 20px;
   display: flex;
@@ -31,7 +32,7 @@ const Card = styled.div`
 
   &:hover {
     transform: translateY(-10px);
-    box-shadow: 0 0 50px 4px rgba(0,0,0,0.6);
+    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.6);
     filter: brightness(1.1);
   }
 
@@ -46,7 +47,7 @@ const Image = styled.img`
   object-fit: cover;
   background-color: ${({ theme }) => theme.white};
   border-radius: 10px;
-  box-shadow: 0 0 16px 2px rgba(0,0,0,0.3);
+  box-shadow: 0 0 16px 2px rgba(0, 0, 0, 0.3);
 `;
 
 const Tags = styled.div`
@@ -122,7 +123,7 @@ const Avatar = styled.img`
   border-radius: 50%;
   margin-left: -10px;
   background-color: ${({ theme }) => theme.white};
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border: 3px solid ${({ theme }) => theme.card};
 `;
 
@@ -130,7 +131,7 @@ const ProjectCard = ({ project, setOpenModal }) => {
   return (
     <Card onClick={() => setOpenModal({ state: true, project })}>
       <Image src={project.image} alt={project.title} />
-      
+
       <Tags>
         {project.tags?.map((tag, index) => (
           <Tag key={index}>{tag}</Tag>
@@ -145,13 +146,27 @@ const ProjectCard = ({ project, setOpenModal }) => {
 
       <Members>
         {project.member?.map((member, idx) => (
-          <Avatar key={idx} src={member.img} alt={member.name || "team member"} />
+          <Avatar key={idx} src={member.img} alt={member.name || 'team member'} />
         ))}
       </Members>
 
       <Button>View Project</Button>
     </Card>
   );
+};
+
+// Add this at the bottom of the file:
+ProjectCard.propTypes = {
+  project: PropTypes.shape({
+    image: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    date: PropTypes.string,
+    description: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+    member: PropTypes.array,
+  }).isRequired,
+  openModal: PropTypes.object,
+  setOpenModal: PropTypes.func.isRequired,
 };
 
 export default ProjectCard;

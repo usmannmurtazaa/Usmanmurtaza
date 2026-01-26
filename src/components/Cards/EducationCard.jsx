@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Document = styled.img`
   display: none;
@@ -45,7 +46,7 @@ const Card = styled.div`
   flex-direction: column;
   gap: 12px;
   transition: all 0.3s ease-in-out;
-  border: 0.1px solid #854CE6;
+  border: 0.1px solid #854ce6;
 
   &:hover {
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
@@ -137,12 +138,27 @@ const EducationCard = ({ education }) => {
           <Date>{education.date}</Date>
         </Body>
       </Top>
-      <Grade><b>Grade: </b>{education.grade}</Grade>
+      <Grade>
+        <b>Grade: </b>
+        {education.grade}
+      </Grade>
       <Description>
         <Span>{education.desc}</Span>
       </Description>
     </Card>
   );
+};
+
+// Add this at the bottom of the file:
+EducationCard.propTypes = {
+  education: PropTypes.shape({
+    img: PropTypes.string,
+    school: PropTypes.string.isRequired,
+    degree: PropTypes.string,
+    date: PropTypes.string,
+    grade: PropTypes.string,
+    desc: PropTypes.string,
+  }).isRequired,
 };
 
 export default EducationCard;

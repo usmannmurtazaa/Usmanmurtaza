@@ -1,59 +1,60 @@
-import React from 'react'
-import styled from 'styled-components'
-import { useRef } from 'react';
+import React from 'react';
+import styled from 'styled-components';
+import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { Snackbar } from '@mui/material';
+import { Snackbar, Alert } from '@mui/material';
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-position: relative;
-z-index: 1;
-align-items: center;
-@media (max-width: 960px) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  align-items: center;
+  @media (max-width: 960px) {
     padding: 0px;
-}
-`
+  }
+`;
 
 const Wrapper = styled.div`
-position: relative;
-display: flex;
-justify-content: space-between;
-align-items: center;
-flex-direction: column;
-width: 100%;
-max-width: 1350px;
-padding: 0px 0px 80px 0px;
-gap: 12px;
-@media (max-width: 960px) {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1350px;
+  padding: 80px 0px;
+  gap: 12px;
+  @media (max-width: 960px) {
     flex-direction: column;
-}
-`
+    padding: 60px 0px 100px 0px;
+  }
+`;
 
 const Title = styled.div`
-font-size: 42px;
-text-align: center;
-font-weight: 600;
-margin-top: 20px;
+  font-size: 42px;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
   color: ${({ theme }) => theme.text_primary};
   @media (max-width: 768px) {
-      margin-top: 12px;
-      font-size: 32px;
+    font-size: 32px;
   }
 `;
 
 const Desc = styled.div`
-    font-size: 18px;
-    text-align: center;
-    max-width: 600px;
-    color: ${({ theme }) => theme.text_secondary};
-    @media (max-width: 768px) {
-        margin-top: 12px;
-        font-size: 16px;
-    }
+  font-size: 18px;
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 40px;
+  color: ${({ theme }) => theme.text_secondary};
+  line-height: 1.6;
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 0px 20px;
+  }
 `;
-
 
 const ContactForm = styled.form`
   width: 95%;
@@ -61,104 +62,322 @@ const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.card};
-  padding: 32px;
+  padding: 40px 32px;
   border-radius: 16px;
-  box-shadow: rgba(23, 92, 230, 0.15) 0px 4px 24px;
-  margin-top: 28px;
-  gap: 12px;
-`
+  box-shadow: rgba(23, 92, 230, 0.15) 0px 8px 32px;
+  gap: 20px;
+  @media (max-width: 768px) {
+    padding: 32px 24px;
+  }
+`;
 
 const ContactTitle = styled.div`
-  font-size: 24px;
-  margin-bottom: 6px;
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.text_primary};
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+`;
+
+const ContactSubtitle = styled.div`
+  font-size: 16px;
+  color: ${({ theme }) => theme.text_secondary};
+  margin-bottom: 20px;
+  line-height: 1.5;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const InputLabel = styled.label`
+  font-size: 14px;
   font-weight: 600;
   color: ${({ theme }) => theme.text_primary};
-`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
+
+const RequiredStar = styled.span`
+  color: #ff4757;
+  font-size: 12px;
+`;
 
 const ContactInput = styled.input`
-  flex: 1;
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.text_secondary};
+  width: 100%;
+  background-color: ${({ theme }) => theme.bgLight};
+  border: 1px solid ${({ theme }) => theme.text_secondary + '50'};
   outline: none;
-  font-size: 18px;
+  font-size: 16px;
   color: ${({ theme }) => theme.text_primary};
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: 16px;
+  transition: all 0.3s ease;
+
   &:focus {
-    border: 1px solid ${({ theme }) => theme.primary};
+    border: 2px solid ${({ theme }) => theme.primary};
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.primary + '20'};
   }
-`
+
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.text_secondary};
+  }
+`;
 
 const ContactInputMessage = styled.textarea`
-  flex: 1;
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.text_secondary};
+  width: 100%;
+  background-color: ${({ theme }) => theme.bgLight};
+  border: 1px solid ${({ theme }) => theme.text_secondary + '50'};
   outline: none;
-  font-size: 18px;
+  font-size: 16px;
   color: ${({ theme }) => theme.text_primary};
   border-radius: 12px;
-  padding: 12px 16px;
-  &:focus {
-    border: 1px solid ${({ theme }) => theme.primary};
-  }
-`
+  padding: 16px;
+  resize: vertical;
+  min-height: 150px;
+  transition: all 0.3s ease;
 
-const ContactButton = styled.input`
+  &:focus {
+    border: 2px solid ${({ theme }) => theme.primary};
+    box-shadow: 0 0 0 3px ${({ theme }) => theme.primary + '20'};
+  }
+
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.text_secondary};
+  }
+`;
+
+const ContactButton = styled.button`
   width: 100%;
   text-decoration: none;
   text-align: center;
-  background: hsla(271, 100%, 50%, 1);
   background: linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
-  background: -moz-linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
-  background: -webkit-linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
-  padding: 13px 16px;
-  margin-top: 2px;
+  padding: 18px 16px;
   border-radius: 12px;
   border: none;
-  color: ${({ theme }) => theme.text_primary};
+  color: white;
   font-size: 18px;
   font-weight: 600;
-`
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
 
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(148, 0, 211, 0.3);
+  }
 
+  &:active {
+    transform: translateY(0);
+  }
 
-// ... (same import and styled-components code as you shared)
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+`;
+
+const ContactInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const InfoItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  max-width: 200px;
+`;
+
+const InfoIcon = styled.div`
+  font-size: 24px;
+  color: ${({ theme }) => theme.primary};
+`;
+
+const InfoText = styled.div`
+  font-size: 14px;
+  color: ${({ theme }) => theme.text_secondary};
+`;
+
+const InfoValue = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.text_primary};
+`;
 
 const Contact = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const form = useRef();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    emailjs.sendForm('service_2004', 'template_2004', form.current, 'zi7G3LciN7Dv838Zv')
-      .then((result) => {
+    setLoading(true);
+    setError(null);
+
+    // Basic form validation
+    const formData = new FormData(form.current);
+    const email = formData.get('from_email');
+    const name = formData.get('from_name');
+    const message = formData.get('message');
+
+    if (!email || !name || !message) {
+      setError('Please fill in all required fields');
+      setLoading(false);
+      return;
+    }
+
+    if (!email.includes('@') || !email.includes('.')) {
+      setError('Please enter a valid email address');
+      setLoading(false);
+      return;
+    }
+
+    emailjs.sendForm('service_2004', 'template_2004', form.current, 'zi7G3LciN7Dv838Zv').then(
+      result => {
         setOpen(true);
         form.current.reset();
-      }, (error) => {
-        console.log(error.text);
-      });
+        setLoading(false);
+      },
+      error => {
+        // Only log in development
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Email send error:', error.text);
+        }
+        setError('Failed to send message. Please try again or email directly.');
+        setLoading(false);
+      }
+    );
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
   };
 
   return (
-    <Container>
+    <Container id="contact">
       <Wrapper>
-        <Title>Contact</Title>
-        <Desc>I’d love to hear from you — feel free to reach out with any questions or collaborations.</Desc>
+        <Title>Get In Touch</Title>
+        <Desc>
+          Looking for a <strong>React Developer</strong> or <strong>Full Stack Engineer</strong>?
+          Whether you have a project in mind, need consultation on{' '}
+          <strong>web performance optimization</strong>, or want to discuss{' '}
+          <strong>modern UI development</strong> opportunities, I&apos;d love to connect. Let&apos;s
+          build something amazing together.
+        </Desc>
+
         <ContactForm ref={form} onSubmit={handleSubmit}>
-          <ContactTitle>Get in Touch 🚀</ContactTitle>
-          <ContactInput placeholder="Your Email" name="from_email" />
-          <ContactInput placeholder="Your Name" name="from_name" />
-          <ContactInput placeholder="Subject" name="subject" />
-          <ContactInputMessage placeholder="Your Message" rows="4" name="message" />
-          <ContactButton type="submit" value="Send" />
+          <ContactTitle>Send a Message</ContactTitle>
+          <ContactSubtitle>
+            Interested in <strong>responsive web design</strong>,{' '}
+            <strong>JavaScript projects</strong>, or <strong>React.js development</strong>?
+            Let&apos;s discuss how I can help bring your ideas to life.
+          </ContactSubtitle>
+
+          {error && (
+            <Alert severity="error" onClose={() => setError(null)}>
+              {error}
+            </Alert>
+          )}
+
+          <InputGroup>
+            <InputLabel>
+              Your Name <RequiredStar>*</RequiredStar>
+            </InputLabel>
+            <ContactInput placeholder="John Doe" name="from_name" required disabled={loading} />
+          </InputGroup>
+
+          <InputGroup>
+            <InputLabel>
+              Your Email <RequiredStar>*</RequiredStar>
+            </InputLabel>
+            <ContactInput
+              placeholder="john@example.com"
+              name="from_email"
+              type="email"
+              required
+              disabled={loading}
+            />
+          </InputGroup>
+
+          <InputGroup>
+            <InputLabel>Subject</InputLabel>
+            <ContactInput
+              placeholder="Project Inquiry, Collaboration, or Job Opportunity"
+              name="subject"
+              disabled={loading}
+            />
+          </InputGroup>
+
+          <InputGroup>
+            <InputLabel>
+              Your Message <RequiredStar>*</RequiredStar>
+            </InputLabel>
+            <ContactInputMessage
+              placeholder="Hello Usman, I'd like to discuss a project involving React.js and modern web technologies..."
+              name="message"
+              rows="6"
+              required
+              disabled={loading}
+            />
+          </InputGroup>
+
+          <ContactButton type="submit" disabled={loading}>
+            {loading ? 'Sending...' : 'Send Message'}
+          </ContactButton>
         </ContactForm>
+
+        <ContactInfo>
+          <InfoItem>
+            <InfoIcon>📍</InfoIcon>
+            <InfoText>Location</InfoText>
+            <InfoValue>Karachi, Pakistan</InfoValue>
+          </InfoItem>
+
+          <InfoItem>
+            <InfoIcon>💼</InfoIcon>
+            <InfoText>Availability</InfoText>
+            <InfoValue>Open to Opportunities</InfoValue>
+          </InfoItem>
+
+          <InfoItem>
+            <InfoIcon>⚡</InfoIcon>
+            <InfoText>Response Time</InfoText>
+            <InfoValue>Within 24 Hours</InfoValue>
+          </InfoItem>
+        </ContactInfo>
+
         <Snackbar
           open={open}
           autoHideDuration={6000}
-          onClose={() => setOpen(false)}
-          message="Email sent successfully!"
-          severity="success"
-        />
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            Message sent successfully! I&apos;ll get back to you soon.
+          </Alert>
+        </Snackbar>
       </Wrapper>
     </Container>
   );
