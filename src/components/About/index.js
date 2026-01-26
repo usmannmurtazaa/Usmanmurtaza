@@ -12,7 +12,7 @@ const About = () => {
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
             I am a detail-oriented{' '}
             <strong className="font-semibold text-blue-600 dark:text-blue-400">
-             Full Stack Developer
+              Full Stack Developer
             </strong>{' '}
             with a strong foundation in both{' '}
             <strong className="font-semibold">frontend and backend development</strong>. My

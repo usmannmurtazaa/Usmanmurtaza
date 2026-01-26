@@ -137,29 +137,6 @@ const SocialMediaIcon = styled.a`
   }
 `;
 
-const ContactInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin: 1rem 0;
-  text-align: center;
-`;
-
-const ContactItem = styled.a`
-  color: ${({ theme }) => theme.text_secondary};
-  text-decoration: none;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: ${({ theme }) => theme.primary};
-  }
-`;
-
 const Copyright = styled.div`
   margin-top: 2rem;
   font-size: 0.9rem;
@@ -248,7 +225,6 @@ function Footer() {
             </SocialMediaIcon>
           </SocialMediaIcons>
         </SocialMediaSection>
-
         <Copyright>
           <CopyrightLine>&copy; {currentYear} Usman Murtaza. All Rights Reserved.</CopyrightLine>
         </Copyright>
