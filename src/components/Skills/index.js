@@ -415,7 +415,7 @@ const Skills = () => {
                 Building responsive, interactive user interfaces with <strong>React.js</strong>,
                 <strong> TypeScript</strong>, and modern CSS. Expertise in{' '}
                 <strong>state management</strong>,<strong> component architecture</strong>, and{' '}
-                <strong>performance optimization</strong>
+                <strong>performance optimization </strong>
                 for seamless user experiences.
               </ExpertiseDesc>
             </ExpertiseItem>
@@ -441,7 +441,7 @@ const Skills = () => {
               <ExpertiseDesc>
                 Crafting visually appealing, user-friendly interfaces with focus on
                 <strong> responsive design</strong>, <strong>accessibility</strong>, and
-                <strong> modern UI patterns</strong>. Proficient in <strong>CSS frameworks</strong>
+                <strong> modern UI patterns</strong>. Proficient in <strong>CSS frameworks </strong>
                 and design systems.
               </ExpertiseDesc>
             </ExpertiseItem>
