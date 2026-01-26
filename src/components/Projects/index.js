@@ -17,6 +17,12 @@ import {
   FilterInfo,
   CategoryTag,
   ViewAllButton,
+  EmptyState,
+  EmptyTitle,
+  EmptyText,
+  ProjectCount,
+  SectionHeader,
+  GradientLine,
 } from './ProjectsStyle';
 import ProjectCard from '../Cards/ProjectCards';
 import { projects } from '../../data/constants';
@@ -46,8 +52,12 @@ const Projects = ({ openModal, setOpenModal }) => {
   return (
     <Container id="projects">
       <Wrapper>
-        <Title>Portfolio Projects</Title>
-        <Subtitle>Real-World Applications & Solutions</Subtitle>
+        <SectionHeader>
+          <Title>Portfolio Projects</Title>
+          <GradientLine />
+          <Subtitle>Real-World Applications & Solutions</Subtitle>
+        </SectionHeader>
+
         <Desc>
           Explore my collection of <strong>modern web applications</strong> built with cutting-edge
           technologies. Each project demonstrates my expertise in{' '}
@@ -57,31 +67,46 @@ const Projects = ({ openModal, setOpenModal }) => {
           to <strong>project management tools</strong>, these applications showcase practical
           solutions to real-world problems.
         </Desc>
+
         <StatsSection>
           <StatCard>
             <StatIcon>🚀</StatIcon>
             <StatNumber>{totalProjects}+</StatNumber>
-            <StatLabel>Projects Completed</StatLabel>
+            <StatLabel>
+              Projects <strong>Completed</strong> with modern web technologies
+            </StatLabel>
           </StatCard>
 
           <StatCard>
             <StatIcon>⚛️</StatIcon>
             <StatNumber>{webApps}+</StatNumber>
-            <StatLabel>React Applications</StatLabel>
+            <StatLabel>
+              <strong>React.js</strong> Applications built with best practices
+            </StatLabel>
           </StatCard>
 
           <StatCard>
             <StatIcon>🛒</StatIcon>
             <StatNumber>{ecommerce}</StatNumber>
-            <StatLabel>E-commerce Solutions</StatLabel>
+            <StatLabel>
+              <strong>E-commerce</strong> Solutions with secure payment integration
+            </StatLabel>
           </StatCard>
 
           <StatCard>
             <StatIcon>⚡</StatIcon>
             <StatNumber>{activeProjects}</StatNumber>
-            <StatLabel>Active Development</StatLabel>
+            <StatLabel>
+              Projects in <strong>Active Development</strong>
+            </StatLabel>
           </StatCard>
         </StatsSection>
+
+        <ProjectCount>
+          Total portfolio: <strong>{totalProjects}</strong> projects across{' '}
+          <strong>{categories.length - 1}</strong> categories
+        </ProjectCount>
+
         <ToggleButtonGroup>
           {categories.map((type, index) => (
             <React.Fragment key={type}>
@@ -90,17 +115,19 @@ const Projects = ({ openModal, setOpenModal }) => {
                 value={type}
                 onClick={() => setToggle(type)}
                 aria-label={`Filter projects by ${type === 'all' ? 'all categories' : type}`}
+                aria-pressed={toggle === type}
               >
                 {type === 'all'
                   ? 'ALL PROJECTS'
                   : type === 'web app'
                     ? 'WEB APPLICATIONS'
-                    : type.toUpperCase()}
+                    : type.charAt(0).toUpperCase() + type.slice(1)}
               </ToggleButton>
               {index < categories.length - 1 && <Divider />}
             </React.Fragment>
           ))}
         </ToggleButtonGroup>
+
         <FilterInfo>
           Showing <strong>{filteredProjects.length}</strong> project
           {filteredProjects.length !== 1 ? 's' : ''}
@@ -122,19 +149,22 @@ const Projects = ({ openModal, setOpenModal }) => {
           {filteredProjects.length > 0 ? (
             filteredProjects.map((project, index) => (
               <ProjectCard
-                key={index}
+                key={project.id || index}
                 project={project}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
               />
             ))
           ) : (
-            <div>
-              <div style={{ fontSize: '48px', marginBottom: '20px' }}>📁</div>
-              <h3 style={{ marginBottom: '10px' }}>No projects found in this category</h3>
-              <p>Try selecting a different filter or view all projects.</p>
+            <EmptyState>
+              <div className="empty-icon">📁</div>
+              <EmptyTitle>No Projects Found</EmptyTitle>
+              <EmptyText>
+                No projects match the selected filter. Try selecting a different category or view
+                all projects to explore my complete portfolio.
+              </EmptyText>
               <ViewAllButton onClick={handleViewAll}>View All Projects</ViewAllButton>
-            </div>
+            </EmptyState>
           )}
         </CardContainer>
 
@@ -148,10 +178,18 @@ const Projects = ({ openModal, setOpenModal }) => {
   );
 };
 
-// Add this at the bottom of the file:
+// Add prop types validation
 Projects.propTypes = {
-  openModal: PropTypes.object,
+  openModal: PropTypes.shape({
+    state: PropTypes.bool,
+    project: PropTypes.object,
+  }),
   setOpenModal: PropTypes.func.isRequired,
+};
+
+// Default props
+Projects.defaultProps = {
+  openModal: { state: false, project: null },
 };
 
 export default Projects;
