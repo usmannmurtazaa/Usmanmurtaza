@@ -64,7 +64,7 @@ const HeroSection = () => {
 
             <SubTitle>
               I build <strong>high-performance, scalable web applications</strong> with modern
-              technologies. As a passionate <strong>Full Stack Dev </strong>
+              technologies. As a passionate <strong>Full Stack Developer </strong>
               specializing in <strong>React.js, Node.js, and modern JavaScript</strong>, I create{' '}
               <strong>responsive, user-centric solutions</strong> that deliver exceptional
               experiences. Focused on clean code, optimized performance, and innovative
