@@ -59,7 +59,7 @@
   for = "/*"
   [headers.values]
     # Security Headers
-    X-Frame-Options = "SAMEORIGIN"
+    X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
@@ -70,20 +70,49 @@
     # SEO Headers
     X-UA-Compatible = "IE=edge"
     
-    # Content Security Policy
-    Content-Security-Policy = 
-      "default-src 'self'; img-src 'self' 
-      https://www.googletagmanager.com 
-      https://www.google-analytics.com; 
-      script-src 'self' 
-      https://www.googletagmanager.com 
-      https://www.google-analytics.com; 
+    # Content Security Policy - Updated to allow all necessary sources
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 
+        https://www.googletagmanager.com 
+        https://www.google-analytics.com;
+      style-src 'self' 'unsafe-inline' 
+        https://fonts.googleapis.com;
+      font-src 'self' 
+        https://fonts.gstatic.com;
+      img-src 'self' data: blob:
+        https://cdn.jsdelivr.net
+        https://devicons.github.io
+        https://devicons.railway.app
+        https://upload.wikimedia.org
+        https://mui.com
+        https://firebasestorage.googleapis.com
+        https://user-images.githubusercontent.com
+        https://www.google-analytics.com 
+        https://www.googletagmanager.com
+        https://ssl.gstatic.com
+        https://www.gstatic.com
+        https://*.githubusercontent.com;
       connect-src 'self' 
-      https://www.google-analytics.com 
-      https://api.emailjs.com"
+        https://api.emailjs.com 
+        https://www.google-analytics.com 
+        https://analytics.google.com
+        https://region1.google-analytics.com 
+        https://www.googletagmanager.com
+        https://*.googleapis.com
+        https://*.firebaseapp.com
+        https://*.firebaseio.com
+        https://*.firebasedatabase.app;
+      frame-src 'self'
+        https://www.google.com;
+      worker-src 'self' blob:;
+      manifest-src 'self';
+      base-uri 'self';
+      form-action 'self';
       frame-ancestors 'none';
+      upgrade-insecure-requests;
     """
-
+    
 # Static assets caching - Long-term cache
 [[headers]]
   for = "/static/*"
