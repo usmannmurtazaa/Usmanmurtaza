@@ -249,12 +249,6 @@ function Footer() {
           </SocialMediaIcons>
         </SocialMediaSection>
 
-        <ContactInfo>
-          <ContactItem href={`mailto:${Bio.email || 'usmanmurtazaportfolio@gmail.com'}`}>
-            <EmailIcon fontSize="small" /> {Bio.email || 'usmanmurtazaportfolio@gmail.com'}
-          </ContactItem>
-        </ContactInfo>
-
         <Copyright>
           <CopyrightLine>&copy; {currentYear} Usman Murtaza. All Rights Reserved.</CopyrightLine>
         </Copyright>
