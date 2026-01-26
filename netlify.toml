@@ -1,8 +1,148 @@
+# Netlify Configuration - Usman Murtaza Portfolio
+# SEO Optimized with Security Headers & Performance Settings
+
 [build]
-  command = "npm run build"
+  command = "npm run build:production"
   publish = "build"
 
 [build.environment]
   NODE_VERSION = "18"
+  GENERATE_SOURCEMAP = "false"
 
+[context.production.environment]
+  REACT_APP_ENVIRONMENT = "production"
+  REACT_APP_SITE_URL = "https://usmanmurtaza.netlify.app"
 
+# Redirects - Keep them simple and avoid conflicts
+# Canonical domain redirect
+[[redirects]]
+  from = "https://www.usmanmurtaza.netlify.app/*"
+  to = "https://usmanmurtaza.netlify.app/:splat"
+  status = 301
+  force = true
+
+# Social redirects for convenience
+[[redirects]]
+  from = "/github"
+  to = "https://github.com/Usmanmurtaza2004"
+  status = 301
+
+[[redirects]]
+  from = "/linkedin"
+  to = "https://www.linkedin.com/in/usmanmurtaza01/"
+  status = 301
+
+[[redirects]]
+  from = "/twitter"
+  to = "https://twitter.com/usman_murtazaa"
+  status = 301
+
+# Resume/CV redirects
+[[redirects]]
+  from = "/resume"
+  to = "/resume.pdf"
+  status = 301
+
+[[redirects]]
+  from = "/cv"
+  to = "/resume.pdf"
+  status = 301
+
+# SPA fallback - MUST BE LAST
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security Headers - Single comprehensive block
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security Headers
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    
+    # Performance Headers
+    Cache-Control = "public, max-age=3600"
+    
+    # SEO Headers
+    X-UA-Compatible = "IE=edge"
+    
+    # Content Security Policy
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 
+        https://www.googletagmanager.com 
+        https://www.google-analytics.com;
+      style-src 'self' 'unsafe-inline' 
+        https://fonts.googleapis.com;
+      font-src 'self' 
+        https://fonts.gstatic.com;
+      img-src 'self' data: 
+        https://www.google-analytics.com 
+        https://www.googletagmanager.com;
+      connect-src 'self' 
+        https://api.emailjs.com 
+        https://www.google-analytics.com 
+        https://region1.google-analytics.com 
+        https://www.googletagmanager.com;
+      frame-ancestors 'none';
+    """
+
+# Static assets caching - Long-term cache
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# HTML files - Short cache, always fresh
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Image assets - Moderate cache
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# Service Worker - No cache
+[[headers]]
+  for = "/service-worker.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+
+# Sitemap and robots.txt
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"

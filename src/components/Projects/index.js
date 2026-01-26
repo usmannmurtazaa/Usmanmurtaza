@@ -57,7 +57,6 @@ const Projects = ({ openModal, setOpenModal }) => {
           to <strong>project management tools</strong>, these applications showcase practical
           solutions to real-world problems.
         </Desc>
-
         <StatsSection>
           <StatCard>
             <StatIcon>🚀</StatIcon>
@@ -83,7 +82,6 @@ const Projects = ({ openModal, setOpenModal }) => {
             <StatLabel>Active Development</StatLabel>
           </StatCard>
         </StatsSection>
-
         <ToggleButtonGroup>
           {categories.map((type, index) => (
             <React.Fragment key={type}>
@@ -103,7 +101,6 @@ const Projects = ({ openModal, setOpenModal }) => {
             </React.Fragment>
           ))}
         </ToggleButtonGroup>
-
         <FilterInfo>
           Showing <strong>{filteredProjects.length}</strong> project
           {filteredProjects.length !== 1 ? 's' : ''}
