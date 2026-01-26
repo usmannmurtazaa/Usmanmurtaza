@@ -70,7 +70,7 @@
     # SEO Headers
     X-UA-Compatible = "IE=edge"
     
-    # Content Security Policy - Updated to allow all necessary sources
+    # Content Security Policy - Updated for GA4
     Content-Security-Policy = """
       default-src 'self';
       script-src 'self' 'unsafe-inline' 
@@ -80,15 +80,43 @@
         https://fonts.googleapis.com;
       font-src 'self' 
         https://fonts.gstatic.com;
-      img-src 'self' data: blob: https:;
+      img-src 'self' data: blob:
+        https://cdn.jsdelivr.net
+        https://devicons.github.io
+        https://devicons.railway.app
+        https://upload.wikimedia.org
+        https://mui.com
+        https://firebasestorage.googleapis.com
+        https://user-images.githubusercontent.com
+        https://www.google-analytics.com 
+        https://www.googletagmanager.com
+        https://www.google.com
+        https://ssl.gstatic.com
+        https://www.gstatic.com
+        https://*.githubusercontent.com
+        https://*.google.com
+        https://*.google.com.pk;
       connect-src 'self' 
         https://api.emailjs.com 
         https://www.google-analytics.com 
         https://analytics.google.com
         https://region1.google-analytics.com 
+        https://region1.analytics.google.com
         https://www.googletagmanager.com
-        https://*.googleapis.com;
+        https://*.googleapis.com
+        https://*.firebaseapp.com
+        https://*.firebaseio.com
+        https://*.firebasedatabase.app
+        https://*.google.com
+        https://*.google.com.pk;
+      frame-src 'self'
+        https://www.google.com;
+      worker-src 'self' blob:;
+      manifest-src 'self';
+      base-uri 'self';
+      form-action 'self';
       frame-ancestors 'none';
+      upgrade-insecure-requests;
     """
 
 # Static assets caching - Long-term cache
