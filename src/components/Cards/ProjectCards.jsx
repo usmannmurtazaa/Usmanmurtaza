@@ -130,7 +130,7 @@ const Avatar = styled.img`
 const ProjectCard = ({ project, setOpenModal }) => {
   return (
     <Card onClick={() => setOpenModal({ state: true, project })}>
-      <Image src={project.image} alt={project.title} />
+      <Image src={project.img} alt={project.title} />
 
       <Tags>
         {project.tags?.map((tag, index) => (
@@ -145,9 +145,10 @@ const ProjectCard = ({ project, setOpenModal }) => {
       </Details>
 
       <Members>
-        {project.member?.map((member, idx) => (
-          <Avatar key={idx} src={member.img} alt={member.name || 'team member'} />
-        ))}
+        {project.member?.length > 0 &&
+          project.member.map((member, idx) => (
+            <Avatar key={idx} src={member.img} alt={member.name || 'member'} />
+          ))}
       </Members>
 
       <Button>View Project</Button>
@@ -155,17 +156,15 @@ const ProjectCard = ({ project, setOpenModal }) => {
   );
 };
 
-// Add this at the bottom of the file:
 ProjectCard.propTypes = {
   project: PropTypes.shape({
-    image: PropTypes.string,
+    img: PropTypes.string,
     title: PropTypes.string.isRequired,
     date: PropTypes.string,
     description: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
     member: PropTypes.array,
   }).isRequired,
-  openModal: PropTypes.object,
   setOpenModal: PropTypes.func.isRequired,
 };
 

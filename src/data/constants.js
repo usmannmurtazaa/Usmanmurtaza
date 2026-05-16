@@ -18,7 +18,7 @@ export const Bio = {
   roles: ['Full Stack Developer', 'Web Developer', 'UI/UX Designer', 'Programmer'],
   description:
     'A passionate and detail-oriented Full Stack Developer with strong problem-solving skills and a creative mindset. I specialize in building modern, responsive, and scalable web applications using the latest technologies. With a solid foundation in both frontend and backend development, I thrive in collaborative environments and continuously strive to learn, innovate, and deliver high-quality solutions that make a real impact.',
-  github: 'https://github.com/Usmanmurtaza2004',
+  github: 'https://github.com/Usmannmurtazaa',
   resume: 'https://drive.google.com/file/d/1zs_xeqmfLPlCOjVUCgstedOD2_oPpzoZ/view?usp=sharing',
   linkedin: 'https://www.linkedin.com/in/usmanmurtaza01/',
   twitter: 'https://twitter.com/usman_murtazaa',
@@ -176,29 +176,27 @@ export const education = [
 export const projects = [
   {
     id: 0,
-    title: 'CodementorX - Software Development Education Platform',
-    date: 'Jan 2025 - Present',
+    title: 'Nexa Calculator - GPA, CGPA, Scientific & Normal Calculator',
+    date: '2025',
     description:
-      'Creating a platform to educate budding developers on modern software development practices, full-stack development, and web technologies. The website features video tutorials, blogs, and interactive coding challenges.',
-    image:
-      'https://user-images.githubusercontent.com/64485885/234602896-a1bd8bcc-b72b-4821-83d6-8ad885bf435e.png',
-    tags: ['React', 'JavaScript', 'Node.js', 'HTML', 'CSS'],
+      'A multi purpose academic and scientific calculator that combines GPA and CGPA calculation with a full featured scientific and normal calculator. It helps students quickly calculate academic performance and also perform advanced mathematical operations in a single clean and responsive interface.',
+    img: `${process.env.PUBLIC_URL}/Nexa calculator.png`,
+    tags: ['React', 'JavaScript', 'CSS', 'Calculator', 'GPA', 'CGPA', 'Responsive UI'],
     category: 'Web App',
-    github: 'https://github.com/UsmanMurtaza/codementorx',
-    webapp: 'https://codementorx.com',
+    github: 'https://github.com/usmannmurtazaa/NexaCalculator',
+    webapp: 'https://nexacalculator.netlify.app/',
   },
   {
     id: 1,
-    title: 'Vexa - Project Management App',
-    date: 'Oct 2022 - Present',
+    title: 'ResumeAI Pro - AI Powered Resume Builder SaaS',
+    date: '2025',
     description:
-      'Designed and developed a project management app with task tracking, team collaboration, and time tracking. Features include user invitations, chat system plans, and future community integration.',
-    image:
-      'https://user-images.githubusercontent.com/64485885/234916413-96296f13-fe4b-4cc4-b215-e72bd7c27928.png',
-    tags: ['React Js', 'MongoDb', 'Node Js', 'Express Js', 'Redux', 'NodeMailer'],
+      'An AI powered resume builder platform that generates ATS optimized resumes. It includes authentication, customizable templates, AI suggestions, export functionality, and a dashboard to manage multiple resumes efficiently.',
+    img: `${process.env.PUBLIC_URL}/ResumeAi Pro.png`,
+    tags: ['React', 'Firebase', 'Tailwind CSS', 'AI', 'SaaS', 'Resume Builder'],
     category: 'Web App',
-    github: 'https://github.com/usmanmurtaza/Project-Management-App',
-    webapp: 'https://vexa-app.netlify.app/',
+    github: 'https://github.com/usmannmurtazaa/ResumeAI-Pro',
+    webapp: 'https://resumeaixpro.netlify.app/',
   },
   {
     id: 2,

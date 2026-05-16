@@ -10,7 +10,7 @@
 
 **Modern, SEO-Optimized Portfolio Showcasing React.js & Full Stack Development Projects**
 
-[🌐 Live Website](https://usmanmurtaza.netlify.app) • [💼 LinkedIn](https://www.linkedin.com/in/usmanmurtaza01/) • [💻 GitHub](https://github.com/Usmanmurtaza2004) • [📄 Resume](#)
+[🌐 Live Website](https://usmanmurtaza.netlify.app) • [💼 LinkedIn](https://www.linkedin.com/in/usmanmurtaza01/) • [💻 GitHub](https://github.com/Usmannmurtazaa) • [📄 Resume](#)
 
 </div>
 
@@ -157,7 +157,7 @@ Welcome to my professional developer portfolio! This is a **modern, fully respon
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Usmanmurtaza2004/Usmanmurtaza.git
+git clone https://github.com/Usmannmurtazaa/Usmanmurtaza.git
 
 # 2. Navigate to project directory
 cd portfolio
