@@ -10,28 +10,28 @@ const SvgWrapper = styled(motion.div)`
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  opacity: ${({ reduced }) => (reduced ? 0.08 : 0.12)};
-  overflow: hidden;
+  overflow: hidden; /* keep this – it prevents page scroll, not clipping the SVG */
 
   svg {
     width: 100%;
     height: 100%;
-    max-width: 600px;
-    max-height: 600px;
+    /* remove fixed max-width/height – let it fill its container */
   }
 `;
 
 const HeroSvgAnimation = () => {
   const prefersReduced = useReducedMotion();
+  const opacity = prefersReduced ? 0.05 : 0.15;
 
   return (
-    <SvgWrapper reduced={prefersReduced} aria-hidden="true">
+    <SvgWrapper style={{ opacity }} aria-hidden="true">
       <svg
         viewBox="0 0 602 602"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid meet"
       >
+        {/* … all SVG content identical to your last version … */}
         <g opacity="0.15">
           <path
             fillRule="evenodd"
@@ -51,6 +51,8 @@ const HeroSvgAnimation = () => {
             id="path_2"
           />
         </g>
+
+        {/* orbiting dots and lines */}
         <ellipse cx="295.027" cy="193.118" rx="1.07306" ry="1.07433" fill="#945DD6">
           <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
             <mpath href="#path_2" />
@@ -149,6 +151,7 @@ const HeroSvgAnimation = () => {
             <mpath href="#path_0" />
           </animateMotion>
         </path>
+
         <defs>
           <radialGradient
             id="paint0_radial"
@@ -237,39 +240,6 @@ const HeroSvgAnimation = () => {
           >
             <stop stopColor="#F46737" />
             <stop offset="1" stopColor="#F46737" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient
-            id="paint8_linear"
-            x1="414.367"
-            y1="301.156"
-            x2="439.435"
-            y2="276.118"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#13ADC7" />
-            <stop offset="1" stopColor="#13ADC7" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient
-            id="paint9_linear"
-            x1="515.943"
-            y1="288.238"
-            x2="541.339"
-            y2="291.454"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#13ADC7" />
-            <stop offset="1" stopColor="#13ADC7" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient
-            id="paint10_linear"
-            x1="117.001"
-            y1="230.619"
-            x2="117.36"
-            y2="258.193"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#945DD6" />
-            <stop offset="1" stopColor="#945DD6" stopOpacity="0" />
           </linearGradient>
           <linearGradient
             id="paint11_linear"

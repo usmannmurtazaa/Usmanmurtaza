@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useReducedMotion } from '../../motionConfig';
 
-// ── Wrapper that shifts animation slightly left on desktop ──
 const DecoratorWrapper = styled.div`
   position: absolute;
   inset: 0;
@@ -17,7 +16,6 @@ const DecoratorWrapper = styled.div`
   }
 `;
 
-// ── Custom hook that generates responsive stars / nodes ──
 const useResponsiveData = () => {
   const getRadius = () => {
     if (typeof window === 'undefined')
@@ -67,7 +65,6 @@ const useResponsiveData = () => {
   return { stars, nodes };
 };
 
-// ── Dashed rings ──
 const DASHED_RINGS = [
   {
     radius: 18,
@@ -95,14 +92,12 @@ const DASHED_RINGS = [
   },
 ];
 
-// ── Energy arcs ──
 const ENERGY_ARCS = [
   { id: 'arc-1', r: 16, color: 'rgba(139,92,246,0.25)', duration: 12, delay: 0 },
   { id: 'arc-2', r: 20, color: 'rgba(59,130,246,0.2)', duration: 14, delay: 3 },
   { id: 'arc-3', r: 24, color: 'rgba(6,182,212,0.18)', duration: 16, delay: 6 },
 ];
 
-// ── Edge strokes ──
 const EDGE_STROKES = [
   {
     x: '5%',
@@ -146,9 +141,8 @@ const EDGE_STROKES = [
   },
 ];
 
-const MAX_DISTANCE = 18; // vw
+const MAX_DISTANCE = 18;
 
-// ── Custom hook: animated node positions ──
 const useNodePositions = (nodes, reduced) => {
   const [time, setTime] = useState(0);
   useEffect(() => {
@@ -174,8 +168,8 @@ const useNodePositions = (nodes, reduced) => {
   );
 };
 
-// ── Subcomponents ──
-const Star = ({ size, color, radius, angle, speed, pulse, reduced }) => (
+// All subcomponents now use $reduced (transient prop) – nothing forwarded to DOM
+const Star = ({ size, color, radius, angle, speed, pulse, $reduced }) => (
   <motion.div
     style={{
       position: 'absolute',
@@ -189,7 +183,7 @@ const Star = ({ size, color, radius, angle, speed, pulse, reduced }) => (
       willChange: 'transform',
     }}
     animate={
-      reduced
+      $reduced
         ? {}
         : {
             x: [
@@ -216,16 +210,16 @@ Star.propTypes = {
   angle: PropTypes.number.isRequired,
   speed: PropTypes.number.isRequired,
   pulse: PropTypes.number.isRequired,
-  reduced: PropTypes.bool.isRequired,
+  $reduced: PropTypes.bool.isRequired,
 };
 
-const DashedRing = ({ radius, dashArray, strokeWidth, color, duration, delay, reduced }) => (
+const DashedRing = ({ radius, dashArray, strokeWidth, color, duration, delay, $reduced }) => (
   <motion.svg
     width="100%"
     height="100%"
     viewBox={`0 0 ${radius * 2 + 2} ${radius * 2 + 2}`}
     style={{ position: 'absolute', inset: 0, overflow: 'visible' }}
-    animate={reduced ? {} : { rotate: [0, 360] }}
+    animate={$reduced ? {} : { rotate: [0, 360] }}
     transition={{ duration, repeat: Infinity, ease: 'linear', delay }}
   >
     <circle
@@ -247,10 +241,10 @@ DashedRing.propTypes = {
   color: PropTypes.string.isRequired,
   duration: PropTypes.number.isRequired,
   delay: PropTypes.number.isRequired,
-  reduced: PropTypes.bool.isRequired,
+  $reduced: PropTypes.bool.isRequired,
 };
 
-const EnergyArc = ({ r, color, duration, delay, reduced }) => {
+const EnergyArc = ({ r, color, duration, delay, $reduced }) => {
   const circumference = 2 * Math.PI * r;
   const dashLength = circumference * 0.25;
   return (
@@ -259,7 +253,7 @@ const EnergyArc = ({ r, color, duration, delay, reduced }) => {
       height="100%"
       viewBox={`0 0 ${r * 2 + 2} ${r * 2 + 2}`}
       style={{ position: 'absolute', inset: 0, overflow: 'visible' }}
-      animate={reduced ? {} : { rotate: [0, 360] }}
+      animate={$reduced ? {} : { rotate: [0, 360] }}
       transition={{ duration, repeat: Infinity, ease: 'linear', delay }}
     >
       <circle
@@ -281,10 +275,10 @@ EnergyArc.propTypes = {
   color: PropTypes.string.isRequired,
   duration: PropTypes.number.isRequired,
   delay: PropTypes.number.isRequired,
-  reduced: PropTypes.bool.isRequired,
+  $reduced: PropTypes.bool.isRequired,
 };
 
-const EdgeStroke = ({ x, y, width, height, gradient, duration, moveX, moveY, reduced }) => (
+const EdgeStroke = ({ x, y, width, height, gradient, duration, moveX, moveY, $reduced }) => (
   <motion.div
     style={{
       position: 'absolute',
@@ -297,7 +291,7 @@ const EdgeStroke = ({ x, y, width, height, gradient, duration, moveX, moveY, red
       filter: 'blur(1px)',
       willChange: 'transform, opacity',
     }}
-    animate={reduced ? {} : { x: moveX, y: moveY, opacity: [0.7, 1, 0.7] }}
+    animate={$reduced ? {} : { x: moveX, y: moveY, opacity: [0.7, 1, 0.7] }}
     transition={{ duration, repeat: Infinity, ease: 'linear' }}
   />
 );
@@ -311,11 +305,11 @@ EdgeStroke.propTypes = {
   duration: PropTypes.number.isRequired,
   moveX: PropTypes.arrayOf(PropTypes.string).isRequired,
   moveY: PropTypes.arrayOf(PropTypes.string).isRequired,
-  reduced: PropTypes.bool.isRequired,
+  $reduced: PropTypes.bool.isRequired,
 };
 
-const ConstellationConnections = ({ nodePositions, reduced }) => {
-  if (reduced || nodePositions.length < 2) return null;
+const ConstellationConnections = ({ nodePositions, $reduced }) => {
+  if ($reduced || nodePositions.length < 2) return null;
   const lines = [];
   for (let i = 0; i < nodePositions.length; i++) {
     for (let j = i + 1; j < nodePositions.length; j++) {
@@ -359,7 +353,7 @@ ConstellationConnections.propTypes = {
       color: PropTypes.string.isRequired,
     })
   ).isRequired,
-  reduced: PropTypes.bool.isRequired,
+  $reduced: PropTypes.bool.isRequired,
 };
 
 // ── Main Decorator ──
@@ -371,17 +365,17 @@ const HeroImageDecorator = () => {
   return (
     <DecoratorWrapper aria-hidden="true">
       {EDGE_STROKES.map((s, i) => (
-        <EdgeStroke key={`edge-${i}`} {...s} reduced={prefersReduced} />
+        <EdgeStroke key={`edge-${i}`} {...s} $reduced={prefersReduced} />
       ))}
       {DASHED_RINGS.map(ring => (
-        <DashedRing key={ring.radius} {...ring} reduced={prefersReduced} />
+        <DashedRing key={ring.radius} {...ring} $reduced={prefersReduced} />
       ))}
       {ENERGY_ARCS.map(arc => (
-        <EnergyArc key={arc.id} {...arc} reduced={prefersReduced} />
+        <EnergyArc key={arc.id} {...arc} $reduced={prefersReduced} />
       ))}
-      <ConstellationConnections nodePositions={nodePositions} reduced={prefersReduced} />
+      <ConstellationConnections nodePositions={nodePositions} $reduced={prefersReduced} />
       {stars.map(star => (
-        <Star key={star.id} {...star} reduced={prefersReduced} />
+        <Star key={star.id} {...star} $reduced={prefersReduced} />
       ))}
       {nodePositions.map(node => (
         <motion.div

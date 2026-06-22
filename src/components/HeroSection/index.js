@@ -1,6 +1,7 @@
 import React from 'react';
 import HeroBackground from '../HeroBgAnimation';
 import HeroImageDecorator from '../HeroImageDecorator';
+import HeroSvgAnimation from '../HeroSvgAnimation';
 import {
   HeroContainer,
   HeroBg,
@@ -24,8 +25,20 @@ import HeroImg from '../../images/HeroImage.png';
 import Typewriter from 'typewriter-effect';
 import { Bio } from '../../data/constants';
 import { motion } from 'framer-motion';
-import { useReducedMotion, fadeInUpVariants, springTransition } from '../../motionConfig';
+import {
+  useReducedMotion,
+  fadeInUpVariants,
+  springTransition,
+  staggerContainer,
+} from '../../motionConfig';
 import { trackHireMeClick, trackViewProjectsClick, trackEvent } from '../../analytics';
+
+// Badge items with float speeds
+const BADGES = [
+  { name: 'React.js', speed: 2.5 },
+  { name: 'Node.js', speed: 3.2 },
+  { name: 'JavaScript', speed: 2.8 },
+];
 
 const HeroSection = () => {
   const prefersReduced = useReducedMotion();
@@ -38,6 +51,7 @@ const HeroSection = () => {
         </HeroBg>
 
         <HeroInnerContainer>
+          {/* ---------- Left Side ---------- */}
           <HeroLeftContainer id="Left">
             <Title
               as={motion.h1}
@@ -161,15 +175,28 @@ const HeroSection = () => {
             </CTAButtons>
           </HeroLeftContainer>
 
+          {/* ---------- Right Side (image + decorations) ---------- */}
           <HeroRightContainer
             id="Right"
             as={motion.div}
             variants={fadeInUpVariants}
-            initial="hidden"
+            initial="visible"
             animate="visible"
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            {/* 🆕 Animated geometric decorator behind the hero image */}
+            {/* Geometric SVG animation behind the image */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 0,
+                pointerEvents: 'none',
+                overflow: 'visible',
+              }}
+            >
+              <HeroSvgAnimation />
+            </div>
+
             <HeroImageDecorator />
 
             <Img
@@ -178,11 +205,40 @@ const HeroSection = () => {
               title="Usman Murtaza | React.js & Full Stack Developer"
               loading="eager"
             />
-            <div className="image-badge">
-              <span className="badge">React.js</span>
-              <span className="badge">Node.js</span>
-              <span className="badge">JavaScript</span>
-            </div>
+
+            {/* Animated badges */}
+            <motion.div
+              className="image-badge"
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: 0.6 }}
+            >
+              {BADGES.map(badge => (
+                <motion.span
+                  key={badge.name}
+                  className="badge"
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  animate={
+                    prefersReduced
+                      ? {}
+                      : {
+                          y: [0, -4, 0],
+                          transition: {
+                            duration: badge.speed,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                          },
+                        }
+                  }
+                >
+                  {badge.name}
+                </motion.span>
+              ))}
+            </motion.div>
           </HeroRightContainer>
         </HeroInnerContainer>
       </HeroContainer>

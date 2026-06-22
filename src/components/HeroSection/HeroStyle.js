@@ -76,14 +76,6 @@ export const HeroLeftContainer = styled.div`
     animation: flowGradient 1s ease-in-out infinite alternate;
     font-weight: 800;
   }
-  @keyframes shimmer {
-    0% {
-      background-position: 0% center;
-    }
-    100% {
-      background-position: 200% center;
-    }
-  }
   @keyframes flowGradient {
     0% {
       background-position: 0% center;
@@ -117,7 +109,6 @@ export const HeroRightContainer = styled.div`
   justify-content: end;
   gap: 12px;
   position: relative;
-  /* no overflow: hidden – badges need to overflow downwards */
   @media (max-width: 960px) {
     order: 1;
     justify-content: center;
@@ -130,16 +121,18 @@ export const HeroRightContainer = styled.div`
 
   .image-badge {
     position: absolute;
-    bottom: -20px;
-    left: 65%;
+    bottom: -30px;
+    left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    justify-content: center;
     max-width: 90%;
     z-index: 2;
-    @media (max-width: 960px) {
-      bottom: -25px;
-      flex-wrap: wrap;
+    @media (max-width: 640px) {
+      bottom: -35px;
+      gap: 6px;
     }
   }
 
@@ -148,7 +141,7 @@ export const HeroRightContainer = styled.div`
     color: white;
     padding: 6px 12px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
     transition: transform 0.2s ease;
