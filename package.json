@@ -80,7 +80,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,json,css,md}\"",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "prebuild": "npm audit --production",
+    "predeploy": "npm run build:production",
     "deploy": "gh-pages -d build",
     "deploy:netlify": "npm run build:production",
     "clean": "rm -rf node_modules build dist coverage",
