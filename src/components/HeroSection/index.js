@@ -1,5 +1,6 @@
 import React from 'react';
-import HeroBgAnimation from '../HeroBgAnimation';
+import HeroBackground from '../HeroBgAnimation';
+import HeroImageDecorator from '../HeroImageDecorator';
 import {
   HeroContainer,
   HeroBg,
@@ -22,26 +23,43 @@ import {
 import HeroImg from '../../images/HeroImage.png';
 import Typewriter from 'typewriter-effect';
 import { Bio } from '../../data/constants';
+import { motion } from 'framer-motion';
+import { useReducedMotion, fadeInUpVariants, springTransition } from '../../motionConfig';
+import { trackHireMeClick, trackViewProjectsClick, trackEvent } from '../../analytics';
 
 const HeroSection = () => {
+  const prefersReduced = useReducedMotion();
+
   return (
     <section id="hero" aria-label="Hero Section">
       <HeroContainer>
         <HeroBg>
-          <HeroBgAnimation />
+          <HeroBackground />
         </HeroBg>
 
         <HeroInnerContainer>
           <HeroLeftContainer id="Left">
-            <Title>
+            <Title
+              as={motion.h1}
+              variants={fadeInUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.8 }}
+            >
               Hi, I&apos;m <br />
               <span className="gradient-text">{Bio.name}</span>
               <br />
               <span className="subtitle">Full Stack & React Developer</span>
             </Title>
 
-            <TextLoop>
-              Specializing in
+            <TextLoop
+              as={motion.div}
+              variants={fadeInUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              Specializing in{' '}
               <Span>
                 <Typewriter
                   options={{
@@ -62,7 +80,13 @@ const HeroSection = () => {
               </Span>
             </TextLoop>
 
-            <SubTitle>
+            <SubTitle
+              as={motion.p}
+              variants={fadeInUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               I build <strong>high-performance, scalable web applications</strong> with modern
               technologies. As a passionate <strong>Full Stack Developer </strong>
               specializing in <strong>React.js, Node.js, and modern JavaScript</strong>, I create{' '}
@@ -71,7 +95,13 @@ const HeroSection = () => {
               problem-solving.
             </SubTitle>
 
-            <HeroStats>
+            <HeroStats
+              as={motion.div}
+              variants={fadeInUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
               <StatItem>
                 <StatNumber>2+</StatNumber>
                 <StatLabel>Years Experience</StatLabel>
@@ -86,25 +116,62 @@ const HeroSection = () => {
               </StatItem>
             </HeroStats>
 
-            <CTAButtons>
+            <CTAButtons
+              as={motion.div}
+              variants={fadeInUpVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               <ResumeButton
                 href={Bio.resume}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View my resume"
+                as={motion.a}
+                whileHover={prefersReduced ? {} : { scale: 1.03 }}
+                whileTap={prefersReduced ? {} : { scale: 0.97 }}
+                transition={springTransition}
+                onClick={() => trackEvent('click_resume', 'cta', 'Hero Resume')}
               >
                 View Resume
               </ResumeButton>
-              <SecondaryButton href="#contact" aria-label="Contact me for opportunities">
+              <SecondaryButton
+                href="#contact"
+                aria-label="Contact me for opportunities"
+                as={motion.a}
+                whileHover={prefersReduced ? {} : { scale: 1.03 }}
+                whileTap={prefersReduced ? {} : { scale: 0.97 }}
+                transition={springTransition}
+                onClick={trackHireMeClick}
+              >
                 Hire Me
               </SecondaryButton>
-              <SecondaryButton href="#projects" aria-label="View my projects">
+              <SecondaryButton
+                href="#projects"
+                aria-label="View my projects"
+                as={motion.a}
+                whileHover={prefersReduced ? {} : { scale: 1.03 }}
+                whileTap={prefersReduced ? {} : { scale: 0.97 }}
+                transition={springTransition}
+                onClick={trackViewProjectsClick}
+              >
                 View Projects
               </SecondaryButton>
             </CTAButtons>
           </HeroLeftContainer>
 
-          <HeroRightContainer id="Right">
+          <HeroRightContainer
+            id="Right"
+            as={motion.div}
+            variants={fadeInUpVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            {/* 🆕 Animated geometric decorator behind the hero image */}
+            <HeroImageDecorator />
+
             <Img
               src={HeroImg}
               alt="Usman Murtaza - Full Stack React Developer creating modern web applications"

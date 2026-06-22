@@ -1,27 +1,28 @@
+import React from 'react';
 import styled from 'styled-components';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import EmailIcon from '@mui/icons-material/Email';
+import { motion } from 'framer-motion';
 import { Bio } from '../../data/constants';
+import { fadeInUpVariants } from '../../motionConfig';
+import { trackEvent } from '../../analytics';
+import { Icon } from '../common/Icon';
 
-const FooterContainer = styled.div`
+/* ---------- Styled Components (Glassmorphism + Design System) ---------- */
+
+const FooterContainer = styled.footer`
   width: 100%;
   padding: 3rem 0;
   display: flex;
   justify-content: center;
-  background: linear-gradient(
-    100.26deg,
-    rgba(0, 102, 255, 0.05) 42.33%,
-    rgba(150, 0, 225, 0.05) 127.07%
-  );
-  border-top: 1px solid ${({ theme }) => theme.text_secondary + '20'};
+  background: rgba(12, 12, 29, 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-top: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   margin-top: 2rem;
+  position: relative;
+  z-index: 1;
 `;
 
-const FooterWrapper = styled.footer`
+const FooterWrapper = styled.div`
   width: 100%;
   max-width: 1200px;
   display: flex;
@@ -29,10 +30,10 @@ const FooterWrapper = styled.footer`
   gap: 20px;
   align-items: center;
   padding: 1rem;
-  color: ${({ theme }) => theme.text_primary};
+  color: var(--text-primary, #f2f2f7);
 `;
 
-const LogoSection = styled.div`
+const LogoSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +44,7 @@ const LogoSection = styled.div`
 const Logo = styled.h1`
   font-weight: 700;
   font-size: 28px;
-  background: linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
+  background: var(--accent-gradient, linear-gradient(135deg, #8b5cf6, #3b82f6));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -51,7 +52,7 @@ const Logo = styled.h1`
 
 const Tagline = styled.p`
   font-size: 16px;
-  color: ${({ theme }) => theme.text_secondary};
+  color: var(--text-secondary, #a0a0b8);
   text-align: center;
   max-width: 600px;
   line-height: 1.5;
@@ -70,12 +71,11 @@ const Nav = styled.nav`
 
   @media (max-width: 768px) {
     gap: 1.5rem;
-    font-size: 12px;
   }
 `;
 
 const NavLink = styled.a`
-  color: ${({ theme }) => theme.text_primary};
+  color: var(--text-primary, #f2f2f7);
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 500;
@@ -84,8 +84,8 @@ const NavLink = styled.a`
   border-radius: 6px;
 
   &:hover {
-    color: ${({ theme }) => theme.primary};
-    background: ${({ theme }) => theme.primary + '10'};
+    color: var(--accent-glow, #8b5cf6);
+    background: rgba(139, 92, 246, 0.1);
     transform: translateY(-2px);
   }
 
@@ -94,7 +94,7 @@ const NavLink = styled.a`
   }
 `;
 
-const SocialMediaSection = styled.div`
+const SocialMediaSection = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,8 +105,7 @@ const SocialMediaSection = styled.div`
 const SocialMediaTitle = styled.h3`
   font-size: 1.2rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.text_primary};
-  margin-bottom: 10px;
+  color: var(--text-primary, #f2f2f7);
 `;
 
 const SocialMediaIcons = styled.div`
@@ -123,24 +122,25 @@ const SocialMediaIcon = styled.a`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: ${({ theme }) => theme.bgLight};
-  color: ${({ theme }) => theme.text_primary};
-  font-size: 1.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-primary, #f2f2f7);
   transition: all 0.3s ease-in-out;
-  border: 1px solid ${({ theme }) => theme.text_secondary + '30'};
 
   &:hover {
-    color: ${({ theme }) => theme.white};
-    background: ${({ theme }) => theme.primary};
+    color: white;
+    background: var(--accent-gradient);
     transform: translateY(-4px) scale(1.1);
-    box-shadow: 0 8px 20px ${({ theme }) => theme.primary + '40'};
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
   }
 `;
 
 const Copyright = styled.div`
   margin-top: 2rem;
   font-size: 0.9rem;
-  color: ${({ theme }) => theme.text_secondary};
+  color: var(--text-secondary, #a0a0b8);
   text-align: center;
   line-height: 1.6;
   max-width: 800px;
@@ -151,13 +151,27 @@ const CopyrightLine = styled.p`
   margin: 5px 0;
 `;
 
+/* ---------- Analytics Helper ---------- */
+
+const handleSocialClick = platform => {
+  trackEvent('click_social', 'footer', platform);
+};
+
+/* ---------- Component ---------- */
+
 function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <FooterContainer>
       <FooterWrapper>
-        <LogoSection>
+        <LogoSection
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+        >
           <Logo>Usman Murtaza</Logo>
           <Tagline>
             Full Stack & React Developer specializing in modern web applications, responsive design,
@@ -174,7 +188,13 @@ function Footer() {
           <NavLink href="#contact">Contact</NavLink>
         </Nav>
 
-        <SocialMediaSection>
+        <SocialMediaSection
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           <SocialMediaTitle>Connect With Me</SocialMediaTitle>
           <SocialMediaIcons>
             <SocialMediaIcon
@@ -182,51 +202,58 @@ function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile"
+              onClick={() => handleSocialClick('LinkedIn')}
             >
-              <LinkedInIcon />
+              <Icon name="linkedin" size={22} />
             </SocialMediaIcon>
             <SocialMediaIcon
               href={Bio.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub Profile"
+              onClick={() => handleSocialClick('GitHub')}
             >
-              <GitHubIcon />
+              <Icon name="github" size={22} />
             </SocialMediaIcon>
             <SocialMediaIcon
               href={Bio.twitter}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Twitter Profile"
+              onClick={() => handleSocialClick('Twitter')}
             >
-              <TwitterIcon />
+              <Icon name="twitter" size={22} />
             </SocialMediaIcon>
             <SocialMediaIcon
               href={Bio.insta}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram Profile"
+              onClick={() => handleSocialClick('Instagram')}
             >
-              <InstagramIcon />
+              <Icon name="instagram" size={22} />
             </SocialMediaIcon>
             <SocialMediaIcon
               href={Bio.facebook}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook Profile"
+              onClick={() => handleSocialClick('Facebook')}
             >
-              <FacebookIcon />
+              <Icon name="facebook" size={22} />
             </SocialMediaIcon>
             <SocialMediaIcon
               href={`mailto:${Bio.email || 'usmanmurtazaportfolio@gmail.com'}`}
               aria-label="Send Email"
+              onClick={() => handleSocialClick('Email')}
             >
-              <EmailIcon />
+              <Icon name="mail" size={22} />
             </SocialMediaIcon>
           </SocialMediaIcons>
         </SocialMediaSection>
+
         <Copyright>
-          <CopyrightLine>&copy; {currentYear} Usman Murtaza. All Rights Reserved.</CopyrightLine>
+          <CopyrightLine> &copy; {currentYear} Usman Murtaza. All Rights Reserved. </CopyrightLine>
         </Copyright>
       </FooterWrapper>
     </FooterContainer>

@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom'; // ✅ portal
+import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
+import ProjectCard from '../Cards/ProjectCards';
+import ProjectCaseStudy from '../ProjectCaseStudy';
 import {
   Container,
   Wrapper,
@@ -6,122 +11,163 @@ import {
   Subtitle,
   Desc,
   CardContainer,
-  ToggleButtonGroup,
-  ToggleButton,
-  Divider,
+  FeaturedContainer,
+  SectionDivider,
   StatsSection,
   StatCard,
   StatIcon,
   StatNumber,
   StatLabel,
+  ToggleButtonGroup,
+  ToggleButton,
+  Divider,
   FilterInfo,
   CategoryTag,
   ViewAllButton,
-  EmptyState,
-  EmptyTitle,
-  EmptyText,
-  ProjectCount,
-  SectionHeader,
-  GradientLine,
 } from './ProjectsStyle';
-import ProjectCard from '../Cards/ProjectCards';
 import { projects } from '../../data/constants';
-import PropTypes from 'prop-types';
+import { Icon } from '../common/Icon';
+import { useReducedMotion, fadeInUpVariants } from '../../motionConfig';
+import { trackEvent } from '../../analytics';
 
-const Projects = ({ openModal, setOpenModal }) => {
+/* ---------- Animation Variants ---------- */
+const statsContainerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const statCardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+};
+
+const Projects = ({ openModal = { state: false, project: null }, setOpenModal }) => {
+  const prefersReduced = useReducedMotion();
   const [toggle, setToggle] = useState('all');
 
-  // Calculate project statistics
-  const totalProjects = projects.length;
-  const webApps = projects.filter(p => p.category === 'Web App').length;
-  const ecommerce = projects.filter(p => p.category === 'E-commerce Web App').length;
-  const activeProjects = projects.filter(p => p.date.includes('Present')).length;
+  const visibleProjects = projects.filter(p => p.level !== 'utility');
+  const featuredProjects = visibleProjects.filter(p => p.level === 'featured');
+  const secondaryProjects = visibleProjects.filter(p => p.level === 'secondary');
 
-  // Get unique categories from projects
-  const categories = ['all', ...new Set(projects.map(p => p.category.toLowerCase()))];
+  const totalFeatured = featuredProjects.length;
+  const totalSecondary = secondaryProjects.length;
+  const totalProjects = visibleProjects.length;
+
+  const categories = [
+    'all',
+    ...new Set(visibleProjects.map(p => p.categoryNormalized?.toLowerCase() || 'other')),
+  ];
 
   const filteredProjects =
-    toggle === 'all' ? projects : projects.filter(item => item.category.toLowerCase() === toggle);
+    toggle === 'all'
+      ? visibleProjects
+      : visibleProjects.filter(p => p.categoryNormalized?.toLowerCase() === toggle);
 
-  const handleViewAll = () => {
+  const handleViewAllClick = () => {
+    trackEvent('click_view_all', 'projects', 'View All Projects');
     setToggle('all');
-    // Smooth scroll to top of projects section
-    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <Container id="projects">
       <Wrapper>
-        <SectionHeader>
-          <Title>Portfolio Projects</Title>
-          <GradientLine />
-          <Subtitle>Real-World Applications & Solutions</Subtitle>
-        </SectionHeader>
-
-        <Desc>
-          Explore my collection of <strong>modern web applications</strong> built with cutting-edge
-          technologies. Each project demonstrates my expertise in{' '}
-          <strong>React.js development</strong>,<strong> responsive design</strong>,{' '}
-          <strong>web performance optimization</strong>, and{' '}
-          <strong>full stack implementation</strong>. From <strong>e-commerce platforms</strong>
-          to <strong>project management tools</strong>, these applications showcase practical
-          solutions to real-world problems.
+        <Title
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          Featured Projects
+        </Title>
+        <Subtitle
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          Real‑world SaaS & Applications
+        </Subtitle>
+        <Desc
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+        >
+          I build production‑grade applications that solve real problems. Below are my{' '}
+          <strong>featured projects</strong> – each one demonstrates deep technical skill and
+          product thinking.
         </Desc>
 
-        <StatsSection>
-          <StatCard>
-            <StatIcon>🚀</StatIcon>
-            <StatNumber>{totalProjects}+</StatNumber>
+        {/* Stats Cards */}
+        <StatsSection
+          as={motion.div}
+          variants={prefersReduced ? {} : statsContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <StatCard variants={prefersReduced ? {} : statCardVariants}>
+            <StatIcon>
+              <Icon name="rocket" size={32} />
+            </StatIcon>
+            <StatNumber>{totalFeatured}</StatNumber>
             <StatLabel>
-              Projects <strong>Completed</strong> with modern web technologies
+              Featured <strong>SaaS</strong> Projects
             </StatLabel>
           </StatCard>
-
-          <StatCard>
-            <StatIcon>⚛️</StatIcon>
-            <StatNumber>{webApps}+</StatNumber>
+          <StatCard variants={prefersReduced ? {} : statCardVariants}>
+            <StatIcon>
+              <Icon name="box" size={32} />
+            </StatIcon>
+            <StatNumber>{totalSecondary}</StatNumber>
             <StatLabel>
-              <strong>React.js</strong> Applications built with best practices
+              Additional <strong>Projects</strong>
             </StatLabel>
           </StatCard>
-
-          <StatCard>
-            <StatIcon>🛒</StatIcon>
-            <StatNumber>{ecommerce}</StatNumber>
+          <StatCard variants={prefersReduced ? {} : statCardVariants}>
+            <StatIcon>
+              <Icon name="zap" size={32} />
+            </StatIcon>
+            <StatNumber>{totalProjects}</StatNumber>
             <StatLabel>
-              <strong>E-commerce</strong> Solutions with secure payment integration
-            </StatLabel>
-          </StatCard>
-
-          <StatCard>
-            <StatIcon>⚡</StatIcon>
-            <StatNumber>{activeProjects}</StatNumber>
-            <StatLabel>
-              Projects in <strong>Active Development</strong>
+              Total <strong>Public</strong> Projects
             </StatLabel>
           </StatCard>
         </StatsSection>
 
-        <ProjectCount>
-          Total portfolio: <strong>{totalProjects}</strong> projects across{' '}
-          <strong>{categories.length - 1}</strong> categories
-        </ProjectCount>
+        {/* Featured Projects */}
+        {featuredProjects.length > 0 && (
+          <>
+            <FeaturedContainer>
+              {featuredProjects.map(project => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  setOpenModal={setOpenModal}
+                  isFeatured={true}
+                />
+              ))}
+            </FeaturedContainer>
+            <SectionDivider />
+          </>
+        )}
 
+        {/* Category Filter */}
         <ToggleButtonGroup>
           {categories.map((type, index) => (
             <React.Fragment key={type}>
               <ToggleButton
-                active={toggle === type}
+                $active={toggle === type}
                 value={type}
-                onClick={() => setToggle(type)}
-                aria-label={`Filter projects by ${type === 'all' ? 'all categories' : type}`}
-                aria-pressed={toggle === type}
+                onClick={() => {
+                  setToggle(type);
+                  trackEvent('filter_projects', 'projects', type);
+                }}
               >
-                {type === 'all'
-                  ? 'ALL PROJECTS'
-                  : type === 'web app'
-                    ? 'WEB APPLICATIONS'
-                    : type.charAt(0).toUpperCase() + type.slice(1)}
+                {type === 'all' ? 'ALL' : type.toUpperCase()}
               </ToggleButton>
               {index < categories.length - 1 && <Divider />}
             </React.Fragment>
@@ -145,51 +191,65 @@ const Projects = ({ openModal, setOpenModal }) => {
           )}
         </FilterInfo>
 
-        <CardContainer>
-          {filteredProjects.length > 0 ? (
-            filteredProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id || index}
-                project={project}
-                openModal={openModal}
-                setOpenModal={setOpenModal}
-              />
-            ))
-          ) : (
-            <EmptyState>
-              <div className="empty-icon">📁</div>
-              <EmptyTitle>No Projects Found</EmptyTitle>
-              <EmptyText>
-                No projects match the selected filter. Try selecting a different category or view
-                all projects to explore my complete portfolio.
-              </EmptyText>
-              <ViewAllButton onClick={handleViewAll}>View All Projects</ViewAllButton>
-            </EmptyState>
-          )}
-        </CardContainer>
+        {/* Secondary Projects */}
+        {secondaryProjects.length > 0 && (
+          <>
+            <Subtitle
+              style={{ marginTop: '20px' }}
+              variants={fadeInUpVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6 }}
+            >
+              Other Projects
+            </Subtitle>
+            <CardContainer>
+              {filteredProjects
+                .filter(p => p.level === 'secondary')
+                .map(project => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    setOpenModal={setOpenModal}
+                    isFeatured={false}
+                  />
+                ))}
+            </CardContainer>
+          </>
+        )}
 
+        {/* View All Button */}
         {toggle !== 'all' && filteredProjects.length > 0 && (
           <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            <ViewAllButton onClick={handleViewAll}>View All {totalProjects} Projects</ViewAllButton>
+            <ViewAllButton
+              onClick={handleViewAllClick}
+              whileHover={prefersReduced ? {} : { scale: 1.03 }}
+              whileTap={prefersReduced ? {} : { scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            >
+              View All {totalProjects} Projects
+            </ViewAllButton>
           </div>
         )}
       </Wrapper>
+
+      {/* ✅ Modal rendered into document.body via portal – overlays everything */}
+      {openModal.state &&
+        ReactDOM.createPortal(
+          <ProjectCaseStudy openModal={openModal} setOpenModal={setOpenModal} />,
+          document.body
+        )}
     </Container>
   );
 };
 
-// Add prop types validation
 Projects.propTypes = {
   openModal: PropTypes.shape({
     state: PropTypes.bool,
     project: PropTypes.object,
   }),
   setOpenModal: PropTypes.func.isRequired,
-};
-
-// Default props
-Projects.defaultProps = {
-  openModal: { state: false, project: null },
 };
 
 export default Projects;

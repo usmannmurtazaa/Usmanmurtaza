@@ -1,19 +1,37 @@
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
-export const Container = styled.div`
+/* ---------- Design Tokens (use global CSS variables) ---------- */
+
+const accent = 'var(--accent-glow, #8b5cf6)';
+const accentGradient = 'var(--accent-gradient, linear-gradient(135deg, #8b5cf6, #3b82f6))';
+const textPrimary = 'var(--text-primary, #f2f2f7)';
+const textSecondary = 'var(--text-secondary, #a0a0b8)';
+const bgGlass = 'var(--bg-glass, rgba(18, 18, 35, 0.6))';
+const borderGlass = 'var(--border-glass, rgba(255, 255, 255, 0.1))';
+const shadowSm = 'var(--shadow-sm, 0 4px 12px rgba(0,0,0,0.4))';
+const shadowMd = 'var(--shadow-md, 0 8px 30px rgba(0,0,0,0.6))';
+const shadowGlow = 'var(--shadow-glow, 0 0 20px rgba(139, 92, 246, 0.25))';
+
+/* ---------- Base Container (with glass background) ---------- */
+
+export const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   z-index: 1;
   align-items: center;
-  padding: 100px 0px 100px 0px;
-  background: ${({ theme }) => theme.bg};
+  padding: 100px 0 100px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(12, 12, 29, 0.4);
+
   @media (max-width: 960px) {
-    padding: 60px 0px;
+    padding: 60px 0;
   }
   @media (max-width: 640px) {
-    padding: 40px 0px;
+    padding: 40px 0;
   }
 `;
 
@@ -25,24 +43,26 @@ export const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 1350px;
-  padding: 0px 20px;
+  padding: 0 20px;
   gap: 12px;
   @media (max-width: 960px) {
-    flex-direction: column;
-    padding: 0px 16px;
+    padding: 0 16px;
   }
 `;
 
-export const Title = styled.h1`
+/* ---------- Typography (using CSS variables + gradient text) ---------- */
+
+export const Title = styled(motion.h1)`
   font-size: 42px;
   text-align: center;
   font-weight: 700;
   margin-bottom: 10px;
-  color: ${({ theme }) => theme.text_primary};
-  background: linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
+  color: ${textPrimary};
+  background: ${accentGradient};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+
   @media (max-width: 768px) {
     font-size: 36px;
   }
@@ -51,37 +71,43 @@ export const Title = styled.h1`
   }
 `;
 
-export const Subtitle = styled.h2`
+export const Subtitle = styled(motion.h2)`
   font-size: 20px;
   text-align: center;
   font-weight: 600;
   margin-bottom: 30px;
-  color: ${({ theme }) => theme.primary};
+  background: ${accentGradient};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
   @media (max-width: 768px) {
     font-size: 18px;
     margin-bottom: 20px;
   }
 `;
 
-export const Desc = styled.p`
+export const Desc = styled(motion.p)`
   font-size: 18px;
   text-align: center;
   max-width: 800px;
   margin-bottom: 50px;
-  color: ${({ theme }) => theme.text_secondary};
+  color: ${textSecondary};
   line-height: 1.6;
   strong {
-    color: ${({ theme }) => theme.primary};
+    color: ${accent};
     font-weight: 600;
   }
   @media (max-width: 768px) {
     font-size: 16px;
     margin-bottom: 40px;
-    padding: 0px 16px;
+    padding: 0 16px;
   }
 `;
 
-export const StatsSection = styled.div`
+/* ---------- Stats Cards (Glassmorphism) ---------- */
+
+export const StatsSection = styled(motion.div)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
@@ -99,33 +125,35 @@ export const StatsSection = styled.div`
   }
 `;
 
-export const StatCard = styled.div`
-  background: ${({ theme }) => theme.card};
-  border-radius: 16px;
+export const StatCard = styled(motion.div)`
+  background: ${bgGlass};
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid ${borderGlass};
+  border-radius: 1.25rem;
   padding: 30px 25px;
   text-align: center;
-  border: 1px solid ${({ theme }) => theme.primary + '20'};
+  box-shadow: ${shadowSm};
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  &:before {
+
+  &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(
-      90deg,
-      ${({ theme }) => theme.primary} 0%,
-      ${({ theme }) => theme.primary + '80'} 100%
-    );
+    background: ${accentGradient};
   }
+
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(133, 76, 230, 0.15);
-    border-color: ${({ theme }) => theme.primary + '40'};
+    box-shadow: ${shadowMd}, ${shadowGlow};
+    border-color: rgba(139, 92, 246, 0.3);
   }
+
   @media (max-width: 768px) {
     padding: 25px 20px;
   }
@@ -134,7 +162,10 @@ export const StatCard = styled.div`
 export const StatIcon = styled.div`
   font-size: 40px;
   margin-bottom: 20px;
-  color: ${({ theme }) => theme.primary};
+  color: ${accent};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media (max-width: 768px) {
     font-size: 32px;
     margin-bottom: 15px;
@@ -144,7 +175,7 @@ export const StatIcon = styled.div`
 export const StatNumber = styled.div`
   font-size: 36px;
   font-weight: 700;
-  color: ${({ theme }) => theme.text_primary};
+  color: ${textPrimary};
   margin-bottom: 10px;
   line-height: 1;
   @media (max-width: 768px) {
@@ -154,11 +185,11 @@ export const StatNumber = styled.div`
 
 export const StatLabel = styled.div`
   font-size: 15px;
-  color: ${({ theme }) => theme.text_secondary};
+  color: ${textSecondary};
   font-weight: 500;
   line-height: 1.5;
   strong {
-    color: ${({ theme }) => theme.primary};
+    color: ${accent};
     font-weight: 600;
   }
   @media (max-width: 768px) {
@@ -166,21 +197,24 @@ export const StatLabel = styled.div`
   }
 `;
 
+/* ---------- Filter Toggle (Glass buttons) ---------- */
+
 export const ToggleButtonGroup = styled.div`
   display: flex;
-  border: 2px solid ${({ theme }) => theme.primary + '40'};
-  color: ${({ theme }) => theme.primary};
+  border: 2px solid rgba(139, 92, 246, 0.3);
   font-size: 16px;
   border-radius: 16px;
   font-weight: 600;
-  margin: 30px 0px;
-  background: ${({ theme }) => theme.card_light};
+  margin: 30px 0;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 4px;
   flex-wrap: wrap;
   justify-content: center;
   @media (max-width: 768px) {
     font-size: 14px;
-    margin: 25px 0px;
+    margin: 25px 0;
   }
 `;
 
@@ -190,22 +224,26 @@ export const ToggleButton = styled.button`
   cursor: pointer;
   background: transparent;
   border: none;
-  color: ${({ theme }) => theme.text_primary};
+  color: ${textPrimary};
   font-weight: 600;
   font-size: inherit;
   transition: all 0.3s ease;
   white-space: nowrap;
-  ${({ active, theme }) =>
-    active &&
+
+  ${({ $active }) =>
+    $active &&
     `
-    background: ${theme.primary};
+    background: ${accentGradient};
     color: white;
-    box-shadow: 0 4px 15px ${theme.primary + '40'};
-    `}
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+  `}
+
   &:hover {
-    background: ${({ active, theme }) => (active ? theme.primary + 'CC' : theme.primary + '15')};
+    background: ${({ $active }) =>
+      $active ? 'linear-gradient(135deg, #7c3aed, #2563eb)' : 'rgba(139, 92, 246, 0.1)'};
     transform: translateY(-2px);
   }
+
   @media (max-width: 768px) {
     padding: 8px 16px;
     border-radius: 10px;
@@ -218,7 +256,7 @@ export const ToggleButton = styled.button`
 
 export const Divider = styled.div`
   width: 2px;
-  background: ${({ theme }) => theme.primary + '40'};
+  background: rgba(139, 92, 246, 0.3);
   margin: 8px 4px;
   @media (max-width: 768px) {
     margin: 6px 2px;
@@ -227,75 +265,38 @@ export const Divider = styled.div`
 
 export const FilterInfo = styled.div`
   font-size: 16px;
-  color: ${({ theme }) => theme.text_secondary};
+  color: ${textSecondary};
   margin: 20px 0 30px;
   text-align: center;
   strong {
-    color: ${({ theme }) => theme.primary};
+    color: ${accent};
     font-weight: 600;
   }
 `;
 
+/* ---------- Category Tags (Glass pills) ---------- */
+
 export const CategoryTag = styled.span`
   display: inline-block;
-  background: ${({ category, theme }) => {
-    switch (category?.toLowerCase()) {
-      case 'web app':
-        return theme.primary + '20';
-
-      case 'e-commerce':
-        return '#10B98120';
-
-      case 'e-commerce web app':
-        return '#10B98120';
-
-      case 'mobile':
-        return '#3B82F620';
-
-      default:
-        return theme.primary + '20';
-    }
-  }};
-  color: ${({ category, theme }) => {
-    switch (category?.toLowerCase()) {
-      case 'web app':
-        return theme.primary;
-      case 'e-commerce':
-        return '#10B981';
-      case 'e-commerce web app':
-        return '#10B981';
-      case 'mobile':
-        return '#3B82F6';
-      default:
-        return theme.primary;
-    }
-  }};
-
+  background: rgba(139, 92, 246, 0.1);
+  color: ${accent};
   padding: 6px 16px;
   border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
   margin-left: 10px;
-  border: 1px solid
-    ${({ category, theme }) => {
-      switch (category?.toLowerCase()) {
-        case 'web app':
-          return theme.primary + '40';
-        case 'e-commerce':
-          return '#10B98140';
-        case 'e-commerce web app':
-          return '#10B98140';
-        case 'mobile':
-          return '#3B82F640';
-        default:
-          return theme.primary + '40';
-      }
-    }};
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   transition: all 0.3s ease;
+
   &:hover {
     transform: translateY(-2px);
+    box-shadow: ${shadowGlow};
   }
 `;
+
+/* ---------- Project Cards Grid ---------- */
 
 export const CardContainer = styled.div`
   display: grid;
@@ -318,8 +319,34 @@ export const CardContainer = styled.div`
   }
 `;
 
-export const ViewAllButton = styled.button`
-  background: linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
+export const FeaturedContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto 20px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+`;
+
+/* ---------- Section Divider (Gradient) ---------- */
+
+export const SectionDivider = styled.hr`
+  width: 100%;
+  max-width: 800px;
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(139, 92, 246, 0.3), transparent);
+  margin: 40px auto;
+`;
+
+/* ---------- View All Button (Gradient + glow) ---------- */
+
+export const ViewAllButton = styled(motion.button)`
+  background: ${accentGradient};
   border: none;
   color: white;
   padding: 14px 32px;
@@ -333,15 +360,17 @@ export const ViewAllButton = styled.button`
   justify-content: center;
   gap: 8px;
   margin-top: 40px;
-  box-shadow: 0 8px 25px rgba(133, 76, 230, 0.3);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+
   &:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(133, 76, 230, 0.4);
-    background: linear-gradient(225deg, hsla(271, 100%, 45%, 1) 0%, hsla(294, 100%, 45%, 1) 100%);
+    box-shadow: 0 12px 35px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
   }
   &:active {
     transform: translateY(-1px);
   }
+
   @media (max-width: 768px) {
     padding: 12px 28px;
     font-size: 15px;
@@ -349,10 +378,12 @@ export const ViewAllButton = styled.button`
   }
 `;
 
+/* ---------- Empty State ---------- */
+
 export const EmptyState = styled.div`
   text-align: center;
   padding: 80px 20px;
-  color: ${({ theme }) => theme.text_secondary};
+  color: ${textSecondary};
   max-width: 600px;
   margin: 0 auto;
   .empty-icon {
@@ -365,7 +396,7 @@ export const EmptyState = styled.div`
 export const EmptyTitle = styled.h3`
   font-size: 24px;
   font-weight: 600;
-  color: ${({ theme }) => theme.text_primary};
+  color: ${textPrimary};
   margin-bottom: 10px;
 `;
 
@@ -375,16 +406,20 @@ export const EmptyText = styled.p`
   line-height: 1.6;
 `;
 
+/* ---------- Project Count ---------- */
+
 export const ProjectCount = styled.div`
   font-size: 14px;
-  color: ${({ theme }) => theme.text_secondary};
+  color: ${textSecondary};
   text-align: center;
   margin-bottom: 20px;
   font-weight: 500;
   strong {
-    color: ${({ theme }) => theme.primary};
+    color: ${accent};
   }
 `;
+
+/* ---------- Section Header ---------- */
 
 export const SectionHeader = styled.div`
   text-align: center;
@@ -397,11 +432,7 @@ export const SectionHeader = styled.div`
 export const GradientLine = styled.div`
   width: 80px;
   height: 4px;
-  background: linear-gradient(
-    90deg,
-    ${({ theme }) => theme.primary} 0%,
-    ${({ theme }) => theme.primary + '00'} 100%
-  );
+  background: linear-gradient(90deg, ${accent} 0%, ${accent}00 100%);
   margin: 20px auto 30px auto;
   border-radius: 2px;
 `;

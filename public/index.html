@@ -1,19 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Usman Murtaza - Full Stack & React Developer Portfolio. Specializing in modern web applications and responsive design."
-    />
-    <title>Usman Murtaza | Full Stack Developer</title>
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0c0c1d" />
+
+  <!-- Primary Meta Tags -->
+  <title>Usman Murtaza | Full Stack Developer</title>
+  <meta name="title" content="Usman Murtaza | Full Stack Developer" />
+  <meta name="description"
+    content="Usman Murtaza – Full‑stack React developer specializing in high‑performance SaaS interfaces, motion design, and modern glassmorphism UI. Available for hire." />
+  <meta name="keywords"
+    content="frontend developer, react developer, full stack developer, SaaS, portfolio, usman murtaza, motion design, glassmorphism" />
+  <meta name="author" content="Usman Murtaza" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://usmanmurtaza.netlify.app" />
+  <meta property="og:title" content="Usman Murtaza | Full Stack Developer" />
+  <meta property="og:description"
+    content="Portfolio of Usman Murtaza – crafting pixel‑perfect, animated SaaS interfaces with React, Next.js, and motion design." />
+  <meta property="og:image" content="https://usmanmurtaza.netlify.app/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Usman Murtaza Portfolio" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Usman Murtaza | Full Stack Developer" />
+  <meta name="twitter:description"
+    content="Portfolio of Usman Murtaza – crafting pixel‑perfect, animated SaaS interfaces." />
+  <meta name="twitter:image" content="https://usmanmurtaza.netlify.app/og-image.jpg" />
+  <meta name="twitter:creator" content="@usman_murtazaa" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "name": "Usman Murtaza",
+            "url": "https://usmanmurtaza.netlify.app",
+            "jobTitle": "Senior Frontend Engineer",
+            "sameAs": [
+              "https://github.com/usmanmurtaza",
+              "https://linkedin.com/in/usmanmurtaza"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "name": "Usman Murtaza Portfolio",
+            "url": "https://usmanmurtaza.netlify.app"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Portfolio",
+            "applicationCategory": "WebApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0" }
+          }
+        ]
+      }
+    </script>
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GA_MEASUREMENT_ID%"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', '%REACT_APP_GA_MEASUREMENT_ID%');
+  </script>
+
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+
 </html>

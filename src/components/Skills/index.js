@@ -1,18 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { skills } from '../../data/constants';
+import { Icon } from '../common/Icon'; // ✅ named import
+import {
+  useReducedMotion,
+  fadeInUpVariants,
+  staggerContainer,
+  springTransition,
+} from '../../motionConfig';
 
-const Container = styled.div`
+/* ---------- Glassmorphism + Design Tokens ---------- */
+
+const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   z-index: 1;
   align-items: center;
-  padding: 100px 0px 80px 0px;
+  padding: 100px 0 80px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(12, 12, 29, 0.4);
 
   @media (max-width: 960px) {
-    padding: 60px 0px;
+    padding: 60px 0;
   }
 `;
 
@@ -24,21 +37,20 @@ const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 1350px;
-  padding: 0px 20px;
+  padding: 0 20px;
   gap: 12px;
 
   @media (max-width: 960px) {
-    flex-direction: column;
-    padding: 0px 16px;
+    padding: 0 16px;
   }
 `;
 
-const Title = styled.div`
+const Title = styled(motion.h2)`
   font-size: 42px;
   text-align: center;
   font-weight: 700;
   margin-bottom: 10px;
-  color: ${({ theme }) => theme.text_primary};
+  color: var(--text-primary);
 
   @media (max-width: 768px) {
     font-size: 36px;
@@ -49,12 +61,15 @@ const Title = styled.div`
   }
 `;
 
-const Subtitle = styled.div`
+const Subtitle = styled(motion.p)`
   font-size: 20px;
   text-align: center;
   font-weight: 600;
   margin-bottom: 30px;
-  color: ${({ theme }) => theme.primary};
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 
   @media (max-width: 768px) {
     font-size: 18px;
@@ -62,23 +77,23 @@ const Subtitle = styled.div`
   }
 `;
 
-const Desc = styled.div`
+const Desc = styled(motion.p)`
   font-size: 18px;
   text-align: center;
   max-width: 800px;
   margin-bottom: 50px;
-  color: ${({ theme }) => theme.text_secondary};
+  color: var(--text-secondary);
   line-height: 1.6;
 
   strong {
-    color: ${({ theme }) => theme.primary};
+    color: var(--accent-glow, #8b5cf6);
     font-weight: 600;
   }
 
   @media (max-width: 768px) {
     font-size: 16px;
     margin-bottom: 40px;
-    padding: 0px 16px;
+    padding: 0 16px;
   }
 `;
 
@@ -96,35 +111,35 @@ const SkillsContainer = styled.div`
   }
 `;
 
-const Skill = styled.div`
+const Skill = styled(motion.div)`
   width: 100%;
-  background: ${({ theme }) => theme.card};
-  border: 1px solid ${({ theme }) => theme.primary + '30'};
-  box-shadow: 0 8px 32px rgba(23, 92, 230, 0.12);
-  border-radius: 20px;
+  background: var(--bg-glass, rgba(18, 18, 35, 0.6));
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
+  box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4));
+  border-radius: 1.5rem;
   padding: 40px 36px;
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
 
-  &:before {
+  &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(
-      90deg,
-      ${({ theme }) => theme.primary} 0%,
-      ${({ theme }) => theme.primary + '80'} 100%
-    );
+    background: var(--accent-gradient);
   }
 
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(133, 76, 230, 0.2);
-    border-color: ${({ theme }) => theme.primary + '60'};
+    box-shadow:
+      var(--shadow-md, 0 8px 30px rgba(0, 0, 0, 0.6)),
+      0 0 20px rgba(139, 92, 246, 0.25);
+    border-color: rgba(139, 92, 246, 0.3);
   }
 
   @media (max-width: 768px) {
@@ -135,7 +150,7 @@ const Skill = styled.div`
 const SkillTitle = styled.h2`
   font-size: 28px;
   font-weight: 700;
-  color: ${({ theme }) => theme.text_primary};
+  color: var(--text-primary);
   margin-bottom: 30px;
   text-align: center;
   display: flex;
@@ -143,18 +158,12 @@ const SkillTitle = styled.h2`
   justify-content: center;
   gap: 12px;
 
-  &:after {
+  &::after,
+  &::before {
     content: '';
     flex: 1;
     height: 2px;
-    background: linear-gradient(90deg, transparent, ${({ theme }) => theme.primary}, transparent);
-  }
-
-  &:before {
-    content: '';
-    flex: 1;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, ${({ theme }) => theme.primary}, transparent);
+    background: linear-gradient(90deg, transparent, var(--accent-glow, #8b5cf6), transparent);
   }
 
   @media (max-width: 768px) {
@@ -179,12 +188,12 @@ const SkillList = styled.div`
   }
 `;
 
-const SkillItem = styled.div`
+const SkillItem = styled(motion.div)`
   font-size: 15px;
   font-weight: 500;
-  color: ${({ theme }) => theme.text_primary};
-  background: ${({ theme }) => theme.bgLight};
-  border: 1px solid ${({ theme }) => theme.text_secondary + '20'};
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 16px 12px;
   display: flex;
@@ -197,10 +206,10 @@ const SkillItem = styled.div`
   cursor: default;
 
   &:hover {
-    background: ${({ theme }) => theme.primary + '10'};
-    border-color: ${({ theme }) => theme.primary};
+    background: rgba(139, 92, 246, 0.08);
+    border-color: rgba(139, 92, 246, 0.25);
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(133, 76, 230, 0.15);
+    box-shadow: 0 6px 15px rgba(139, 92, 246, 0.15);
   }
 
   @media (max-width: 768px) {
@@ -232,7 +241,7 @@ const SkillName = styled.div`
 
 const SkillLevel = styled.div`
   font-size: 12px;
-  color: ${({ theme }) => theme.text_secondary};
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -248,21 +257,21 @@ const SkillDot = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: ${({ active, theme }) => (active ? theme.primary : theme.text_secondary + '40')};
+  background: ${({ $active }) =>
+    $active ? 'var(--accent-glow, #8b5cf6)' : 'rgba(255,255,255,0.2)'};
 `;
 
-const ExpertiseSection = styled.div`
+const ExpertiseSection = styled(motion.div)`
   width: 100%;
   max-width: 1000px;
   margin-top: 60px;
   padding: 40px;
-  background: linear-gradient(
-    135deg,
-    ${({ theme }) => theme.bgLight} 0%,
-    ${({ theme }) => theme.card} 100%
-  );
-  border-radius: 20px;
-  border: 1px solid ${({ theme }) => theme.primary + '20'};
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-sm);
 
   @media (max-width: 768px) {
     padding: 30px 20px;
@@ -270,10 +279,10 @@ const ExpertiseSection = styled.div`
   }
 `;
 
-const ExpertiseTitle = styled.div`
+const ExpertiseTitle = styled.h3`
   font-size: 24px;
   font-weight: 700;
-  color: ${({ theme }) => theme.text_primary};
+  color: var(--text-primary);
   margin-bottom: 25px;
   text-align: center;
 
@@ -294,11 +303,15 @@ const ExpertiseGrid = styled.div`
   }
 `;
 
-const ExpertiseItem = styled.div`
+const ExpertiseItem = styled(motion.div)`
   padding: 25px;
-  background: ${({ theme }) => theme.bgLight};
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 16px;
-  border-left: 4px solid ${({ theme }) => theme.primary};
+  border-left: 4px solid var(--accent-glow, #8b5cf6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 4px solid var(--accent-glow, #8b5cf6); /* override left border */
 
   @media (max-width: 768px) {
     padding: 20px;
@@ -313,29 +326,34 @@ const ExpertiseHeader = styled.div`
 `;
 
 const ExpertiseIcon = styled.div`
-  font-size: 28px;
-  color: ${({ theme }) => theme.primary};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-glow, #8b5cf6);
 `;
 
 const ExpertiseName = styled.div`
   font-size: 18px;
   font-weight: 600;
-  color: ${({ theme }) => theme.text_primary};
+  color: var(--text-primary);
 `;
 
 const ExpertiseDesc = styled.div`
   font-size: 15px;
-  color: ${({ theme }) => theme.text_secondary};
+  color: var(--text-secondary);
   line-height: 1.6;
 
   strong {
-    color: ${({ theme }) => theme.primary};
+    color: var(--accent-glow, #8b5cf6);
     font-weight: 600;
   }
 `;
 
+/* ---------- Main Component ---------- */
+
 const Skills = () => {
-  // Define skill levels for key technologies
+  const prefersReduced = useReducedMotion();
+
   const skillLevels = {
     'React Js': 5,
     JavaScript: 5,
@@ -361,11 +379,36 @@ const Skills = () => {
   return (
     <Container id="skills">
       <Wrapper>
-        <Title>Technical Skills & Expertise</Title>
-        <Subtitle>Mastering Modern Web Technologies</Subtitle>
-        <Desc>
+        <Title
+          className="gradient-text"
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          Technical Skills & Expertise
+        </Title>
+
+        <Subtitle
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          Mastering Modern Web Technologies
+        </Subtitle>
+
+        <Desc
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
           With expertise spanning the full web development stack, I specialize in building
-          <strong> high-performance applications</strong> using cutting-edge technologies. My{' '}
+          <strong> high‑performance applications</strong> using cutting‑edge technologies. My{' '}
           <strong>frontend development</strong> skills focus on <strong>React.js</strong> and modern
           JavaScript, while my <strong>backend expertise</strong> includes <strong>Node.js</strong>,
           <strong> database management</strong>, and <strong>API development</strong>. I prioritize{' '}
@@ -373,13 +416,27 @@ const Skills = () => {
           <strong> responsive design</strong> in every project.
         </Desc>
 
-        <SkillsContainer>
+        {/* ── Skills Grid with staggered children ── */}
+        <SkillsContainer
+          as={motion.div}
+          variants={prefersReduced ? {} : staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {skills.map((skill, index) => (
-            <Skill key={index}>
+            <Skill
+              key={index}
+              variants={prefersReduced ? {} : fadeInUpVariants}
+              whileHover={prefersReduced ? {} : { y: -6, transition: springTransition }}
+            >
               <SkillTitle>{skill.title}</SkillTitle>
               <SkillList>
                 {skill.skills.map((item, i) => (
-                  <SkillItem key={i}>
+                  <SkillItem
+                    key={i}
+                    whileHover={prefersReduced ? {} : { scale: 1.05, transition: springTransition }}
+                  >
                     <SkillImage
                       src={item.image}
                       alt={`${item.name} skill icon`}
@@ -391,7 +448,7 @@ const Skills = () => {
                       <SkillLevel>
                         <SkillDots>
                           {getSkillDots(item.name).map((active, dotIndex) => (
-                            <SkillDot key={dotIndex} active={active} />
+                            <SkillDot key={dotIndex} $active={active} />
                           ))}
                         </SkillDots>
                       </SkillLevel>
@@ -403,45 +460,63 @@ const Skills = () => {
           ))}
         </SkillsContainer>
 
-        <ExpertiseSection>
-          <ExpertiseTitle>Development Focus Areas</ExpertiseTitle>
+        {/* ── Expertise Section ── */}
+        <ExpertiseSection
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <ExpertiseTitle className="gradient-text">Development Focus Areas</ExpertiseTitle>
           <ExpertiseGrid>
-            <ExpertiseItem>
+            <ExpertiseItem
+              whileHover={prefersReduced ? {} : { y: -4, transition: springTransition }}
+            >
               <ExpertiseHeader>
-                <ExpertiseIcon>⚛️</ExpertiseIcon>
+                <ExpertiseIcon>
+                  <Icon name="atom" size={28} />
+                </ExpertiseIcon>
                 <ExpertiseName>Frontend Engineering</ExpertiseName>
               </ExpertiseHeader>
               <ExpertiseDesc>
-                Building responsive, interactive user interfaces with <strong>React.js</strong>,
-                <strong> TypeScript</strong>, and modern CSS. Expertise in{' '}
-                <strong>state management</strong>,<strong> component architecture</strong>, and{' '}
-                <strong>performance optimization </strong>
-                for seamless user experiences.
+                Building responsive, interactive user interfaces with <strong>React.js</strong>,{' '}
+                <strong>TypeScript</strong>, and modern CSS. Expertise in{' '}
+                <strong>state management</strong>, <strong>component architecture</strong>, and{' '}
+                <strong>performance optimization</strong> for seamless user experiences.
               </ExpertiseDesc>
             </ExpertiseItem>
 
-            <ExpertiseItem>
+            <ExpertiseItem
+              whileHover={prefersReduced ? {} : { y: -4, transition: springTransition }}
+            >
               <ExpertiseHeader>
-                <ExpertiseIcon>🔧</ExpertiseIcon>
+                <ExpertiseIcon>
+                  <Icon name="wrench" size={28} />
+                </ExpertiseIcon>
                 <ExpertiseName>Backend Development</ExpertiseName>
               </ExpertiseHeader>
               <ExpertiseDesc>
-                Creating robust server-side solutions with <strong>Node.js</strong> and{' '}
+                Creating robust server‑side solutions with <strong>Node.js</strong> and{' '}
                 <strong>Express</strong>. Experience with <strong>REST APIs</strong>,{' '}
-                <strong>database design</strong>,<strong> authentication systems</strong>, and
+                <strong>database design</strong>, <strong>authentication systems</strong>, and
                 scalable architecture patterns.
               </ExpertiseDesc>
             </ExpertiseItem>
 
-            <ExpertiseItem>
+            <ExpertiseItem
+              whileHover={prefersReduced ? {} : { y: -4, transition: springTransition }}
+            >
               <ExpertiseHeader>
-                <ExpertiseIcon>🎨</ExpertiseIcon>
+                <ExpertiseIcon>
+                  <Icon name="palette" size={28} />
+                </ExpertiseIcon>
                 <ExpertiseName>UI/UX & Design</ExpertiseName>
               </ExpertiseHeader>
               <ExpertiseDesc>
-                Crafting visually appealing, user-friendly interfaces with focus on
-                <strong> responsive design</strong>, <strong>accessibility</strong>, and
-                <strong> modern UI patterns</strong>. Proficient in <strong>CSS frameworks </strong>
+                Crafting visually appealing, user‑friendly interfaces with focus on{' '}
+                <strong>responsive design</strong>, <strong>accessibility</strong>, and{' '}
+                <strong>modern UI patterns</strong>. Proficient in <strong>CSS frameworks</strong>{' '}
                 and design systems.
               </ExpertiseDesc>
             </ExpertiseItem>

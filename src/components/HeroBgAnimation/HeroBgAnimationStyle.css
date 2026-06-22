@@ -1,0 +1,94 @@
+/* HeroBgAnimationStyle.css */
+
+.hero-bg-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background-color: #0c0c1d; /* fallback dark */
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  pointer-events: none;
+}
+
+/* Gradient definitions for each layer */
+.blob-deep {
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(139, 92, 246, 0.2) 0%,
+    rgba(99, 102, 241, 0.1) 100%
+  );
+}
+.blob-mid-left {
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(168, 85, 247, 0.15) 0%,
+    rgba(59, 130, 246, 0.1) 100%
+  );
+}
+.blob-mid-right {
+  background: radial-gradient(
+    circle at 60% 60%,
+    rgba(6, 182, 212, 0.15) 0%,
+    rgba(217, 70, 239, 0.1) 100%
+  );
+}
+.blob-foreground {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(96, 165, 250, 0.1) 0%,
+    rgba(167, 139, 250, 0.1) 100%
+  );
+}
+
+/* Blur levels */
+.blur-xl {
+  filter: blur(20px);
+}
+.blur-2xl {
+  filter: blur(40px);
+}
+.blur-3xl {
+  filter: blur(60px);
+}
+
+/* Vignette – darkens edges to keep focus on centre */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.5) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Subtle noise overlay (SVG filter) */
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+/* Contrast overlay – keeps text crisp */
+.contrast-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(12, 12, 29, 0.05) 0%, rgba(12, 12, 29, 0.2) 100%);
+  pointer-events: none;
+}
+
+/* Respect reduced motion – static blobs still look premium */
+@media (prefers-reduced-motion: reduce) {
+  .blob {
+    animation: none !important;
+  }
+}

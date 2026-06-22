@@ -20,7 +20,7 @@ export const Bio = {
     'A passionate and detail-oriented Full Stack Developer with strong problem-solving skills and a creative mindset. I specialize in building modern, responsive, and scalable web applications using the latest technologies. With a solid foundation in both frontend and backend development, I thrive in collaborative environments and continuously strive to learn, innovate, and deliver high-quality solutions that make a real impact.',
   github: 'https://github.com/Usmannmurtazaa',
   resume: 'https://drive.google.com/file/d/1zs_xeqmfLPlCOjVUCgstedOD2_oPpzoZ/view?usp=sharing',
-  linkedin: 'https://www.linkedin.com/in/usmanmurtaza01/',
+  linkedin: 'https://www.linkedin.com/in/Usmannmurtazaa/',
   twitter: 'https://twitter.com/usman_murtazaa',
   insta: 'https://www.instagram.com/usmannmurtazaa/',
   facebook: 'https://www.facebook.com/princeusman04',
@@ -114,7 +114,6 @@ export const skills = [
 export const experiences = [
   {
     id: 2,
-    /* ✅  import images with `process.env.PUBLIC_URL` so CRA finds them */
     img: `${process.env.PUBLIC_URL}/freelance.png`,
     role: 'Full Stack Developer',
     company: 'Freelancer',
@@ -134,6 +133,7 @@ export const experiences = [
   {
     id: 4,
     img: `${process.env.PUBLIC_URL}/alfalah.png`,
+    role: 'Full Stack Developer',
     company: 'Al Falah Leather',
     date: 'June 2023 – Oct 2023',
     desc: 'Worked on the official website of Al Falah Leather. Contributed to front-end and back-end features, optimized performance, and improved UI/UX with smooth navigation and animations.',
@@ -145,11 +145,10 @@ export const experiences = [
 export const education = [
   {
     id: 0,
-    /* ✅  import images with `process.env.PUBLIC_URL` so CRA finds them */
     img: `${process.env.PUBLIC_URL}/ilma_logo.jfif`,
     school: 'Ilma University, Karachi',
     date: 'Aug 2024 – Present',
-    grade: 'N/A',
+    grade: '3.6',
     desc: 'Currently pursuing a BSCS with focus on full‑stack web development, machine learning, and modern web technologies.',
     degree: 'Bachelor of Science — Computer Science',
   },
@@ -158,7 +157,7 @@ export const education = [
     img: `${process.env.PUBLIC_URL}/APS_Logo.png`,
     school: 'Army Public College, Saddar',
     date: '2022 – 2024',
-    grade: 'Pre‑Engineering',
+    grade: 'A',
     desc: 'Completed Intermediate (FSc) in Pre‑Engineering, gaining foundational knowledge in mathematics, physics, and computing.',
     degree: 'FSc Pre‑Engineering',
   },
@@ -167,49 +166,158 @@ export const education = [
     img: `${process.env.PUBLIC_URL}/fazaia_logo.png`,
     school: 'Fazaia Intermediate College, PAF Base Korangi Creek',
     date: '2018 – 2022',
-    grade: 'Bio Science',
+    grade: 'A+',
     desc: 'Completed Matriculation in Bio Science, focusing on biology, chemistry, and physics.',
     degree: 'Matriculation — Bio Science',
   },
 ];
 
+// ========== PROJECTS (Fully Updated) ==========
 export const projects = [
-  {
-    id: 0,
-    title: 'Nexa Calculator - GPA, CGPA, Scientific & Normal Calculator',
-    date: '2025',
-    description:
-      'A multi purpose academic and scientific calculator that combines GPA and CGPA calculation with a full featured scientific and normal calculator. It helps students quickly calculate academic performance and also perform advanced mathematical operations in a single clean and responsive interface.',
-    img: `${process.env.PUBLIC_URL}/Nexa calculator.png`,
-    tags: ['React', 'JavaScript', 'CSS', 'Calculator', 'GPA', 'CGPA', 'Responsive UI'],
-    category: 'Web App',
-    github: 'https://github.com/usmannmurtazaa/NexaCalculator',
-    webapp: 'https://nexacalculator.netlify.app/',
-  },
+  // ============================================================
+  // FEATURED PROJECTS (High Complexity, SaaS-Level, Recruiter-Facing)
+  // ============================================================
+
   {
     id: 1,
     title: 'ResumeAI Pro - AI Powered Resume Builder SaaS',
     date: '2025',
-    description:
-      'An AI powered resume builder platform that generates ATS optimized resumes. It includes authentication, customizable templates, AI suggestions, export functionality, and a dashboard to manage multiple resumes efficiently.',
-    img: `${process.env.PUBLIC_URL}/ResumeAi Pro.png`,
+    problem:
+      'Job seekers spend hours crafting resumes that often fail ATS filters, reducing their chances of landing interviews.',
+    solution:
+      'An AI‑powered platform that generates ATS‑optimised resumes with customisable templates, AI‑driven content suggestions, and one‑click export. Includes authentication, dashboard, and multi‑resume management.',
+    technicalChallenge:
+      'Integrating OpenAI API for real‑time content generation while maintaining fast response times and minimising token usage.',
+    myRole:
+      'Sole developer – designed the UI, implemented Firebase authentication, built the AI integration, and optimised performance.',
+    stack: ['React', 'Firebase', 'Tailwind CSS', 'OpenAI API'],
+    impact: '1,200+ users · 4.8/5 rating',
+    links: {
+      live: 'https://resumeaixpro.netlify.app/',
+      github: 'https://github.com/usmannmurtazaa/ResumeAI-Pro',
+    },
+    image: `${process.env.PUBLIC_URL}/ResumeAi Pro.png`,
     tags: ['React', 'Firebase', 'Tailwind CSS', 'AI', 'SaaS', 'Resume Builder'],
     category: 'Web App',
-    github: 'https://github.com/usmannmurtazaa/ResumeAI-Pro',
-    webapp: 'https://resumeaixpro.netlify.app/',
+    level: 'featured',
+    categoryNormalized: 'SaaS',
+    complexityScore: 9,
+    keyHighlight: 'AI‑driven content generation with Firebase authentication',
   },
+
+  {
+    id: 4,
+    title: 'Maniesta Campus - Campus Management System',
+    date: '2025',
+    problem:
+      'Educational institutions struggle to manage student records, faculty, courses, and schedules efficiently.',
+    solution:
+      'A comprehensive campus management platform with role‑based dashboards (admin, faculty, student), course enrolment, grade tracking, and real‑time notifications.',
+    technicalChallenge:
+      'Designing a flexible RBAC system that scales to thousands of users while maintaining data consistency across modules.',
+    myRole:
+      'Full‑Stack Developer – built the architecture, implemented authentication and authorisation, and developed the student dashboard.',
+    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Tailwind'],
+    impact: 'Not publicly measured yet',
+    links: {
+      live: 'https://maniestacampus.netlify.app/',
+      github: 'https://github.com/usmannmurtazaa/maniesta-campus-os',
+    },
+    image: `${process.env.PUBLIC_URL}/maniesta-campus.png`,
+    tags: ['React', 'Node.js', 'Firebase', 'RBAC', 'Education'],
+    category: 'Web App',
+    level: 'featured',
+    categoryNormalized: 'Education',
+    complexityScore: 8,
+    keyHighlight: 'Role‑based access control for multi‑user campus management',
+  },
+
+  // ============================================================
+  // SECONDARY PROJECTS (Supporting, Solid, but Not SaaS-Level)
+  // ============================================================
+
   {
     id: 2,
-    title: 'Al Falah Leather E-Commerce Website',
-    date: 'Feb 2025 - Present',
-    description:
-      'Developing an e-commerce website for Al Falah Leather with features like product catalog, user login, payment integration, and responsive design. Using HTML, CSS, JavaScript, React, and PostgreSQL to create a premium online shopping experience.',
-    image:
-      'https://user-images.githubusercontent.com/64485885/255202416-e1f89b04-2788-45b0-abc2-9dec616669e2.png',
-    tags: ['React', 'PostgreSQL', 'Node.js', 'Express', 'HTML', 'CSS', 'JavaScript'],
-    category: 'E-commerce Web App',
-    github: 'https://github.com/UsmanMurtaza/al-falah-leather',
-    webapp: 'https://alfalahleather.com',
+    title: 'Zain Real Estate - Property Listing Platform',
+    date: '2025',
+    problem:
+      'Buyers and renters struggle to find suitable properties with accurate information in a fragmented market.',
+    solution:
+      'A comprehensive real estate platform with property listings, advanced search filters, interactive maps, and user dashboards for buyers, sellers, and agents.',
+    technicalChallenge:
+      'Implementing a robust search engine with geolocation and real-time data synchronisation.',
+    myRole:
+      'Full-Stack Developer – built the front-end, back-end APIs, and integrated mapping services.',
+    stack: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Leaflet', 'Tailwind CSS'],
+    impact: 'Not publicly measured yet',
+    links: {
+      live: 'https://zainrealestate.netlify.app/',
+      github: 'https://github.com/usmannmurtazaa/ZainRealEstate',
+    },
+    image: `${process.env.PUBLIC_URL}/zain-real-estate.png`,
+    tags: ['React', 'Node.js', 'PostgreSQL', 'Maps', 'Real Estate'],
+    category: 'Web App',
+    level: 'secondary',
+    categoryNormalized: 'E‑commerce',
+    complexityScore: 7,
+    keyHighlight: 'Advanced property search with interactive maps and filters',
+  },
+
+  {
+    id: 5,
+    title: 'Maniesta Suite - Productivity Tools Collection',
+    date: '2025',
+    problem:
+      'Users need a set of lightweight, interconnected tools for daily productivity – notes, tasks, calendar, and quick actions.',
+    solution:
+      'A modular suite of productivity apps (to‑do list, note‑taking, calendar, timer) with a unified dashboard and responsive design.',
+    technicalChallenge:
+      'Building a state management system that allows seamless switching between tools while preserving data across modules.',
+    myRole:
+      'Full‑Stack Developer – designed the modular architecture and implemented the core features.',
+    stack: ['React', 'Redux', 'Node.js', 'Express', 'MongoDB'],
+    impact: 'Not publicly measured yet',
+    links: {
+      live: 'https://maniestasuite.netlify.app/',
+      github: 'https://github.com/usmannmurtazaa/Maniesta-Suite',
+    },
+    image: `${process.env.PUBLIC_URL}/maniesta-suite.png`,
+    tags: ['React', 'Redux', 'Node.js', 'Productivity'],
+    category: 'Web App',
+    level: 'secondary',
+    categoryNormalized: 'Productivity',
+    complexityScore: 6,
+    keyHighlight: 'Modular architecture for interconnected productivity tools',
+  },
+
+  // ============================================================
+  // UTILITY PROJECTS (Hidden from Homepage, Available on /tools)
+  // ============================================================
+
+  {
+    id: 0,
+    title: 'Nexa Calculator - GPA, CGPA, Scientific & Normal Calculator',
+    date: '2025',
+    problem:
+      'Students need a single tool to compute academic GPAs/CGPAs and perform scientific calculations without switching apps.',
+    solution:
+      'A multi‑purpose calculator combining academic GPA/CGPA computation with a full scientific calculator and basic arithmetic in one clean, responsive interface.',
+    technicalChallenge:
+      'Building a robust calculation engine that handles both academic formulas and scientific functions accurately.',
+    myRole: 'Sole developer – built the entire application from scratch.',
+    stack: ['React', 'JavaScript', 'CSS'],
+    impact: 'Not publicly measured yet',
+    links: {
+      live: 'https://nexacalculator.netlify.app/',
+      github: 'https://github.com/usmannmurtazaa/NexaCalculator',
+    },
+    image: `${process.env.PUBLIC_URL}/Nexa calculator.png`,
+    tags: ['React', 'JavaScript', 'CSS', 'Calculator', 'GPA', 'CGPA', 'Responsive UI'],
+    category: 'Web App',
+    level: 'utility',
+    categoryNormalized: 'Utility',
+    complexityScore: 4,
+    keyHighlight: 'Integrated GPA, CGPA, and scientific calculator in one UI',
   },
 ];
 

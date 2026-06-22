@@ -1,62 +1,36 @@
-/* App.css - Optimized for SEO, Performance & Accessibility */
+/* ======================================
+   App.css – SEO, Accessibility, & Global Helpers
+   (Design system & glassmorphism live in global.css)
+   ====================================== */
 
-/* Google Fonts with display=swap and font-display strategy */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap&display=optional');
-
-* {
+/* ---------- Global Box Sizing ---------- */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
 }
 
-/* Performance: Optimize font loading */
-@font-face {
-  font-family: 'Poppins';
-  font-display: swap;
-}
-
-/* Base HTML improvements for SEO */
+/* ---------- Smooth Scrolling & Fixed Header Offset ---------- */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 100px; /* clear the glass navbar */
   font-size: 16px;
   line-height: 1.6;
   -webkit-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  text-size-adjust: 100%;
 }
 
-/* Body styles with SEO considerations */
+/* ---------- Body Basics (font from global.css) ---------- */
 body {
-  margin: 0 !important;
+  margin: 0;
   padding: 0;
-  font-family:
-    'Poppins',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    'Roboto',
-    'Oxygen',
-    'Ubuntu',
-    'Cantarell',
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
   min-height: 100vh;
-  position: relative;
 }
 
-/* SEO: Semantic elements default styling */
-section {
-  display: block;
-}
-
+/* ---------- Semantic Elements Display ---------- */
 article,
 aside,
 details,
@@ -71,7 +45,7 @@ summary {
   display: block;
 }
 
-/* SEO: Heading hierarchy for better content structure */
+/* ---------- Typography Scale (override if needed) ---------- */
 h1,
 h2,
 h3,
@@ -84,133 +58,92 @@ h6 {
   margin-bottom: 0.5em;
 }
 
-h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-}
-
-h2 {
-  font-size: clamp(2rem, 4vw, 2.8rem);
-}
-
-h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-}
-
-/* SEO: Paragraph and text elements */
 p {
   margin-bottom: 1rem;
   line-height: 1.7;
 }
 
-/* SEO: Link styling for better UX */
+/* ---------- Links ---------- */
 a {
   color: inherit;
   text-decoration: none;
   transition: all 0.3s ease;
-  cursor: pointer;
 }
 
-a:hover,
-a:focus {
-  outline: none;
-}
-
-/* SEO: Image optimization for performance */
+/* ---------- Images ---------- */
 img {
   max-width: 100%;
   height: auto;
   display: block;
-  border-style: none;
 }
 
-/* SEO: Button and form element styling */
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  margin: 0;
-}
-
-button,
-input {
-  overflow: visible;
-}
-
-button,
-select {
-  text-transform: none;
-}
-
-/* SEO: List styling */
-ul,
-ol {
-  padding-left: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-/* Custom Scrollbar with better accessibility */
+/* ---------- Custom Scrollbar (dark theme) ---------- */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #222a35;
+  background: #0c0c1d; /* matches new bg */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #575c66;
+  background: #3a3a50;
   border-radius: 6px;
-  border: 2px solid #222a35;
+  border: 2px solid #0c0c1d;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #626970;
+  background: #5a5a70;
 }
 
-/* Firefox scrollbar */
+/* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #575c66 #222a35;
+  scrollbar-color: #3a3a50 #0c0c1d;
 }
 
-/* SEO: Focus styles for accessibility */
-:focus {
-  outline: 2px solid #854ce6;
+/* ---------- Focus Styles (accessibility) ---------- */
+:focus-visible {
+  outline: 2px solid #8b5cf6; /* matches accent */
   outline-offset: 3px;
 }
 
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.focus-visible:focus {
-  outline: 2px solid #854ce6;
-  outline-offset: 3px;
-}
-
-/* SEO: Selection color for better UX */
+/* ---------- Selection ---------- */
 ::selection {
-  background-color: rgba(133, 76, 230, 0.3);
+  background-color: rgba(139, 92, 246, 0.35);
   color: #ffffff;
 }
 
-::-moz-selection {
-  background-color: rgba(133, 76, 230, 0.3);
-  color: #ffffff;
+/* ---------- Visually Hidden Utility ---------- */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
-/* SEO: Smooth transitions */
-* {
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
+/* ---------- Skip to Content ---------- */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #8b5cf6;
+  color: white;
+  padding: 8px;
+  z-index: 9999;
 }
 
-/* SEO: Print styles for better printing experience */
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ---------- Print Styles ---------- */
 @media print {
   *,
   *::before,
@@ -266,7 +199,7 @@ ol {
   }
 }
 
-/* SEO: Reduced motion for accessibility */
+/* ---------- Reduced Motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -282,72 +215,21 @@ ol {
   }
 }
 
-/* SEO: Dark mode preference */
+/* ---------- Dark / High Contrast Preferences ---------- */
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
   }
 }
 
-/* SEO: High contrast mode */
 @media (prefers-contrast: high) {
-  :root {
-    --primary: #6a11cb;
-    --secondary: #2575fc;
-  }
-
   ::selection {
-    background-color: #6a11cb;
+    background-color: #8b5cf6;
     color: #ffffff;
   }
 }
 
-/* SEO: Content visibility for performance */
-@media (min-width: 768px) {
-  .content-visibility-auto {
-    content-visibility: auto;
-    contain-intrinsic-size: 500px;
-  }
-}
-
-/* SEO: Utility classes */
-.visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-.skip-to-content {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: #854ce6;
-  color: white;
-  padding: 8px;
-  z-index: 9999;
-  text-decoration: none;
-}
-
-.skip-to-content:focus {
-  top: 0;
-}
-
-/* SEO: Typography improvements */
-.strong {
-  font-weight: 600;
-}
-
-.emphasis {
-  font-style: italic;
-}
-
-/* SEO: Container for better content structure */
+/* ---------- Optional Utility Classes (keep if used) ---------- */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -355,146 +237,12 @@ ol {
   padding: 0 20px;
 }
 
-/* SEO: Grid system for responsive layout */
-.grid {
-  display: grid;
-  gap: 20px;
-}
-
-/* SEO: Animation classes for engagement */
-.fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-  opacity: 0;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-.slide-up {
-  animation: slideUp 0.6s ease-out forwards;
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-@keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* SEO: Loading states */
-.loading {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(133, 76, 230, 0.3);
-  border-radius: 50%;
-  border-top-color: #854ce6;
-  animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* SEO: Card styling for content blocks */
-.card {
-  background: var(--card-bg, #fff);
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-/* SEO: Button component styling */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 16px;
-  text-align: center;
-  cursor: pointer;
-  border: none;
-  transition: all 0.3s ease;
-  min-height: 44px;
-  min-width: 44px;
-}
-
-.btn-primary {
-  background: linear-gradient(225deg, hsla(271, 100%, 50%, 1) 0%, hsla(294, 100%, 50%, 1) 100%);
-  color: white;
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(133, 76, 230, 0.4);
-}
-
-/* SEO: Mobile responsiveness */
 @media (max-width: 768px) {
   .container {
     padding: 0 16px;
   }
 
-  .btn {
-    padding: 10px 20px;
-    font-size: 15px;
-  }
-
-  .card {
-    padding: 20px;
-  }
-
   html {
-    scroll-padding-top: 60px;
-  }
-}
-
-/* SEO: Desktop optimizations */
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1350px;
-  }
-}
-
-/* SEO: Performance optimizations */
-@media (prefers-reduced-data: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  .bg-image {
-    display: none !important;
-  }
-}
-
-/* SEO: Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-  .btn {
-    min-height: 48px;
-    min-width: 48px;
-  }
-
-  a,
-  button {
-    -webkit-tap-highlight-color: rgba(133, 76, 230, 0.3);
+    scroll-padding-top: 80px;
   }
 }

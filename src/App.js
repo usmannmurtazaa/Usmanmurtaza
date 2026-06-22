@@ -1,55 +1,64 @@
 import { ThemeProvider } from 'styled-components';
 import { useState } from 'react';
-import { darkTheme, lightTheme } from './utils/Themes.js';
-import Navbar from './components/Navbar';
-import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
-import HeroSection from './components/HeroSection';
+import { darkTheme, lightTheme } from './utils/Themes.js';
+import Layout from './components/common/Layout/Layout';
+import Hero from './components/HeroSection';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
-import Footer from './components/Footer';
 import Experience from './components/Experience';
 import Education from './components/Education';
-import ProjectDetails from './components/ProjectDetails';
+import ProjectCaseStudy from './components/ProjectCaseStudy';
 import styled from 'styled-components';
+import './App.css';
+import './styles/global.css';
+import { initGA4 } from './analytics';
+
+if (process.env.NODE_ENV === 'production') {
+  initGA4();
+}
 
 const Body = styled.div`
-  background-color: ${({ theme }) => theme.bg};
+  background-color: transparent;
   width: 100%;
   overflow-x: hidden;
 `;
 
-const Wrapper = styled.div`
-  background:
-    linear-gradient(38.73deg, rgba(204, 0, 187, 0.15) 0%, rgba(201, 32, 184, 0) 50%),
-    linear-gradient(141.27deg, rgba(0, 70, 209, 0) 50%, rgba(0, 70, 209, 0.15) 100%);
+const SectionWrapper = styled.div`
   width: 100%;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 98%, 0 100%);
+  background: transparent;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 1;
 `;
 
 function App() {
-  const [darkMode] = useState(true); // Removed setDarkMode if unused
+  const [darkMode] = useState(true);
   const [openModal, setOpenModal] = useState({ state: false, project: null });
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <Router>
-        <Navbar />
-        <Body>
-          <HeroSection />
-          <Wrapper>
-            <Skills />
-            <Experience />
-          </Wrapper>
-          <Projects openModal={openModal} setOpenModal={setOpenModal} />
-          <Wrapper>
-            <Education />
-            <Contact />
-          </Wrapper>
-          <Footer />
-          {openModal.state && <ProjectDetails openModal={openModal} setOpenModal={setOpenModal} />}
-        </Body>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <Layout>
+          <Body>
+            <Hero />
+            <SectionWrapper>
+              <Skills />
+              <Experience />
+            </SectionWrapper>
+            <Projects openModal={openModal} setOpenModal={setOpenModal} />
+            <SectionWrapper>
+              <Education />
+              <Contact />
+            </SectionWrapper>
+            {openModal.state && (
+              <ProjectCaseStudy openModal={openModal} setOpenModal={setOpenModal} />
+            )}
+          </Body>
+        </Layout>
       </Router>
     </ThemeProvider>
   );
