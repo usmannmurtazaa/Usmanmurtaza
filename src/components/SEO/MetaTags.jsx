@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import PropTypes from 'prop-types';
-import { getMetaTags, siteMetadata } from '../../utils/seo';
+import { getMetaTags } from '../../utils/seo';
 
 const MetaTags = ({ page, customData = {} }) => {
   const meta = getMetaTags(page, customData);

@@ -6,6 +6,10 @@ import { Icon } from '../common/Icon';
 import { useReducedMotion } from '../../motionConfig';
 import { trackEvent } from '../../analytics';
 
+/* Derive a .webp path from a raster image path.
+   Used to prefer WebP when a matching file exists in public/. */
+const toWebp = src => (src ? src.replace(/\.(png|jpe?g|jfif)$/i, '.webp') : '');
+
 /* ---------- Design Tokens (via global.css variables) ---------- */
 
 const accent = 'var(--accent-glow, #8b5cf6)';
@@ -32,8 +36,13 @@ const Container = styled(motion.div)`
   align-items: center;
   justify-content: center;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 20px;
   z-index: 9999;
+
+  @media only screen and (max-width: 480px) {
+    padding: 12px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -56,8 +65,12 @@ const Wrapper = styled.div`
 
   @media only screen and (max-width: 768px) {
     padding: 20px;
-    margin: 10px;
+    margin: 0;
     border-radius: 16px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    padding: 16px;
   }
 `;
 
@@ -67,8 +80,6 @@ const CloseButton = styled.button`
   align-self: flex-end;
   cursor: pointer;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 50%;
   padding: 6px;
@@ -117,8 +128,6 @@ const Badge = styled.span`
   font-weight: 600;
   font-size: 13px;
   border: 1px solid rgba(139, 92, 246, 0.2);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 `;
 
 const LevelIcon = styled.div`
@@ -132,8 +141,6 @@ const LevelIcon = styled.div`
   padding: 4px 14px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 `;
 
 const ComplexityBadge = styled.span`
@@ -144,8 +151,6 @@ const ComplexityBadge = styled.span`
   font-weight: 500;
   font-size: 13px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 `;
 
 const ImageContainer = styled.div`
@@ -168,7 +173,7 @@ const Image = styled.img`
   }
 
   @media only screen and (max-width: 768px) {
-    height: 220px;
+    height: 200px;
   }
 `;
 
@@ -230,8 +235,6 @@ const StackItem = styled.span`
   font-weight: 500;
   color: ${textSecondary};
   border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   transition: all 0.2s ease;
 
   &:hover {
@@ -250,8 +253,6 @@ const ImpactBox = styled.div`
   color: ${textPrimary};
   line-height: 1.6;
   margin: 4px 0;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 `;
 
 const ButtonGroup = styled.div`
@@ -275,8 +276,6 @@ const Button = styled.a`
   background: ${({ $primary }) => ($primary ? accentGradient : 'rgba(255, 255, 255, 0.05)')};
   color: ${({ $primary }) => ($primary ? 'white' : textPrimary)};
   border: 1px solid ${({ $primary }) => ($primary ? 'transparent' : 'rgba(255, 255, 255, 0.1)')};
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 
   &:hover {
     transform: translateY(-3px);
@@ -296,12 +295,14 @@ const Button = styled.a`
     min-width: 140px;
     justify-content: center;
   }
+
+  @media only screen and (max-width: 480px) {
+    min-width: 0;
+  }
 `;
 
 const MembersSection = styled.div`
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   border-radius: 12px;
   padding: 20px;
   margin: 16px 0;
@@ -321,8 +322,6 @@ const MemberCard = styled.div`
   gap: 14px;
   padding: 14px 18px;
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.3s ease;
@@ -496,7 +495,18 @@ const ProjectCaseStudy = ({ openModal, setOpenModal }) => {
 
             {image && (
               <ImageContainer>
-                <Image src={image} alt={`${title} - Project Screenshot`} loading="lazy" />
+                {/* Modal hero image. The <source> prefers a .webp variant
+                    when it exists in public/ (zain-real-estate.webp,
+                    ResumeAi Pro.webp, etc.). The PNG is the fallback. */}
+                <picture>
+                  <source srcSet={toWebp(image)} type="image/webp" />
+                  <Image
+                    src={image}
+                    alt={`${title} - Project Screenshot`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </ImageContainer>
             )}
 

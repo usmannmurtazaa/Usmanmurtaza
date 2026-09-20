@@ -1,23 +1,16 @@
-import { ThemeProvider } from 'styled-components';
-import { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { darkTheme, lightTheme } from './utils/Themes.js';
+import { useState, lazy, Suspense } from 'react';
 import Layout from './components/common/Layout/Layout';
 import Hero from './components/HeroSection';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Contact from './components/Contact';
-import Experience from './components/Experience';
-import Education from './components/Education';
-import ProjectCaseStudy from './components/ProjectCaseStudy';
 import styled from 'styled-components';
 import './App.css';
 import './styles/global.css';
-import { initGA4 } from './analytics';
 
-if (process.env.NODE_ENV === 'production') {
-  initGA4();
-}
+const Skills = lazy(() => import('./components/Skills'));
+const Experience = lazy(() => import('./components/Experience'));
+const Projects = lazy(() => import('./components/Projects'));
+const Education = lazy(() => import('./components/Education'));
+const Contact = lazy(() => import('./components/Contact'));
+const ProjectCaseStudy = lazy(() => import('./components/ProjectCaseStudy'));
 
 const Body = styled.div`
   background-color: transparent;
@@ -29,38 +22,42 @@ const SectionWrapper = styled.div`
   width: 100%;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 98%, 0 100%);
   background: transparent;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   position: relative;
   z-index: 1;
 `;
 
+/* Lightweight fallback that reserves vertical space to avoid layout shift
+   while lazy-loaded section chunks are fetched. */
+const SectionFallback = styled.div`
+  width: 100%;
+  min-height: 40vh;
+`;
+
 function App() {
-  const [darkMode] = useState(true);
   const [openModal, setOpenModal] = useState({ state: false, project: null });
 
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <Layout>
-          <Body>
-            <Hero />
-            <SectionWrapper>
-              <Skills />
-              <Experience />
-            </SectionWrapper>
-            <Projects openModal={openModal} setOpenModal={setOpenModal} />
-            <SectionWrapper>
-              <Education />
-              <Contact />
-            </SectionWrapper>
-            {openModal.state && (
-              <ProjectCaseStudy openModal={openModal} setOpenModal={setOpenModal} />
-            )}
-          </Body>
-        </Layout>
-      </Router>
-    </ThemeProvider>
+    <Layout>
+      <Body>
+        <Hero />
+        <Suspense fallback={<SectionFallback />}>
+          <SectionWrapper>
+            <Skills />
+            <Experience />
+          </SectionWrapper>
+          <Projects openModal={openModal} setOpenModal={setOpenModal} />
+          <SectionWrapper>
+            <Education />
+            <Contact />
+          </SectionWrapper>
+        </Suspense>
+        {openModal.state && (
+          <Suspense fallback={null}>
+            <ProjectCaseStudy openModal={openModal} setOpenModal={setOpenModal} />
+          </Suspense>
+        )}
+      </Body>
+    </Layout>
   );
 }
 

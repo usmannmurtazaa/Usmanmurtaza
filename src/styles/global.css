@@ -1,7 +1,5 @@
 /* global.css – Premium SaaS Design System */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
 :root {
   /* Typography */
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -50,7 +48,11 @@ body,
   overflow-x: hidden;
 }
 
-/* ── Full‑page glassmorphism gradient background ── */
+/* ── Full‑page glassmorphism gradient background ──
+   Uses static radial gradients only. No backdrop-filter:
+   a full-viewport blur is a full-screen compositing cost on
+   every frame, and the same visual effect is achieved with the
+   gradient layers below. */
 body::before {
   content: '';
   position: fixed;
@@ -60,8 +62,6 @@ body::before {
     radial-gradient(ellipse at 20% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
     var(--bg-primary);
-  backdrop-filter: blur(80px) saturate(120%);
-  -webkit-backdrop-filter: blur(80px) saturate(120%);
 }
 
 /* ── Typography scale ── */

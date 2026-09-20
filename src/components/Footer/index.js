@@ -14,12 +14,14 @@ const FooterContainer = styled.footer`
   display: flex;
   justify-content: center;
   background: rgba(12, 12, 29, 0.6);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-top: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   margin-top: 2rem;
   position: relative;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    padding: 2rem 0;
+  }
 `;
 
 const FooterWrapper = styled.div`
@@ -72,6 +74,10 @@ const Nav = styled.nav`
   @media (max-width: 768px) {
     gap: 1.5rem;
   }
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
 `;
 
 const NavLink = styled.a`
@@ -113,6 +119,10 @@ const SocialMediaIcons = styled.div`
   gap: 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
 `;
 
 const SocialMediaIcon = styled.a`
@@ -123,8 +133,6 @@ const SocialMediaIcon = styled.a`
   height: 50px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-primary, #f2f2f7);
   transition: all 0.3s ease-in-out;
@@ -145,6 +153,10 @@ const Copyright = styled.div`
   line-height: 1.6;
   max-width: 800px;
   padding: 0 1rem;
+
+  @media (max-width: 480px) {
+    margin-top: 1.25rem;
+  }
 `;
 
 const CopyrightLine = styled.p`

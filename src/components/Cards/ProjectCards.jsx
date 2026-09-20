@@ -6,6 +6,10 @@ import { Icon } from '../common/Icon';
 import { useReducedMotion, springTransition } from '../../motionConfig';
 import { trackEvent } from '../../analytics';
 
+/* Derive a .webp path from a raster image path.
+   Used to prefer WebP when a matching file exists in public/. */
+const toWebp = src => (src ? src.replace(/\.(png|jpe?g|jfif)$/i, '.webp') : '');
+
 /* ---------- Glassmorphism + Design Tokens ---------- */
 
 const Card = styled(motion.div)`
@@ -13,8 +17,6 @@ const Card = styled(motion.div)`
   max-width: ${({ featured }) => (featured ? '400px' : '350px')};
   min-height: ${({ featured }) => (featured ? '520px' : '490px')};
   background: var(--bg-glass, rgba(18, 18, 35, 0.6));
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   border-radius: 1.25rem;
   box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4));
@@ -99,8 +101,6 @@ const Tag = styled.span`
   border: 1px solid rgba(139, 92, 246, 0.2);
   padding: 2px 10px;
   border-radius: 12px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 `;
 
 const Details = styled.div`
@@ -218,6 +218,7 @@ const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
   };
 
   const description = project.solution || project.description || '';
+  const imageSrc = project.image || project.img || '';
 
   const motionProps = prefersReduced
     ? {}
@@ -233,7 +234,13 @@ const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
           <Icon name="star" size={14} /> Featured
         </FeaturedBadge>
       )}
-      <Image src={project.image || project.img} alt={project.title} loading="lazy" />
+      {/* Project thumbnail. The <source> prefers a .webp variant when it
+          exists in public/ (zain-real-estate.webp, ResumeAi Pro.webp, etc.).
+          The PNG/JPG is used as a fallback. */}
+      <picture>
+        <source srcSet={toWebp(imageSrc)} type="image/webp" />
+        <Image src={imageSrc} alt={project.title} loading="lazy" decoding="async" />
+      </picture>
       <Tags>
         {(project.tags || []).slice(0, 3).map((tag, idx) => (
           <Tag key={idx}>{tag}</Tag>

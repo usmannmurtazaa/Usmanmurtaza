@@ -11,6 +11,7 @@ import ExperienceCard from '../Cards/ExperienceCard';
 import { experiences } from '../../data/constants';
 import { useReducedMotion, fadeInUpVariants } from '../../motionConfig';
 import { Icon } from '../common/Icon';
+import { useMediaQuery } from '@mui/material';
 
 /* ---------- Styled Components (Glassmorphism + Design System) ---------- */
 
@@ -21,8 +22,6 @@ const Section = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 100px 0 100px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   background: rgba(12, 12, 29, 0.4);
 
   @media (max-width: 960px) {
@@ -100,8 +99,6 @@ const StatsSection = styled(motion.div)`
 
 const StatCard = styled(motion.div)`
   background: var(--bg-glass, rgba(18, 18, 35, 0.6));
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   border-radius: 1.25rem;
   padding: 2rem;
@@ -154,8 +151,6 @@ const ExpertiseSection = styled(motion.div)`
   margin-top: 60px;
   padding: 2.5rem 2rem;
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.5rem;
   box-shadow: var(--shadow-sm);
@@ -183,8 +178,6 @@ const ExpertiseGrid = styled.div`
 const ExpertiseItem = styled.div`
   padding: 1.5rem;
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-left: 4px solid var(--accent-glow, #8b5cf6);
   border-radius: 12px;
@@ -242,6 +235,10 @@ const cardVariants = {
 
 const Experience = () => {
   const prefersReduced = useReducedMotion();
+  // Below 768px the "alternate" timeline layout squeezes each card into
+  // a narrow column beside a center rail. Switch to "right" on mobile
+  // so the rail sits on the left and cards get the full width.
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const totalYears = new Date().getFullYear() - 2023;
 
   return (
@@ -328,7 +325,7 @@ const Experience = () => {
 
         {/* Timeline */}
         <TimelineContainer>
-          <Timeline position="alternate">
+          <Timeline position={isMobile ? 'right' : 'alternate'}>
             {experiences.map((exp, index) => (
               <TimelineItem key={index}>
                 <TimelineSeparator>

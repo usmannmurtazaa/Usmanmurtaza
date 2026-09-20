@@ -9,8 +9,6 @@ const accentGradient = 'var(--accent-gradient, linear-gradient(135deg, #8b5cf6, 
 
 export const HeroContainer = styled.section`
   background: ${bgGlass};
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-bottom: 1px solid ${borderGlass};
   display: flex;
   justify-content: center;
@@ -23,6 +21,14 @@ export const HeroContainer = styled.section`
   @media (max-width: 960px) {
     padding: 40px 16px 60px 16px;
   }
+
+  /* On mobile the hero stacks vertically, so the diagonal clip that
+     works well on the wide desktop layout cuts into the bottom of the
+     image and the badge row. Disable the clip below 768px. */
+  @media (max-width: 768px) {
+    clip-path: none;
+  }
+
   @media (max-width: 640px) {
     padding: 60px 16px 60px 16px;
   }
@@ -73,21 +79,7 @@ export const HeroLeftContainer = styled.div`
     -webkit-text-fill-color: transparent;
     background-clip: text;
     background-size: 200% auto;
-    animation: flowGradient 1s ease-in-out infinite alternate;
     font-weight: 800;
-  }
-  @keyframes flowGradient {
-    0% {
-      background-position: 0% center;
-    }
-    100% {
-      background-position: 100% center;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .gradient-text {
-      animation: none;
-    }
   }
 
   .subtitle {
@@ -145,8 +137,6 @@ export const HeroRightContainer = styled.div`
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
     transition: transform 0.2s ease;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
     &:hover {
       transform: translateY(-4px);
     }
@@ -281,8 +271,6 @@ export const StatItem = styled.div`
   align-items: center;
   padding: 15px 25px;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid ${borderGlass};
   border-radius: 12px;
   min-width: 120px;
@@ -399,8 +387,6 @@ export const SecondaryButton = styled.a`
     background 0.2s ease,
     box-shadow 0.2s ease;
   min-width: 180px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   &:hover {
     background: ${accentGradient};
     color: white;

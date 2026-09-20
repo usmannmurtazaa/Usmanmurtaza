@@ -11,6 +11,7 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import EducationCard from '../Cards/EducationCard';
 import { useReducedMotion, fadeInUpVariants } from '../../motionConfig';
 import { Icon } from '../common/Icon';
+import { useMediaQuery } from '@mui/material';
 
 /* ---------- Styled Components (Glassmorphism) ---------- */
 
@@ -21,8 +22,6 @@ const Section = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 100px 0 80px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   background: rgba(12, 12, 29, 0.4);
 
   @media (max-width: 960px) {
@@ -102,8 +101,6 @@ const StatsGrid = styled.div`
 
 const StatCard = styled(motion.div)`
   background: var(--bg-glass, rgba(18, 18, 35, 0.6));
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   border-radius: 1.25rem;
   padding: 2rem;
@@ -169,8 +166,6 @@ const SkillsHighlight = styled(motion.div)`
   margin-top: 60px;
   padding: 2.5rem 2rem;
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.5rem;
   box-shadow: var(--shadow-sm);
@@ -210,8 +205,6 @@ const SkillItem = styled.div`
   gap: 0.75rem;
   padding: 0.9rem 1rem;
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   transition: all 0.3s ease;
@@ -256,6 +249,10 @@ const cardVariants = {
 
 const Education = () => {
   const prefersReduced = useReducedMotion();
+  // Below 768px the "alternate" timeline layout squeezes each card into
+  // a narrow column beside a center rail. Switch to "right" on mobile
+  // so the rail sits on the left and cards get the full width.
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Section id="education" aria-labelledby="education-heading">
@@ -348,7 +345,7 @@ const Education = () => {
 
         {/* Timeline */}
         <TimelineContainer>
-          <Timeline position="alternate">
+          <Timeline position={isMobile ? 'right' : 'alternate'}>
             {education.map((item, index) => (
               <TimelineItem key={index}>
                 <TimelineContent sx={{ py: '20px', px: 2 }}>

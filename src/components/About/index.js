@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useReducedMotion, fadeInUpVariants } from '../motionConfig';
 import { SocialMediaIcons, SocialMediaIcon } from './AboutStyle';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { Icon } from '../common/Icon';
 
 /* ---------- Styled Components (Glassmorphism + Design System) ---------- */
 
@@ -11,7 +11,6 @@ const AboutSection = styled.section`
   padding: 5rem 1.5rem;
   position: relative;
   z-index: 1;
-  -webkit-backdrop-filter: blur(12px);
   background: rgba(12, 12, 29, 0.4);
 `;
 
@@ -74,8 +73,6 @@ const ExpertiseGrid = styled.div`
 
 const ExpertiseCard = styled(motion.div)`
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 1.25rem;
   padding: 2rem 1.5rem;
@@ -224,13 +221,13 @@ const About = () => {
           <span>Connect with me</span>
           <SocialMediaIcons>
             <SocialMediaIcon href="https://github.com/usmannmurtazaa" aria-label="GitHub">
-              <FaGithub />
+              <Icon name="github" size={22} />
             </SocialMediaIcon>
             <SocialMediaIcon href="https://linkedin.com/in/usmannmurtazaa" aria-label="LinkedIn">
-              <FaLinkedin />
+              <Icon name="linkedin" size={22} />
             </SocialMediaIcon>
             <SocialMediaIcon href="https://twitter.com/usman_murtazaa" aria-label="Twitter">
-              <FaTwitter />
+              <Icon name="twitter" size={22} />
             </SocialMediaIcon>
           </SocialMediaIcons>
         </SocialWrapper>

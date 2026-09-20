@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { skills } from '../../data/constants';
-import { Icon } from '../common/Icon'; // ✅ named import
+import { Icon } from '../common/Icon';
 import {
   useReducedMotion,
   fadeInUpVariants,
@@ -20,8 +20,6 @@ const Container = styled.section`
   z-index: 1;
   align-items: center;
   padding: 100px 0 80px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   background: rgba(12, 12, 29, 0.4);
 
   @media (max-width: 960px) {
@@ -99,8 +97,13 @@ const Desc = styled(motion.p)`
 
 const SkillsContainer = styled.div`
   width: 100%;
+  /* minmax 380px ensures each card is wide enough (>= 380px) that after
+     its own 36px horizontal padding the inner pill grid has at least
+     308px — enough for two pills per row. With minmax 350px there was a
+     narrow tablet window (~773-831px viewport) where two cards fit but
+     each was too small to show more than one pill per row. */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   gap: 40px;
   margin-top: 30px;
   justify-content: center;
@@ -114,8 +117,6 @@ const SkillsContainer = styled.div`
 const Skill = styled(motion.div)`
   width: 100%;
   background: var(--bg-glass, rgba(18, 18, 35, 0.6));
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4));
   border-radius: 1.5rem;
@@ -267,8 +268,6 @@ const ExpertiseSection = styled(motion.div)`
   margin-top: 60px;
   padding: 40px;
   background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-sm);
@@ -306,12 +305,9 @@ const ExpertiseGrid = styled.div`
 const ExpertiseItem = styled(motion.div)`
   padding: 25px;
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border-radius: 16px;
-  border-left: 4px solid var(--accent-glow, #8b5cf6);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-left: 4px solid var(--accent-glow, #8b5cf6); /* override left border */
+  border-left: 4px solid var(--accent-glow, #8b5cf6);
 
   @media (max-width: 768px) {
     padding: 20px;

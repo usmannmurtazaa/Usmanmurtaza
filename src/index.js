@@ -4,7 +4,6 @@ import App from './App';
 import './styles/global.css';
 import { initGA4 } from './analytics';
 
-// Init GA4 early (only in production)
 if (process.env.NODE_ENV === 'production') {
   initGA4();
 }

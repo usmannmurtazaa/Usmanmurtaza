@@ -45,7 +45,6 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^6.23.1",
     "react-scripts": "^5.0.1",
     "styled-components": "^6.1.12",
     "typewriter-effect": "^2.22.0"
@@ -75,8 +74,8 @@
     "test:coverage": "react-scripts test --coverage --watchAll=false",
     "test:watch": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.{js,jsx}",
-    "lint:fix": "eslint src/**/*.{js,jsx} --fix",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
     "format": "prettier --write \"src/**/*.{js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,json,css,md}\"",
     "analyze": "source-map-explorer 'build/static/js/*.js'",

@@ -1,94 +1,167 @@
-/* HeroBgAnimationStyle.css */
+/* HeroBgAnimationStyle.css
+   Lightweight static aurora background.
+   - No JS-driven animation should be attached to .blob elements.
+   - One slow CSS-only drift is allowed on desktop.
+   - All motion is disabled on mobile and under prefers-reduced-motion.
+*/
 
 .hero-bg-container {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background-color: #0c0c1d; /* fallback dark */
+  background: #0c0c1d;
 }
+
+/* ---- Blob layer ---------------------------------------------------- */
 
 .blob {
   position: absolute;
   border-radius: 50%;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
   pointer-events: none;
+  /* No will-change here on purpose: we do not want every blob promoted
+     to its own compositor layer. Only the one that actually animates
+     uses translate3d and gets a hint. */
+  backface-visibility: hidden;
 }
 
-/* Gradient definitions for each layer */
+/* Gradient variants — softer, calmer, and cheaper than before. */
+
 .blob-deep {
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(139, 92, 246, 0.2) 0%,
-    rgba(99, 102, 241, 0.1) 100%
+    rgba(139, 92, 246, 0.16) 0%,
+    rgba(99, 102, 241, 0.06) 100%
   );
 }
+
 .blob-mid-left {
   background: radial-gradient(
     circle at 40% 40%,
-    rgba(168, 85, 247, 0.15) 0%,
-    rgba(59, 130, 246, 0.1) 100%
+    rgba(168, 85, 247, 0.12) 0%,
+    rgba(59, 130, 246, 0.06) 100%
   );
 }
+
 .blob-mid-right {
   background: radial-gradient(
     circle at 60% 60%,
-    rgba(6, 182, 212, 0.15) 0%,
-    rgba(217, 70, 239, 0.1) 100%
+    rgba(6, 182, 212, 0.12) 0%,
+    rgba(217, 70, 239, 0.06) 100%
   );
 }
+
 .blob-foreground {
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(96, 165, 250, 0.1) 0%,
-    rgba(167, 139, 250, 0.1) 100%
+    rgba(96, 165, 250, 0.08) 0%,
+    rgba(167, 139, 250, 0.06) 100%
   );
 }
 
-/* Blur levels */
+/* Blur levels — reduced from the previous heavy values. */
+
 .blur-xl {
-  filter: blur(20px);
-}
-.blur-2xl {
-  filter: blur(40px);
-}
-.blur-3xl {
-  filter: blur(60px);
+  filter: blur(16px);
 }
 
-/* Vignette – darkens edges to keep focus on centre */
+.blur-2xl {
+  filter: blur(28px);
+}
+
+.blur-3xl {
+  filter: blur(40px);
+}
+
+/* ---- Overlays ------------------------------------------------------ */
+
+/* Vignette – darkens edges so the hero content stays readable. */
 .vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.5) 100%);
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
   z-index: 2;
   pointer-events: none;
 }
 
-/* Subtle noise overlay (SVG filter) */
+/* Subtle SVG noise overlay. */
 .noise-overlay {
   position: absolute;
   inset: 0;
   z-index: 3;
-  opacity: 0.035;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   pointer-events: none;
 }
 
-/* Contrast overlay – keeps text crisp */
+/* Contrast overlay – keeps text crisp against the aurora. */
 .contrast-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(12, 12, 29, 0.05) 0%, rgba(12, 12, 29, 0.2) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(12, 12, 29, 0.05) 0%,
+    rgba(12, 12, 29, 0.2) 100%
+  );
   pointer-events: none;
 }
 
-/* Respect reduced motion – static blobs still look premium */
+/* ---- Optional single slow drift ------------------------------------ */
+/* Only the first .blob in DOM order is allowed to drift. If your
+   HeroBackground renders multiple .blob elements, they will remain
+   static, which is intended. This keeps GPU work to one layer. */
+
+.hero-bg-container .blob:first-of-type {
+  will-change: transform;
+  animation: heroBlobDrift 40s ease-in-out infinite;
+}
+
+@keyframes heroBlobDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* ---- Mobile: no motion, lighter blur ------------------------------- */
+
+@media (max-width: 768px) {
+  .hero-bg-container .blob:first-of-type {
+    animation: none;
+    will-change: auto;
+  }
+  .blur-xl {
+    filter: blur(10px);
+  }
+  .blur-2xl {
+    filter: blur(16px);
+  }
+  .blur-3xl {
+    filter: blur(22px);
+  }
+  .noise-overlay {
+    display: none;
+  }
+}
+
+/* ---- Reduced motion: static background ---------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
   .blob {
     animation: none !important;
+  }
+  .hero-bg-container .blob:first-of-type {
+    will-change: auto;
   }
 }

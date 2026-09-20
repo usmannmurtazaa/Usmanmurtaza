@@ -3,9 +3,29 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0c0c1d" />
+
+  <!-- Favicon set (files live in public/).
+       Ordered from legacy to modern so each browser picks the best it supports. -->
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="any" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon-96x96.png" type="image/png" sizes="96x96" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+
+  <!-- Google Fonts: preconnect + stylesheet.
+       Moved here from the CSS @import inside src/styles/global.css.
+       - preconnect opens the TLS connection early (fonts.gstatic.com
+         requires crossorigin for font files).
+       - The stylesheet link is discovered during HTML parsing rather
+         than after the CSS bundle has been fetched and parsed.
+       - display=swap prevents invisible text during font load. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- Primary Meta Tags -->
   <title>Usman Murtaza | Full Stack Developer</title>
@@ -66,17 +86,6 @@
         ]
       }
     </script>
-
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GA_MEASUREMENT_ID%"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      window.dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', '%REACT_APP_GA_MEASUREMENT_ID%');
-  </script>
 
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 </head>

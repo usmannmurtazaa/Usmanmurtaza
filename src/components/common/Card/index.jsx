@@ -2,13 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useReducedMotion, springTransition } from '../../../motionConfig'; // adjust path as needed
+import { useReducedMotion, springTransition } from '../../../motionConfig';
 
 /* ---------- Styled Glass Card ---------- */
+/* Note: no backdrop-filter here on purpose. This is a generic, reusable
+   card used across many sections; applying a blur to every instance
+   stacks compositor layers and hurts scroll performance. Consumers that
+   need a frosted surface (e.g. a single featured card) should add the
+   blur in their own styled extension of this component. */
 const StyledCard = styled(motion.div)`
   background: var(--bg-glass, rgba(18, 18, 35, 0.6));
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   border-radius: 1.25rem;
   padding: ${({ padding }) => padding || '24px'};

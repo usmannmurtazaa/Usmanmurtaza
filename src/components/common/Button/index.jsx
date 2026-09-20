@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { useReducedMotion, springTransition } from '../../../motionConfig'; // adjust path as needed
+import { useReducedMotion, springTransition } from '../../../motionConfig';
 
 /* ---------- Styled Motion Button ---------- */
 const StyledButton = styled(motion.button)`
@@ -35,10 +35,6 @@ const StyledButton = styled(motion.button)`
 
   box-shadow: ${({ variant }) =>
     variant === 'primary' ? '0 8px 20px rgba(139, 92, 246, 0.25)' : 'none'};
-
-  /* Glass hover effect */
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 
   &:hover {
     border-color: ${({ variant }) =>

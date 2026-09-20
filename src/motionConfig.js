@@ -20,13 +20,16 @@ export const springTransition = {
   mass: 0.8,
 };
 
-// Scroll reveal variants with blur lift
+// Scroll reveal variants.
+// NOTE: no `filter: blur(...)` here on purpose. Animating a blur filter
+// forces the browser to re‑rasterize the element on every frame, which is
+// a significant GPU cost when this variant is used across all sections.
+// Fade + translate alone is visually equivalent and far cheaper.
 export const fadeInUpVariants = {
-  hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: {
       duration: 0.7,
       ease: [0.25, 0.46, 0.45, 0.94],

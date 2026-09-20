@@ -17,8 +17,6 @@ const ContactSection = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 80px 0;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   background: rgba(12, 12, 29, 0.4);
 
   @media (max-width: 960px) {
@@ -131,8 +129,6 @@ const RequiredStar = styled.span`
 const GlassInput = styled.input`
   width: 100%;
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   outline: none;
   font-size: 16px;
@@ -164,8 +160,6 @@ const GlassInput = styled.input`
 const GlassTextarea = styled.textarea`
   width: 100%;
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   outline: none;
   font-size: 16px;
@@ -238,8 +232,6 @@ const ContactInfo = styled(motion.div)`
 
 const InfoCard = styled.div`
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 1rem;
   padding: 1.5rem 1.2rem;

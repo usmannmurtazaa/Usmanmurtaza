@@ -4,6 +4,10 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { useReducedMotion, springTransition } from '../../motionConfig';
 
+/* Derive a .webp path from a raster image path.
+   Used to prefer WebP when a matching file exists in public/. */
+const toWebp = src => (src ? src.replace(/\.(png|jpe?g|jfif)$/i, '.webp') : '');
+
 /* ---------- Glassmorphism + Design Tokens ---------- */
 
 const Card = styled(motion.div)`
@@ -17,8 +21,6 @@ const Card = styled(motion.div)`
   flex-direction: column;
   gap: 12px;
   background: var(--bg-glass, rgba(18, 18, 35, 0.6));
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4));
   transition:
@@ -55,8 +57,6 @@ const Document = styled.img`
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   transition: opacity 0.2s ease;
 
   &:hover {
@@ -203,7 +203,18 @@ const ExperienceCard = ({ experience }) => {
   return (
     <Card {...motionProps}>
       <Top>
-        <Image src={experience.img} alt={`${experience.company} logo`} loading="lazy" />
+        {/* Experience logo. The <source> prefers a .webp variant when it
+            exists in public/ (freelance.webp, "web develop.webp",
+            alfalah.webp). The <Image> PNG is used as a fallback. */}
+        <picture>
+          <source srcSet={toWebp(experience.img)} type="image/webp" />
+          <Image
+            src={experience.img}
+            alt={`${experience.company} logo`}
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <Body>
           <Role>{experience.role}</Role>
           <Company>{experience.company}</Company>

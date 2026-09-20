@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 import { useReducedMotion, springTransition } from '../motionConfig';
 
 // Glassmorphism wrapper for the entire social block (optional)
@@ -19,10 +20,8 @@ export const SocialMediaIconLink = styled(motion.a)`
   height: 44px;
   border-radius: 50%;
   font-size: 1.5rem;
-  color: ${({ theme }) => theme.text_primary};
+  color: var(--text-primary, #f2f2f7);
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -30,7 +29,7 @@ export const SocialMediaIconLink = styled(motion.a)`
   &:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(139, 92, 246, 0.5);
-    color: ${({ theme }) => theme.primary};
+    color: var(--accent-glow, #8b5cf6);
     box-shadow: 0 0 18px rgba(139, 92, 246, 0.25);
   }
 
@@ -59,4 +58,10 @@ export const SocialMediaIcon = ({ href, children, ...props }) => {
       {children}
     </SocialMediaIconLink>
   );
+};
+
+SocialMediaIcon.propTypes = {
+  href: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  'aria-label': PropTypes.string,
 };

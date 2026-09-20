@@ -1,4 +1,3 @@
-import { Link as LinkR } from 'react-router-dom';
 import styled from 'styled-components';
 
 /* ---------- Design Tokens (via global.css) ---------- */
@@ -43,7 +42,7 @@ export const NavbarContainer = styled.div`
   max-width: 1200px;
 `;
 
-export const NavLogo = styled(LinkR)`
+export const NavLogo = styled.a`
   width: 80%;
   padding: 0 6px;
   display: flex;
@@ -117,8 +116,6 @@ export const GitHubButton = styled.a`
   font-size: 16px;
   transition: all 0.3s ease;
   background: transparent;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 
   &:hover {
     background: ${accentGradient};
@@ -150,9 +147,9 @@ export const MobileIcon = styled.div`
   @media screen and (max-width: 768px) {
     display: block;
     position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
     font-size: 1.5rem;
     cursor: pointer;
     color: ${textPrimary};
@@ -168,7 +165,10 @@ export const MobileMenu = styled.div`
   top: 80px;
   right: 0;
   width: 100%;
-  padding: 12px 40px 24px 40px;
+  /* Fluid horizontal padding: 16px at 320px viewport, up to 40px at ~800px.
+     Keeps the mobile drawer content comfortably full-width on small screens
+     while still breathing at the top of the mobile breakpoint. */
+  padding: 12px clamp(16px, 5vw, 40px) 24px clamp(16px, 5vw, 40px);
   background: ${bgGlass};
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -192,7 +192,7 @@ export const MobileMenuItems = styled.ul`
   height: 100%;
 `;
 
-export const MobileMenuLink = styled(LinkR)`
+export const MobileMenuLink = styled.a`
   color: ${textPrimary};
   font-weight: 500;
   cursor: pointer;
@@ -247,7 +247,7 @@ export const MobileLink = styled.a`
   }
 `;
 
-export const MobileNavLogo = styled(LinkR)`
+export const MobileNavLogo = styled.a`
   width: 80%;
   padding: 0 6px;
   display: flex;

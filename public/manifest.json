@@ -3,25 +3,20 @@
   "name": "Usman Murtaza – Senior Frontend Engineer",
   "icons": [
     {
-      "src": "favicon.png",
-      "type": "image/png",
-      "sizes": "32x32"
-    },
-    {
       "src": "apple-touch-icon.png",
       "type": "image/png",
       "sizes": "180x180"
     },
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
+      "src": "web-app-manifest-192x192.png",
       "type": "image/png",
-      "purpose": "any maskable"
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
-      "src": "icon-512.png",
-      "sizes": "512x512",
+      "src": "web-app-manifest-512x512.png",
       "type": "image/png",
+      "sizes": "512x512",
       "purpose": "any maskable"
     }
   ],

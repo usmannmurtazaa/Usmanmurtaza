@@ -8,13 +8,17 @@ const StyledContainer = styled.div`
   margin: 0 auto;
   padding: ${({ padding }) => padding || '0 20px'};
 
-  /* Optional glassmorphism background */
+  /* Optional glassmorphism background.
+     Note: no backdrop-filter here on purpose. A Container is a layout
+     primitive and typically spans full section width; blurring it would
+     force the compositor to blur a section-sized region on every scroll
+     frame. The translucent background + border + shadow already provide
+     the intended glass look. Consumers that need a blurred surface should
+     apply it to a small, focal element instead. */
   ${({ glass }) =>
     glass &&
     `
     background: var(--bg-glass, rgba(18, 18, 35, 0.6));
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
     border-radius: 1.5rem;
     box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4));

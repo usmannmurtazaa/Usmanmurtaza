@@ -25,24 +25,12 @@ import HeroImg from '../../images/HeroImage.png';
 import Typewriter from 'typewriter-effect';
 import { Bio } from '../../data/constants';
 import { motion } from 'framer-motion';
-import {
-  useReducedMotion,
-  fadeInUpVariants,
-  springTransition,
-  staggerContainer,
-} from '../../motionConfig';
+import { fadeInUpVariants } from '../../motionConfig';
 import { trackHireMeClick, trackViewProjectsClick, trackEvent } from '../../analytics';
 
-// Badge items with float speeds
-const BADGES = [
-  { name: 'React.js', speed: 2.5 },
-  { name: 'Node.js', speed: 3.2 },
-  { name: 'JavaScript', speed: 2.8 },
-];
+const BADGES = ['React.js', 'Node.js', 'JavaScript'];
 
 const HeroSection = () => {
-  const prefersReduced = useReducedMotion();
-
   return (
     <section id="hero" aria-label="Hero Section">
       <HeroContainer>
@@ -142,10 +130,6 @@ const HeroSection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View my resume"
-                as={motion.a}
-                whileHover={prefersReduced ? {} : { scale: 1.03 }}
-                whileTap={prefersReduced ? {} : { scale: 0.97 }}
-                transition={springTransition}
                 onClick={() => trackEvent('click_resume', 'cta', 'Hero Resume')}
               >
                 View Resume
@@ -153,10 +137,6 @@ const HeroSection = () => {
               <SecondaryButton
                 href="#contact"
                 aria-label="Contact me for opportunities"
-                as={motion.a}
-                whileHover={prefersReduced ? {} : { scale: 1.03 }}
-                whileTap={prefersReduced ? {} : { scale: 0.97 }}
-                transition={springTransition}
                 onClick={trackHireMeClick}
               >
                 Hire Me
@@ -164,10 +144,6 @@ const HeroSection = () => {
               <SecondaryButton
                 href="#projects"
                 aria-label="View my projects"
-                as={motion.a}
-                whileHover={prefersReduced ? {} : { scale: 1.03 }}
-                whileTap={prefersReduced ? {} : { scale: 0.97 }}
-                transition={springTransition}
                 onClick={trackViewProjectsClick}
               >
                 View Projects
@@ -199,46 +175,34 @@ const HeroSection = () => {
 
             <HeroImageDecorator />
 
-            <Img
-              src={HeroImg}
-              alt="Usman Murtaza - Full Stack React Developer creating modern web applications"
-              title="Usman Murtaza | React.js & Full Stack Developer"
-              loading="eager"
-            />
+            {/* Hero image with WebP preferred.
+                To enable WebP: convert src/images/HeroImage.png to WebP
+                (using cwebp, sharp, or squoosh.app) and save the result as
+                public/HeroImage.webp. The <source> below is used by modern
+                browsers when that file exists; older browsers and the case
+                where the file is missing fall back to the bundled PNG. */}
+            <picture>
+              <source srcSet={`${process.env.PUBLIC_URL}/HeroImage.webp`} type="image/webp" />
+              <Img
+                src={HeroImg}
+                alt="Usman Murtaza - Full Stack React Developer creating modern web applications"
+                title="Usman Murtaza | React.js & Full Stack Developer"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                width="400"
+                height="500"
+              />
+            </picture>
 
-            {/* Animated badges */}
-            <motion.div
-              className="image-badge"
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
-              transition={{ delay: 0.6 }}
-            >
-              {BADGES.map(badge => (
-                <motion.span
-                  key={badge.name}
-                  className="badge"
-                  variants={{
-                    hidden: { opacity: 0, y: 10 },
-                    visible: { opacity: 1, y: 0 },
-                  }}
-                  animate={
-                    prefersReduced
-                      ? {}
-                      : {
-                          y: [0, -4, 0],
-                          transition: {
-                            duration: badge.speed,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                          },
-                        }
-                  }
-                >
-                  {badge.name}
-                </motion.span>
+            {/* Static badges */}
+            <div className="image-badge">
+              {BADGES.map(name => (
+                <span key={name} className="badge">
+                  {name}
+                </span>
               ))}
-            </motion.div>
+            </div>
           </HeroRightContainer>
         </HeroInnerContainer>
       </HeroContainer>

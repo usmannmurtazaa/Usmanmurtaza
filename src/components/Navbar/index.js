@@ -35,8 +35,6 @@ const Navbar = () => {
       style={{
         // Glassmorphism + reinforce sticky
         background: 'var(--bg-glass, rgba(18, 18, 35, 0.6))',
-        backdropFilter: 'blur(16px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(16px) saturate(180%)',
         borderBottom: '1px solid var(--border-glass, rgba(255, 255, 255, 0.1))',
         boxShadow: 'var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4))',
         position: 'sticky',
@@ -45,7 +43,7 @@ const Navbar = () => {
       }}
     >
       <NavbarContainer>
-        <NavLogo to="/">
+        <NavLogo href="/">
           <Icon name="layers" size={32} />
           <Span>Portfolio</Span>
         </NavLogo>
@@ -63,14 +61,7 @@ const Navbar = () => {
         </NavItems>
 
         <ButtonContainer>
-          <GitHubButton
-            as={motion.a}
-            href={Bio.github}
-            target="_blank"
-            whileHover={prefersReduced ? {} : { scale: 1.03 }}
-            whileTap={prefersReduced ? {} : { scale: 0.97 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          >
+          <GitHubButton href={Bio.github} target="_blank" rel="noopener noreferrer">
             <Icon name="github" size={18} style={{ marginRight: '8px' }} />
             Github Profile
           </GitHubButton>
@@ -85,8 +76,6 @@ const Navbar = () => {
             transition={{ duration: 0.2 }}
             style={{
               background: 'var(--bg-glass, rgba(18, 18, 35, 0.8))',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
               border: '1px solid var(--border-glass, rgba(255, 255, 255, 0.1))',
               boxShadow: 'var(--shadow-md, 0 8px 30px rgba(0,0,0,0.6))',
               borderRadius: '1rem',
@@ -118,11 +107,9 @@ const Navbar = () => {
                 borderRadius: '12px',
                 boxShadow: '0 0 15px rgba(139, 92, 246, 0.3)',
               }}
-              as={motion.a}
               href={Bio.github}
               target="_blank"
-              whileHover={prefersReduced ? {} : { scale: 1.03 }}
-              whileTap={prefersReduced ? {} : { scale: 0.97 }}
+              rel="noopener noreferrer"
             >
               <Icon name="github" size={18} style={{ marginRight: '8px' }} />
               Github Profile

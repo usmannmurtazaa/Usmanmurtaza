@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom'; // ✅ portal
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import ProjectCard from '../Cards/ProjectCards';
-import ProjectCaseStudy from '../ProjectCaseStudy';
 import {
   Container,
   Wrapper,
@@ -41,7 +39,7 @@ const statCardVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
-const Projects = ({ openModal = { state: false, project: null }, setOpenModal }) => {
+const Projects = ({ setOpenModal }) => {
   const prefersReduced = useReducedMotion();
   const [toggle, setToggle] = useState('all');
 
@@ -233,13 +231,6 @@ const Projects = ({ openModal = { state: false, project: null }, setOpenModal })
           </div>
         )}
       </Wrapper>
-
-      {/* ✅ Modal rendered into document.body via portal – overlays everything */}
-      {openModal.state &&
-        ReactDOM.createPortal(
-          <ProjectCaseStudy openModal={openModal} setOpenModal={setOpenModal} />,
-          document.body
-        )}
     </Container>
   );
 };

@@ -13,7 +13,7 @@ const shadowSm = 'var(--shadow-sm, 0 4px 12px rgba(0,0,0,0.4))';
 const shadowMd = 'var(--shadow-md, 0 8px 30px rgba(0,0,0,0.6))';
 const shadowGlow = 'var(--shadow-glow, 0 0 20px rgba(139, 92, 246, 0.25))';
 
-/* ---------- Base Container (with glass background) ---------- */
+/* ---------- Base Container ---------- */
 
 export const Container = styled.section`
   display: flex;
@@ -23,8 +23,6 @@ export const Container = styled.section`
   z-index: 1;
   align-items: center;
   padding: 100px 0 100px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   background: rgba(12, 12, 29, 0.4);
 
   @media (max-width: 960px) {
@@ -50,7 +48,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-/* ---------- Typography (using CSS variables + gradient text) ---------- */
+/* ---------- Typography ---------- */
 
 export const Title = styled(motion.h1)`
   font-size: 42px;
@@ -105,7 +103,7 @@ export const Desc = styled(motion.p)`
   }
 `;
 
-/* ---------- Stats Cards (Glassmorphism) ---------- */
+/* ---------- Stats Cards ---------- */
 
 export const StatsSection = styled(motion.div)`
   display: grid;
@@ -127,8 +125,6 @@ export const StatsSection = styled(motion.div)`
 
 export const StatCard = styled(motion.div)`
   background: ${bgGlass};
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid ${borderGlass};
   border-radius: 1.25rem;
   padding: 30px 25px;
@@ -197,7 +193,7 @@ export const StatLabel = styled.div`
   }
 `;
 
-/* ---------- Filter Toggle (Glass buttons) ---------- */
+/* ---------- Filter Toggle ---------- */
 
 export const ToggleButtonGroup = styled.div`
   display: flex;
@@ -207,8 +203,6 @@ export const ToggleButtonGroup = styled.div`
   font-weight: 600;
   margin: 30px 0;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   padding: 4px;
   flex-wrap: wrap;
   justify-content: center;
@@ -274,7 +268,7 @@ export const FilterInfo = styled.div`
   }
 `;
 
-/* ---------- Category Tags (Glass pills) ---------- */
+/* ---------- Category Tags ---------- */
 
 export const CategoryTag = styled.span`
   display: inline-block;
@@ -286,8 +280,6 @@ export const CategoryTag = styled.span`
   font-weight: 600;
   margin-left: 10px;
   border: 1px solid rgba(139, 92, 246, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   transition: all 0.3s ease;
 
   &:hover {
@@ -332,7 +324,7 @@ export const FeaturedContainer = styled.div`
   }
 `;
 
-/* ---------- Section Divider (Gradient) ---------- */
+/* ---------- Section Divider ---------- */
 
 export const SectionDivider = styled.hr`
   width: 100%;
@@ -343,7 +335,7 @@ export const SectionDivider = styled.hr`
   margin: 40px auto;
 `;
 
-/* ---------- View All Button (Gradient + glow) ---------- */
+/* ---------- View All Button ---------- */
 
 export const ViewAllButton = styled(motion.button)`
   background: ${accentGradient};
@@ -433,6 +425,6 @@ export const GradientLine = styled.div`
   width: 80px;
   height: 4px;
   background: linear-gradient(90deg, ${accent} 0%, ${accent}00 100%);
-  margin: 20px auto 30px auto;
+  margin: 20px 30px 30px 30px;
   border-radius: 2px;
 `;
