@@ -1,8 +1,8 @@
 /* HeroBgAnimationStyle.css
-   Lightweight static aurora background.
+   Lightweight aurora background.
    - No JS-driven animation should be attached to .blob elements.
-   - One slow CSS-only drift is allowed on desktop.
-   - All motion is disabled on mobile and under prefers-reduced-motion.
+   - One slow CSS-only drift per viewport size.
+   - All motion is disabled under prefers-reduced-motion.
 */
 
 .hero-bg-container {
@@ -104,10 +104,9 @@
   pointer-events: none;
 }
 
-/* ---- Optional single slow drift ------------------------------------ */
-/* Only the first .blob in DOM order is allowed to drift. If your
-   HeroBackground renders multiple .blob elements, they will remain
-   static, which is intended. This keeps GPU work to one layer. */
+/* ---- Desktop drift ------------------------------------------------ */
+/* Only the first .blob in DOM order is allowed to drift. Any other
+   .blob elements remain static, keeping GPU work to one layer. */
 
 .hero-bg-container .blob:first-of-type {
   will-change: transform;
@@ -126,13 +125,26 @@
   }
 }
 
-/* ---- Mobile: no motion, lighter blur ------------------------------- */
+/* ---- Mobile: gentler drift, lighter blur ------------------------- */
 
 @media (max-width: 768px) {
   .hero-bg-container .blob:first-of-type {
-    animation: none;
-    will-change: auto;
+    will-change: transform;
+    animation: heroBlobDriftMobile 60s ease-in-out infinite;
   }
+
+  @keyframes heroBlobDriftMobile {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(2%, -1.5%, 0) scale(1.03);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
   .blur-xl {
     filter: blur(10px);
   }

@@ -11,18 +11,24 @@ const SvgWrapper = styled(motion.div)`
   justify-content: center;
   pointer-events: none;
   opacity: ${({ reduced }) => (reduced ? 0.08 : 0.1)};
-  overflow: hidden;
-
-  /* Hide entirely on mobile for performance */
-  @media (max-width: 768px) {
-    display: none;
-  }
+  overflow: visible;
 
   svg {
     width: 100%;
     height: 100%;
     max-width: 600px;
     max-height: 600px;
+  }
+
+  /* Lighter on mobile: smaller footprint, slightly lower opacity so the
+     rings do not compete with the hero content on small screens. */
+  @media (max-width: 768px) {
+    opacity: ${({ reduced }) => (reduced ? 0.06 : 0.08)};
+
+    svg {
+      max-width: 380px;
+      max-height: 380px;
+    }
   }
 `;
 

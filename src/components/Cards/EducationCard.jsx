@@ -18,6 +18,8 @@ const Card = styled(motion.div)`
   flex-direction: column;
   gap: 12px;
   background: var(--bg-glass, rgba(18, 18, 35, 0.6));
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4));
   transition:
@@ -163,11 +165,9 @@ const EducationCard = ({ education }) => {
   return (
     <Card {...motionProps}>
       <Top>
-        {/* Education logo. toWebpSrcSet() percent-encodes spaces in the
-            path so the browser does not drop the srcset candidate.
-            Current education logos have no spaces, but this keeps the
-            encoding path consistent with the other image-consuming cards. */}
-        <picture>
+        {/* Education logo with WebP preference. toWebpSrcSet() percent-encodes
+            spaces in the path so the browser does not drop the srcset candidate. */}
+        <picture style={{ display: 'contents' }}>
           <source srcSet={toWebpSrcSet(education.img)} type="image/webp" />
           <Image
             src={education.img}

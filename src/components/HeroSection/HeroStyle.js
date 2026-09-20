@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const bgGlass = 'var(--bg-glass, rgba(18, 18, 35, 0.6))';
 const borderGlass = 'var(--border-glass, rgba(255, 255, 255, 0.1))';
@@ -7,8 +7,22 @@ const textSecondary = 'var(--text-secondary, #a0a0b8)';
 const accent = 'var(--accent-glow, #8b5cf6)';
 const accentGradient = 'var(--accent-gradient, linear-gradient(135deg, #8b5cf6, #3b82f6))';
 
+const badgeFloat = keyframes`
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
+
 export const HeroContainer = styled.section`
   background: ${bgGlass};
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
   border-bottom: 1px solid ${borderGlass};
   display: flex;
   justify-content: center;
@@ -137,8 +151,35 @@ export const HeroRightContainer = styled.div`
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
     transition: transform 0.2s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    /* Floating motion (originally Framer Motion, now pure CSS for cost). */
+    animation: ${badgeFloat} 3s ease-in-out infinite;
+    will-change: transform;
+
     &:hover {
       transform: translateY(-4px);
+      animation-play-state: paused;
+    }
+
+    /* Staggered speeds so the three badges do not move in lockstep. */
+    &:nth-child(1) {
+      animation-duration: 2.5s;
+      animation-delay: 0s;
+    }
+    &:nth-child(2) {
+      animation-duration: 3.2s;
+      animation-delay: 0.4s;
+    }
+    &:nth-child(3) {
+      animation-duration: 2.8s;
+      animation-delay: 0.8s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+      will-change: auto;
     }
   }
 `;
@@ -271,6 +312,8 @@ export const StatItem = styled.div`
   align-items: center;
   padding: 15px 25px;
   background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid ${borderGlass};
   border-radius: 12px;
   min-width: 120px;
@@ -387,6 +430,8 @@ export const SecondaryButton = styled.a`
     background 0.2s ease,
     box-shadow 0.2s ease;
   min-width: 180px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   &:hover {
     background: ${accentGradient};
     color: white;

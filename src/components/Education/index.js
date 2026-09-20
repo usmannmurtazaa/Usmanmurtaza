@@ -11,7 +11,6 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import EducationCard from '../Cards/EducationCard';
 import { useReducedMotion, fadeInUpVariants } from '../../motionConfig';
 import { Icon } from '../common/Icon';
-import { useMediaQuery } from '@mui/material';
 
 /* ---------- Styled Components (Glassmorphism) ---------- */
 
@@ -249,10 +248,6 @@ const cardVariants = {
 
 const Education = () => {
   const prefersReduced = useReducedMotion();
-  // Below 768px the "alternate" timeline layout squeezes each card into
-  // a narrow column beside a center rail. Switch to "right" on mobile
-  // so the rail sits on the left and cards get the full width.
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Section id="education" aria-labelledby="education-heading">
@@ -345,7 +340,7 @@ const Education = () => {
 
         {/* Timeline */}
         <TimelineContainer>
-          <Timeline position={isMobile ? 'right' : 'alternate'}>
+          <Timeline position="alternate">
             {education.map((item, index) => (
               <TimelineItem key={index}>
                 <TimelineContent sx={{ py: '20px', px: 2 }}>

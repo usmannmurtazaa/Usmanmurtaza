@@ -11,35 +11,32 @@ const DecoratorWrapper = styled.div`
   z-index: 0;
   overflow: visible;
 
-  /* Hide decorative layer on mobile for performance */
-  @media (max-width: 768px) {
-    display: none;
-  }
-
   @media (min-width: 961px) {
     transform: translateX(18.5%);
   }
 `;
 
-const useResponsiveRadii = () => {
-  const getRadius = () => {
+const useResponsiveData = () => {
+  const readViewport = () => {
     if (typeof window === 'undefined') {
-      return { starMin: 14, starMax: 28 };
+      return { starMin: 14, starMax: 28, count: 10 };
     }
     const w = window.innerWidth;
-    if (w < 768) return { starMin: 12, starMax: 24 };
-    return { starMin: 14, starMax: 28 };
+    if (w < 768) {
+      return { starMin: 8, starMax: 16, count: 6 };
+    }
+    return { starMin: 14, starMax: 28, count: 10 };
   };
 
-  const [radii, setRadii] = useState(getRadius);
+  const [data, setData] = useState(readViewport);
 
   useEffect(() => {
-    const handleResize = () => setRadii(getRadius());
+    const handleResize = () => setData(readViewport());
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return radii;
+  return data;
 };
 
 const DASHED_RINGS = [
@@ -142,23 +139,23 @@ DashedRing.propTypes = {
 
 const HeroImageDecorator = () => {
   const prefersReduced = useReducedMotion();
-  const radii = useResponsiveRadii();
+  const { starMin, starMax, count } = useResponsiveData();
 
   // Computed once. No state updates during animation.
   const stars = useMemo(
     () =>
-      Array.from({ length: 10 }, (_, i) => ({
+      Array.from({ length: count }, (_, i) => ({
         id: `star-${i}`,
         size: 0.4 + Math.random() * 0.4,
         color: `rgba(${139 + Math.random() * 30}, ${92 + Math.random() * 30}, ${
           246 + Math.random() * 9
         }, ${0.5 + Math.random() * 0.3})`,
-        radius: radii.starMin + Math.random() * (radii.starMax - radii.starMin),
+        radius: starMin + Math.random() * (starMax - starMin),
         angle: Math.random() * 360,
         pulse: 1.05 + Math.random() * 0.2,
         duration: 3 + Math.random() * 2,
       })),
-    [radii]
+    [starMin, starMax, count]
   );
 
   return (

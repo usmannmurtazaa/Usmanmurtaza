@@ -18,6 +18,8 @@ const Card = styled(motion.div)`
   flex-direction: column;
   gap: 12px;
   background: var(--bg-glass, rgba(18, 18, 35, 0.6));
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4));
   transition:
@@ -200,10 +202,11 @@ const ExperienceCard = ({ experience }) => {
   return (
     <Card {...motionProps}>
       <Top>
-        {/* Experience logo. toWebpSrcSet() percent-encodes spaces in the
-            path (e.g. "web develop.webp" → "web%20develop.webp") so the
-            browser does not drop the srcset candidate. */}
-        <picture>
+        {/* Experience logo with WebP preference. toWebpSrcSet() percent-encodes
+            spaces in the path (e.g. "web develop.webp" → "web%20develop.webp").
+            `display: contents` on <picture> keeps <Image> as a direct flex
+            child of Top so its fixed 56x56 sizing is preserved. */}
+        <picture style={{ display: 'contents' }}>
           <source srcSet={toWebpSrcSet(experience.img)} type="image/webp" />
           <Image
             src={experience.img}

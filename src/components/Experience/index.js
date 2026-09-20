@@ -11,7 +11,6 @@ import ExperienceCard from '../Cards/ExperienceCard';
 import { experiences } from '../../data/constants';
 import { useReducedMotion, fadeInUpVariants } from '../../motionConfig';
 import { Icon } from '../common/Icon';
-import { useMediaQuery } from '@mui/material';
 
 /* ---------- Styled Components (Glassmorphism + Design System) ---------- */
 
@@ -235,10 +234,6 @@ const cardVariants = {
 
 const Experience = () => {
   const prefersReduced = useReducedMotion();
-  // Below 768px the "alternate" timeline layout squeezes each card into
-  // a narrow column beside a center rail. Switch to "right" on mobile
-  // so the rail sits on the left and cards get the full width.
-  const isMobile = useMediaQuery('(max-width: 768px)');
   const totalYears = new Date().getFullYear() - 2023;
 
   return (
@@ -325,7 +320,7 @@ const Experience = () => {
 
         {/* Timeline */}
         <TimelineContainer>
-          <Timeline position={isMobile ? 'right' : 'alternate'}>
+          <Timeline position="alternate">
             {experiences.map((exp, index) => (
               <TimelineItem key={index}>
                 <TimelineSeparator>
