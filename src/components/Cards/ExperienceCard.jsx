@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { useReducedMotion, springTransition } from '../../motionConfig';
-
-/* Derive a .webp path from a raster image path.
-   Used to prefer WebP when a matching file exists in public/. */
-const toWebp = src => (src ? src.replace(/\.(png|jpe?g|jfif)$/i, '.webp') : '');
+import { toWebpSrcSet } from '../../utils/image';
 
 /* ---------- Glassmorphism + Design Tokens ---------- */
 
@@ -203,11 +200,11 @@ const ExperienceCard = ({ experience }) => {
   return (
     <Card {...motionProps}>
       <Top>
-        {/* Experience logo. The <source> prefers a .webp variant when it
-            exists in public/ (freelance.webp, "web develop.webp",
-            alfalah.webp). The <Image> PNG is used as a fallback. */}
+        {/* Experience logo. toWebpSrcSet() percent-encodes spaces in the
+            path (e.g. "web develop.webp" → "web%20develop.webp") so the
+            browser does not drop the srcset candidate. */}
         <picture>
-          <source srcSet={toWebp(experience.img)} type="image/webp" />
+          <source srcSet={toWebpSrcSet(experience.img)} type="image/webp" />
           <Image
             src={experience.img}
             alt={`${experience.company} logo`}

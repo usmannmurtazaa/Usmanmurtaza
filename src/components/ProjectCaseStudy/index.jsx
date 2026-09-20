@@ -5,10 +5,7 @@ import styled from 'styled-components';
 import { Icon } from '../common/Icon';
 import { useReducedMotion } from '../../motionConfig';
 import { trackEvent } from '../../analytics';
-
-/* Derive a .webp path from a raster image path.
-   Used to prefer WebP when a matching file exists in public/. */
-const toWebp = src => (src ? src.replace(/\.(png|jpe?g|jfif)$/i, '.webp') : '');
+import { toWebpSrcSet } from '../../utils/image';
 
 /* ---------- Design Tokens (via global.css variables) ---------- */
 
@@ -495,11 +492,11 @@ const ProjectCaseStudy = ({ openModal, setOpenModal }) => {
 
             {image && (
               <ImageContainer>
-                {/* Modal hero image. The <source> prefers a .webp variant
-                    when it exists in public/ (zain-real-estate.webp,
-                    ResumeAi Pro.webp, etc.). The PNG is the fallback. */}
+                {/* Modal hero image. toWebpSrcSet() percent-encodes spaces
+                    in the path so the browser does not drop the candidate
+                    as a bad descriptor. */}
                 <picture>
-                  <source srcSet={toWebp(image)} type="image/webp" />
+                  <source srcSet={toWebpSrcSet(image)} type="image/webp" />
                   <Image
                     src={image}
                     alt={`${title} - Project Screenshot`}

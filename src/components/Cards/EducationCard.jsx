@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { useReducedMotion, springTransition } from '../../motionConfig';
-
-/* Derive a .webp path from a raster image path.
-   Used to prefer WebP when a matching file exists in public/. */
-const toWebp = src => (src ? src.replace(/\.(png|jpe?g|jfif)$/i, '.webp') : '');
+import { toWebpSrcSet } from '../../utils/image';
 
 /* ---------- Glassmorphism + Design Tokens ---------- */
 
@@ -166,11 +163,12 @@ const EducationCard = ({ education }) => {
   return (
     <Card {...motionProps}>
       <Top>
-        {/* Education logo. The <source> prefers a .webp variant when it
-            exists in public/ (ilma_logo.webp, APS_Logo.webp,
-            fazaia_logo.webp). The <Image> file is used as a fallback. */}
+        {/* Education logo. toWebpSrcSet() percent-encodes spaces in the
+            path so the browser does not drop the srcset candidate.
+            Current education logos have no spaces, but this keeps the
+            encoding path consistent with the other image-consuming cards. */}
         <picture>
-          <source srcSet={toWebp(education.img)} type="image/webp" />
+          <source srcSet={toWebpSrcSet(education.img)} type="image/webp" />
           <Image
             src={education.img}
             alt={`${education.school} logo`}

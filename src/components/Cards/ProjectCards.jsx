@@ -5,10 +5,7 @@ import styled from 'styled-components';
 import { Icon } from '../common/Icon';
 import { useReducedMotion, springTransition } from '../../motionConfig';
 import { trackEvent } from '../../analytics';
-
-/* Derive a .webp path from a raster image path.
-   Used to prefer WebP when a matching file exists in public/. */
-const toWebp = src => (src ? src.replace(/\.(png|jpe?g|jfif)$/i, '.webp') : '');
+import { toWebpSrcSet } from '../../utils/image';
 
 /* ---------- Glassmorphism + Design Tokens ---------- */
 
@@ -235,10 +232,11 @@ const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
         </FeaturedBadge>
       )}
       {/* Project thumbnail. The <source> prefers a .webp variant when it
-          exists in public/ (zain-real-estate.webp, ResumeAi Pro.webp, etc.).
-          The PNG/JPG is used as a fallback. */}
+          exists in public/. toWebpSrcSet() percent-encodes spaces in the
+          path so the browser does not drop the candidate as a bad descriptor
+          (e.g. "ResumeAi Pro.webp" → "ResumeAi%20Pro.webp"). */}
       <picture>
-        <source srcSet={toWebp(imageSrc)} type="image/webp" />
+        <source srcSet={toWebpSrcSet(imageSrc)} type="image/webp" />
         <Image src={imageSrc} alt={project.title} loading="lazy" decoding="async" />
       </picture>
       <Tags>
