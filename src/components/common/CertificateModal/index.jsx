@@ -10,7 +10,7 @@ import { useReducedMotion } from '../../../motionConfig';
 const Overlay = styled(motion.div)`
   position: fixed;
   inset: 0;
-  background: rgba(4, 6, 14, 0.78);
+  background: rgba(4, 6, 14, 0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   z-index: 9999;
@@ -26,27 +26,31 @@ const Overlay = styled(motion.div)`
   }
 `;
 
+/* Explicit height on desktop so flex children get a definite area to
+   distribute. max-height alone is not enough for flexbox to compute
+   flex: 1 on the image area correctly, which is why the image used to
+   overflow. */
 const Inner = styled(motion.div)`
   position: relative;
-  background: rgba(18, 18, 35, 0.92);
+  background: rgba(18, 18, 35, 0.95);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   box-shadow:
-    0 24px 60px rgba(0, 0, 0, 0.6),
+    0 24px 60px rgba(0, 0, 0, 0.65),
     0 0 40px rgba(139, 92, 246, 0.15);
   width: 100%;
   max-width: 1100px;
-  max-height: 92vh;
+  height: 90vh;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 
   @media (max-width: 640px) {
-    /* Full-screen sheet on mobile. 100dvh handles mobile browser
-       chrome (URL bar) correctly, unlike 100vh which overflows on
-       iOS Safari. */
+    /* Full-screen sheet on mobile. 100dvh handles the iOS Safari URL
+       bar correctly; 100vh would overflow and clip the footer. */
     height: 100dvh;
     max-height: 100dvh;
     border-radius: 0;
@@ -54,66 +58,80 @@ const Inner = styled(motion.div)`
   }
 `;
 
+/* High-contrast close button that stays visible over any certificate. */
 const CloseBtn = styled.button`
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #eef2f8;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.78);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
-  transition: all 200ms ease;
+  z-index: 100;
+  padding: 0;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    transform 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2.5;
+  }
 
   &:hover {
-    background: var(--accent-gradient, linear-gradient(135deg, #8b5cf6, #3b82f6));
-    border-color: transparent;
-    transform: rotate(90deg);
+    background: #8b5cf6;
+    border-color: #8b5cf6;
+    transform: scale(1.08);
+  }
+
+  &:active {
+    transform: scale(0.96);
   }
 
   &:focus-visible {
-    outline: 2px solid var(--accent-glow, #8b5cf6);
-    outline-offset: 2px;
+    outline: 2px solid #8b5cf6;
+    outline-offset: 3px;
   }
 
   @media (max-width: 640px) {
     top: 10px;
     right: 10px;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
-    &:hover {
+    &:hover,
+    &:active {
       transform: none;
     }
   }
 `;
 
-/* Image area flexes to fill all space left over by the meta footer.
-   `min-height: 0` is required for a flex child to shrink below its
-   intrinsic content height — without it the image would force the
-   modal to grow. */
+/* Image area fills all space left over by the meta footer. min-height: 0
+   is required so this flex child can shrink below its intrinsic content
+   size, and the explicit height on Inner gives the img a definite box. */
 const ImageWrap = styled.div`
   flex: 1;
   min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  overflow: auto;
+  padding: 20px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.35);
 
-  /* Center horizontally when the image is narrower than the wrap */
-  & > img {
+  img {
     max-width: 100%;
     max-height: 100%;
     width: auto;
@@ -122,32 +140,26 @@ const ImageWrap = styled.div`
     display: block;
     border-radius: 8px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-    /* Prevent iOS long-press ghosting on the image */
-    -webkit-touch-callout: none;
   }
 
   @media (max-width: 640px) {
-    padding: 8px 0;
-    /* Allow horizontal scroll when the image is wider than the modal
-       on very narrow phones. */
-    overflow-x: auto;
-    overflow-y: hidden;
+    padding: 8px;
 
-    & > img {
-      border-radius: 0;
-      box-shadow: none;
+    img {
+      border-radius: 4px;
     }
   }
 `;
 
 const Meta = styled.div`
+  flex-shrink: 0;
   padding: 16px 24px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   gap: 4px;
   text-align: left;
-  flex-shrink: 0;
+  background: rgba(18, 18, 35, 0.6);
 
   @media (max-width: 640px) {
     padding: 12px 16px 14px;
@@ -158,7 +170,7 @@ const Issuer = styled.div`
   font-size: 0.75rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(238, 242, 248, 0.55);
+  color: rgba(238, 242, 248, 0.6);
   font-weight: 500;
 
   @media (max-width: 640px) {
@@ -248,7 +260,7 @@ const CertificateModal = ({ open, certificate, onClose }) => {
             onClick={e => e.stopPropagation()}
           >
             <CloseBtn onClick={onClose} aria-label="Close certificate">
-              <Icon name="x" size={20} />
+              <Icon name="x" size={22} />
             </CloseBtn>
 
             <ImageWrap>
