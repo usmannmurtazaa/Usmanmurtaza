@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Single-page portfolio. All navigation happens via anchor links
+       on the root route, so exactly one URL is listed. Anchor
+       fragments (#about, #projects, etc.) are not separate pages and
+       are intentionally NOT included — Google explicitly ignores
+       fragments in sitemaps.
+
+       Update <lastmod> whenever the site's content changes materially. -->
+  <url>
+    <loc>https://usmanmurtaza.netlify.app/</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

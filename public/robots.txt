@@ -1,0 +1,19 @@
+# robots.txt for Usman Murtaza's portfolio
+# https://usmanmurtaza.netlify.app
+
+# Allow all well-behaved crawlers to index the entire site.
+User-agent: *
+Allow: /
+
+# Explicitly allow Google's crawlers so image search and previews
+# work correctly. These are permitted by the wildcard above as well;
+# listing them explicitly is a defensive measure against misconfigured
+# robots rules on some CDN setups.
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Sitemap reference — helps search engines discover every indexed URL.
+Sitemap: https://usmanmurtaza.netlify.app/sitemap.xml
