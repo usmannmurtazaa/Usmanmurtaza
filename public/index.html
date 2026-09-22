@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0c0c1d" />
 
+  <!-- Canonical URL. Prevents duplicate-content indexing if the site is
+       reached via www subdomain, Netlify preview URL, or trailing-slash
+       variants. Uses the production URL already declared in
+       netlify.toml and src/utils/seo.js. -->
+  <link rel="canonical" href="https://usmanmurtaza.netlify.app" />
+
   <!-- Favicon set (files live in public/).
        Ordered from legacy to modern so each browser picks the best it supports. -->
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="any" />
@@ -20,25 +26,23 @@
        platforms — no extra font download required. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 
   <!-- Primary Meta Tags -->
-  <title>Usman Murtaza — Full Stack Developer, React & UI/UX</title>
-  <meta name="title" content="Usman Murtaza — Full Stack Developer, React & UI/UX" />
+  <title>Usman Murtaza | Full Stack Developer</title>
+  <meta name="title" content="Usman Murtaza | Full Stack Developer" />
   <meta name="description"
     content="Usman Murtaza is a Full Stack Developer and UI/UX-focused web developer building modern, responsive applications with React, JavaScript, Node.js, and AI-assisted workflows. Explore the Maniesta ecosystem and other portfolio projects." />
   <meta name="keywords"
-    content="usman murtaza, full stack developer, react developer, javascript developer, node.js developer, ui/ux designer, web developer, frontend developer, portfolio, maniesta, resume builder, campus management system" />
+    content="usman murtaza, full stack developer, react developer, web developer, javascript developer, node.js developer, frontend developer, backend developer, ui/ux designer, web development, react.js, javascript, node.js, modern web applications, portfolio, maniesta" />
   <meta name="author" content="Usman Murtaza" />
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://usmanmurtaza.netlify.app" />
-  <meta property="og:title" content="Usman Murtaza — Full Stack Developer, React & UI/UX" />
+  <meta property="og:title" content="Usman Murtaza | Full Stack Developer" />
   <meta property="og:description"
     content="Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. Explore the Maniesta ecosystem and other portfolio projects." />
   <meta property="og:image" content="https://usmanmurtaza.netlify.app/og-image.jpg" />
