@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useReducedMotion, fadeInUpVariants } from '../../motionConfig';
+import { toWebpSrcSet } from '../../utils/image';
 import CertificateModal from '../common/CertificateModal';
 
 /* ---------- Certificates data ---------- */
 
 /* Images live in public/certificates/ so they are served as static files,
    not bundled. Issuer and course titles are set to the exact names
-   provided by the portfolio owner. */
+   provided by the portfolio owner. Each card renders a <picture> with a
+   WebP <source> so browsers that support WebP fetch the smaller variant
+   and everything else falls back to the .jpg. */
 const certificates = [
   {
     id: 'saylani-modern-web-app',
@@ -180,6 +183,12 @@ const Thumb = styled.div`
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.06);
 
+  picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   img {
     width: 100%;
     height: 100%;
@@ -312,7 +321,10 @@ const Certificates = () => {
                 aria-label={`View certificate: ${cert.courseTitle} from ${cert.issuer}`}
               >
                 <Thumb>
-                  <img src={cert.image} alt={cert.courseTitle} loading="lazy" decoding="async" />
+                  <picture>
+                    <source srcSet={toWebpSrcSet(cert.image)} type="image/webp" />
+                    <img src={cert.image} alt={cert.courseTitle} loading="lazy" decoding="async" />
+                  </picture>
                 </Thumb>
                 <Meta>
                   <Issuer>{cert.issuer}</Issuer>

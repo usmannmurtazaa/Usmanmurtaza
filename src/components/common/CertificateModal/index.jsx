@@ -18,16 +18,17 @@ const Overlay = styled(motion.div)`
   align-items: center;
   justify-content: center;
   padding: 24px;
-  overflow-y: auto;
+  overflow: hidden;
 
   @media (max-width: 640px) {
-    padding: 12px;
+    padding: 0;
+    align-items: stretch;
   }
 `;
 
 const Inner = styled(motion.div)`
   position: relative;
-  background: rgba(18, 18, 35, 0.88);
+  background: rgba(18, 18, 35, 0.92);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -35,29 +36,41 @@ const Inner = styled(motion.div)`
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.6),
     0 0 40px rgba(139, 92, 246, 0.15);
-  max-width: 1100px;
   width: 100%;
+  max-width: 1100px;
   max-height: 92vh;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+
+  @media (max-width: 640px) {
+    /* Full-screen sheet on mobile. 100dvh handles mobile browser
+       chrome (URL bar) correctly, unlike 100vh which overflows on
+       iOS Safari. */
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: none;
+  }
 `;
 
 const CloseBtn = styled.button`
   position: absolute;
   top: 14px;
   right: 14px;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: #eef2f8;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
   transition: all 200ms ease;
 
   &:hover {
@@ -71,6 +84,13 @@ const CloseBtn = styled.button`
     outline-offset: 2px;
   }
 
+  @media (max-width: 640px) {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     transition: none;
     &:hover {
@@ -79,28 +99,43 @@ const CloseBtn = styled.button`
   }
 `;
 
+/* Image area flexes to fill all space left over by the meta footer.
+   `min-height: 0` is required for a flex child to shrink below its
+   intrinsic content height — without it the image would force the
+   modal to grow. */
 const ImageWrap = styled.div`
-  width: 100%;
+  flex: 1;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
   overflow: auto;
 
-  img {
+  /* Center horizontally when the image is narrower than the wrap */
+  & > img {
     max-width: 100%;
-    max-height: 72vh;
+    max-height: 100%;
     width: auto;
     height: auto;
+    object-fit: contain;
     display: block;
     border-radius: 8px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    /* Prevent iOS long-press ghosting on the image */
+    -webkit-touch-callout: none;
   }
 
   @media (max-width: 640px) {
-    padding: 12px;
-    img {
-      max-height: 60vh;
+    padding: 8px 0;
+    /* Allow horizontal scroll when the image is wider than the modal
+       on very narrow phones. */
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    & > img {
+      border-radius: 0;
+      box-shadow: none;
     }
   }
 `;
@@ -112,6 +147,11 @@ const Meta = styled.div`
   flex-direction: column;
   gap: 4px;
   text-align: left;
+  flex-shrink: 0;
+
+  @media (max-width: 640px) {
+    padding: 12px 16px 14px;
+  }
 `;
 
 const Issuer = styled.div`
@@ -120,6 +160,11 @@ const Issuer = styled.div`
   text-transform: uppercase;
   color: rgba(238, 242, 248, 0.55);
   font-weight: 500;
+
+  @media (max-width: 640px) {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+  }
 `;
 
 const Title = styled.div`
@@ -129,7 +174,7 @@ const Title = styled.div`
   line-height: 1.3;
 
   @media (max-width: 640px) {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 `;
 
