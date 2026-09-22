@@ -24,7 +24,7 @@ import {
   StatLabel,
   CTAButtons,
 } from './HeroStyle';
-import HeroImg from '../../images/HeroImage.png';
+import HeroImg from '../../images/HeroImage.jpg';
 import Typewriter from 'typewriter-effect';
 import { Bio } from '../../data/constants';
 import { motion } from 'framer-motion';
