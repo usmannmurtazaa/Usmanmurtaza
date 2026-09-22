@@ -1,178 +1,213 @@
-# Usman Murtaza – Full Stack & React Developer Portfolio
-
 <div align="center">
-  
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
-![Glassmorphism](https://img.shields.io/badge/Glassmorphism-UI-8b5cf6?style=for-the-badge)
-![SEO Optimized](https://img.shields.io/badge/SEO-Optimized-brightgreen?style=for-the-badge)
-![Lighthouse 90+](https://img.shields.io/badge/Lighthouse-90%2B-success?style=for-the-badge)
 
-**Cinematic, production‑grade developer portfolio with animated backgrounds, glassmorphism UI, motion design, and comprehensive analytics.**
+# Usman Murtaza | Developer Portfolio
 
-[🌐 Live Website](https://usmanmurtaza.netlify.app) • [💼 LinkedIn](https://www.linkedin.com/in/Usmannmurtazaa/) • [💻 GitHub](https://github.com/Usmannmurtazaa) • [📄 Resume](https://drive.google.com/file/d/1zs_xeqmfLPlCOjVUCgstedOD2_oPpzoZ/view)
+**Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js.**
+
+[🌐 Live](https://usmanmurtaza.netlify.app) &nbsp;·&nbsp; [💼 LinkedIn](https://www.linkedin.com/in/Usmannmurtazaa/) &nbsp;·&nbsp; [💻 GitHub](https://github.com/Usmannmurtazaa) &nbsp;·&nbsp; [📄 Resume](https://drive.google.com/file/d/1zs_xeqmfLPlCOjVUCgstedOD2_oPpzoZ/view)
+
+![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=000)
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=fff)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=fff)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=fff)
 
 </div>
 
 ---
 
-## 🎯 Portfolio Overview
+A personal portfolio built to present real, working projects - the **Maniesta ecosystem**, **ResumeAI Pro**, **Zain Real Estate**, and client work such as the **Al Falah Leather** website - through a dark, motion-led interface with focused animation, accessible components, and production-grade SEO.
 
-A modern, **Apple‑level SaaS portfolio** designed to impress recruiters, clients, and engineers.  
-It features a **cinematic animated background** (floating gradient blobs + noise), **glassmorphism UI** across every surface, **advanced motion design**, and **production‑grade SEO & analytics**.
-
-Every section demonstrates senior‑level frontend engineering: component architecture, accessibility, performance optimisation, and polish.
+The site is deliberately lightweight: compositor-only animations, no continuous JS loops on the hero, WebP assets with PNG fallback, and no router since it is a single-page scroll experience.
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
-### 🎬 Cinematic Hero
-- Multi‑layer floating gradient blobs with parallax depth
-- Subtle SVG noise overlay and vignette
-- Typewriter effect and animated CTAs
-- Respects `prefers-reduced-motion`
+### Animated hero
+- Full-bleed **Vortex particle background** (canvas, ref-driven, no React re-renders on pointer move)
+- Aurora blob layer with a slow CSS drift
+- **3D tilt** on the hero image driven by Framer Motion `useMotionValue` + springs
+- Animated badges, typewriter role line, staggered CTAs
 
-### 🧊 Glassmorphism Design System
-- Frosted glass navbar, cards, modals, and form
-- Soft borders, blur effects, and accent glows
-- Global CSS variables for consistent theming
+### Floating glass navbar
+- Centered pill layout with rounded borders and backdrop blur
+- Custom **animated calligraphy signature** ("Usman") with a gradient shimmer and hover glow
+- Keyboard-accessible mobile drawer below the pill
 
-### 🎯 Motion Design
-- Scroll‑triggered fade‑ins, staggered card reveals
-- Button micro‑interactions (scale + glow)
-- Smooth page transitions and modal animations
-- All animations GPU‑optimised (transform + opacity)
+### Tracing-beam timelines
+- **Education** and **Experience** sections use a scroll-driven vertical beam (`framer-motion` `useScroll` + `useTransform`)
+- Sticky titles on desktop, single-column on mobile
+- No MUI timeline dependency
 
-### 📊 Analytics & SEO
-- GA4 event tracking on CTAs, project views, filters, and form submissions
-- JSON‑LD structured data (Person, WebSite, SoftwareApplication)
-- Open Graph and Twitter Card meta tags
-- Semantic HTML, proper heading hierarchy, alt texts, canonicals
+### Project cards with CometCard interaction
+- Mouse-driven 3D tilt with a pointer-following radial highlight
+- Featured / secondary / utility project tiers
+- Filterable grid with category tags
+- Full case-study modal for each project
 
-### 📬 Working Contact Form
+### Certificates gallery
+- Three portfolio certificates rendered as glass cards with hover-zoom thumbnails
+- Full-screen modal with keyboard and click-outside dismissal
+- WebP with JPG fallback
+
+### Live background
+- Slow-drifting aurora blobs behind all non-hero sections
+- Transform + opacity only, disabled under `prefers-reduced-motion`
+
+### Working contact form
 - EmailJS integration with validation
-- Success/error feedback via Snackbar
-- Analytics event on submission
+- Success + error feedback via MUI Snackbar
+- GA4 event on submission
 
-### 🧩 Reusable Component Library
-- `Button`, `Card`, `Container`, `SectionHeader` with glassmorphism variants
-- Motion‑ready and accessible out of the box
-
----
-
-## 🛠 Tech Stack & Expertise
-
-### Frontend
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
-![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
-![MUI](https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
-![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
-
-### Backend / Integration
-![EmailJS](https://img.shields.io/badge/EmailJS-FF6B6B?style=for-the-badge&logo=gmail&logoColor=white)
-![GA4](https://img.shields.io/badge/GA4-E37400?style=for-the-badge&logo=google-analytics&logoColor=white)
-
-### DevOps & Performance
-![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
-![Lighthouse](https://img.shields.io/badge/Lighthouse-F44B21?style=for-the-badge&logo=lighthouse&logoColor=white)
+### SEO & analytics
+- GA4 with a single idempotent initializer
+- JSON-LD structured data (`Person`, `WebSite`, `SoftwareApplication`)
+- Open Graph, Twitter Cards, canonical, `robots.txt`, `sitemap.xml`
+- Semantic HTML with a single `h1` per page and alt text on every image
 
 ---
 
-## 📱 Performance & Accessibility
+## 🛠 Tech Stack
 
-- **90+ Lighthouse** on mobile and desktop
-- All images lazy‑loaded with `loading="lazy"`
-- Critical CSS inlined, fonts preloaded
-- `will-change` and `backface-visibility` for compositor‑only animations
-- Full keyboard navigation support
-- `prefers-reduced-motion` respected everywhere
-- Screen reader friendly with `aria-label` and semantic HTML
+**Frontend**
+React 18 · styled-components · Framer Motion · MUI (Snackbar/Alert only) · lucide-react · typewriter-effect
 
----
+**Backend & services**
+Node.js · Express · Firebase · MongoDB · PostgreSQL · REST APIs · EmailJS
 
-## 🚀 SEO & Analytics
-
-### On‑Page SEO
-- Semantic HTML5 (`<header>`, `<main>`, `<section>`, `<article>`)
-- One `<h1>` per page with proper hierarchy
-- Alt text on every image
-- Optimised meta titles and descriptions per page
-- Canonical URLs
-
-### Structured Data
-- `Person` schema with name, job title, image, and social profiles
-- `WebSite` schema
-- `SoftwareApplication` schema for each featured project
-- All injected via `react-helmet-async`
-
-### Analytics
-- GA4 measurement ID configured via `.env`
-- Events: `click_hire_me`, `click_view_projects`, `view_project`, `filter_projects`, `submit_contact`, etc.
-- Minimal, tree‑shakeable tracking code
+**Tooling & deployment**
+Create React App · ESLint + Prettier · Netlify
 
 ---
 
-## 🔧 Installation & Local Development
+## 📁 Project structure
 
-### Prerequisites
-- Node.js ≥ 16
-- npm ≥ 8
-
-### Setup
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/Usmannmurtazaa/Usmanmurtaza.git
-cd portfolio
-
-# 2. Install dependencies
-npm install
-
-# 3. Create environment file
-echo "REACT_APP_GA_MEASUREMENT_ID=G-XXXXXXXXXX" > .env
-
-# 4. Start development server
-npm start
+```
+src/
+├── components/
+│   ├── common/            # Reusable primitives
+│   │   ├── Button/
+│   │   ├── Card/
+│   │   ├── Certificate/
+│   │   ├── CertificateModal/
+│   │   ├── Container/
+│   │   ├── Icon/
+│   │   ├── LiveBackground/
+│   │   ├── SectionHeader/
+│   │   ├── Signature/
+│   │   ├── ThreeDCard/
+│   │   ├── Timeline/
+│   │   └── Vortex/
+│   ├── HeroSection/       # Hero + decorations + vortex layer
+│   ├── Skills/            # Frontend / Backend / Tools
+│   ├── Experience/        # Tracing-beam timeline + stats
+│   ├── Education/         # Tracing-beam timeline + stats
+│   ├── Projects/          # Featured / secondary / utility
+│   ├── Certificates/      # Gallery + modal
+│   ├── Contact/           # Form + info cards
+│   ├── Navbar/            # Floating pill + signature
+│   ├── Footer/
+│   └── Cards/             # ProjectCard, ExperienceCard, EducationCard
+├── data/
+│   └── constants.js       # Single source of truth for all content
+├── hooks/
+│   └── useScrollAnimation.js
+├── styles/
+│   └── global.css         # Design tokens + utilities
+├── utils/
+│   ├── analytics.js
+│   ├── image.js           # WebP / srcset helpers
+│   ├── schema.js
+│   └── seo.js
+├── App.js
+└── index.js
 ```
 
-The app will open at `http://localhost:3000`.
+---
+
+## 🚀 Getting started
+
+**Requirements:** Node ≥ 16, npm ≥ 8
+
+```bash
+# Clone
+git clone https://github.com/Usmannmurtazaa/Usmanmurtaza.git
+cd Usmanmurtaza
+
+# Install
+npm install
+
+# Configure environment
+echo "REACT_APP_GA_MEASUREMENT_ID=G-XXXXXXXXXX" > .env
+
+# Dev server (http://localhost:3000)
+npm start
+
+# Production build → /build
+npm run build
+
+# Lint + format
+npm run lint
+npm run format
+```
+
+If `REACT_APP_GA_MEASUREMENT_ID` is not set, analytics silently disables - nothing else breaks.
 
 ---
 
-## 🤝 Contributing
+## 🎨 Design system
 
-Contributions, issues and feature requests are welcome!  
-Feel free to fork this repository and submit a pull request.  
-For major changes, please open an issue first to discuss what you'd like to change.
+All design tokens live in `src/styles/global.css` as CSS custom properties:
+
+- **Colors** - `--bg-primary`, `--bg-glass`, `--text-primary`, `--text-secondary`, `--accent-glow`, `--accent-gradient`
+- **Shadows** - `--shadow-sm`, `--shadow-md`, `--shadow-glow`
+- **Spacing / radius / transitions** - `--space-*`, `--radius-*`, `--transition-*`
+
+Components reference these tokens directly; there is no second JS theme object. New sections should follow the same pattern.
+
+Motion lives in `src/motionConfig.js` - the shared `fadeInUpVariants`, `staggerContainer`, and `springTransition` are consumed everywhere, so an animation tweak stays in one place. All animations respect `prefers-reduced-motion`.
 
 ---
 
-## 📄 License
+## ⚡ Performance notes
 
-This project is licensed under the **MIT License**.  
-You are free to use, modify, and distribute this code for personal or commercial projects.  
-See the [LICENSE](LICENSE) file for details.
+The portfolio was deliberately tuned for a small initial payload and a smooth mobile experience:
+
+- **Code splitting** - below-the-fold sections are `React.lazy`-loaded. The modal lives in its own `Suspense` boundary so opening a project never re-suspends the page.
+- **Images** - WebP is preferred via `<picture><source>` where it matters; PNG/JPG fallbacks are preserved. Hero image is preloaded with `fetchpriority="high"` and given explicit dimensions to prevent CLS.
+- **Backdrop blur** - reserved for high-value surfaces (navbar, modal, one featured card per section). Full-page blurs were removed.
+- **No requestAnimationFrame loops** that call `setState`. The Vortex uses a single canvas `rAF` loop and consumes pointer state via refs.
+- **Backdrop-filter animations** were replaced with transform / opacity-only effects.
+
+---
+
+## 🔍 SEO
+
+- **On-page** - semantic HTML, one `h1`, hierarchical headings, alt text on every image, canonical URLs, `robots.txt`, `sitemap.xml`
+- **Structured data** - `Person`, `WebSite`, and an `ItemList` of `SoftwareApplication` entries generated from the projects array
+- **Social** - Open Graph and Twitter Card metadata in `public/index.html`
+- **Analytics** - GA4 events on CTAs (`click_hire_me`, `click_view_projects`, `view_project`, `filter_projects`, `submit_contact`, etc.) via a single `trackEvent` helper
+
+---
+
+## 📜 License
+
+MIT - see [LICENSE](LICENSE) for details.
 
 ---
 
 ## 📬 Contact
 
-**Usman Murtaza**  
-Full Stack & React Developer 
+**Usman Murtaza** | Full Stack Developer
 
 - Portfolio: [usmanmurtaza.netlify.app](https://usmanmurtaza.netlify.app)
 - Email: [usmanmurtazaportfolio@gmail.com](mailto:usmanmurtazaportfolio@gmail.com)
 - LinkedIn: [linkedin.com/in/usmannmurtazaa](https://linkedin.com/in/usmannmurtazaa)
 - GitHub: [github.com/usmannmurtazaa](https://github.com/usmannmurtazaa)
 
----
-
 <div align="center">
-  
-**If you found this portfolio impressive, let's build something amazing together!**
 
-⭐ Star this repo • 🔗 Share with your network • 📩 Reach out for collaborations
+If this portfolio is useful or impressive, a star means a lot. ⭐
 
 </div>

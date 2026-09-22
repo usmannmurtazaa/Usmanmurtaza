@@ -1,6 +1,6 @@
 {
   "short_name": "Usman",
-  "name": "Usman Murtaza – Senior Frontend Engineer",
+  "name": "Usman Murtaza | Full Stack Developer",
   "icons": [
     {
       "src": "apple-touch-icon.png",
@@ -24,5 +24,5 @@
   "display": "standalone",
   "theme_color": "#0c0c1d",
   "background_color": "#0c0c1d",
-  "description": "Portfolio of Usman Murtaza – Frontend Engineer specializing in SaaS interfaces and motion design."
+  "description": "Portfolio of Usman Murtaza - Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. Explore the Maniesta ecosystem and other portfolio projects."
 }

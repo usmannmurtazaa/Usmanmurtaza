@@ -4,7 +4,6 @@ import {
   Nav,
   NavbarContainer,
   NavLogo,
-  Span,
   NavItems,
   NavLink,
   GitHubButton,
@@ -14,6 +13,7 @@ import {
   MobileLink,
 } from './NavbarStyledComponent';
 import { Icon } from '../common/Icon';
+import Signature from '../common/Signature';
 import { Bio } from '../../data/constants';
 import { useReducedMotion } from '../../motionConfig';
 
@@ -32,20 +32,10 @@ const Navbar = () => {
       variants={prefersReduced ? {} : navVariants}
       initial="hidden"
       animate="visible"
-      style={{
-        // Glassmorphism + reinforce sticky
-        background: 'var(--bg-glass, rgba(18, 18, 35, 0.6))',
-        borderBottom: '1px solid var(--border-glass, rgba(255, 255, 255, 0.1))',
-        boxShadow: 'var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4))',
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000,
-      }}
     >
       <NavbarContainer>
-        <NavLogo href="/">
-          <Icon name="layers" size={32} />
-          <Span>Portfolio</Span>
+        <NavLogo href="/" aria-label="Usman Portfolio">
+          <Signature height={56} fontSize="2.6rem" iconSize={30} />
         </NavLogo>
 
         <MobileIcon onClick={() => setIsOpen(!isOpen)}>
@@ -74,13 +64,6 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2 }}
-            style={{
-              background: 'var(--bg-glass, rgba(18, 18, 35, 0.8))',
-              border: '1px solid var(--border-glass, rgba(255, 255, 255, 0.1))',
-              boxShadow: 'var(--shadow-md, 0 8px 30px rgba(0,0,0,0.6))',
-              borderRadius: '1rem',
-              marginTop: '8px',
-            }}
           >
             <MobileLink href="#about" onClick={() => setIsOpen(false)}>
               About

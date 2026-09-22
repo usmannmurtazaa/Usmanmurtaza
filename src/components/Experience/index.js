@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
 import ExperienceCard from '../Cards/ExperienceCard';
+import Timeline from '../common/Timeline';
 import { experiences } from '../../data/constants';
 import { useReducedMotion, fadeInUpVariants } from '../../motionConfig';
 import { Icon } from '../common/Icon';
@@ -136,12 +131,8 @@ const StatLabel = styled.div`
 
 const TimelineContainer = styled.div`
   width: 100%;
-  max-width: 1000px;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  max-width: 1200px;
+  margin-top: 20px;
 `;
 
 const ExpertiseSection = styled(motion.div)`
@@ -232,9 +223,18 @@ const cardVariants = {
   },
 };
 
+/* ---------- Component ---------- */
+
 const Experience = () => {
   const prefersReduced = useReducedMotion();
   const totalYears = new Date().getFullYear() - 2023;
+
+  // Map experiences into the shape expected by the custom Timeline.
+  // Company name becomes the sticky title; ExperienceCard is the content.
+  const timelineData = experiences.map(exp => ({
+    title: exp.company,
+    content: <ExperienceCard experience={exp} />,
+  }));
 
   return (
     <Section id="experience" aria-labelledby="experience-heading">
@@ -318,38 +318,9 @@ const Experience = () => {
           </StatCard>
         </StatsSection>
 
-        {/* Timeline */}
+        {/* Timeline with tracing beam */}
         <TimelineContainer>
-          <Timeline position="alternate">
-            {experiences.map((exp, index) => (
-              <TimelineItem key={index}>
-                <TimelineSeparator>
-                  <TimelineDot
-                    variant={exp.date.includes('Present') ? 'filled' : 'outlined'}
-                    color="secondary"
-                    sx={{
-                      width: 20,
-                      height: 20,
-                      boxShadow: exp.date.includes('Present')
-                        ? '0 0 0 4px rgba(139, 92, 246, 0.2)'
-                        : 'none',
-                    }}
-                  />
-                  {index !== experiences.length - 1 && (
-                    <TimelineConnector
-                      sx={{
-                        background: 'linear-gradient(180deg, #8b5cf6 0%, #3b82f6 100%)',
-                        height: '60px',
-                      }}
-                    />
-                  )}
-                </TimelineSeparator>
-                <TimelineContent sx={{ py: '20px', px: 2 }}>
-                  <ExperienceCard experience={exp} />
-                </TimelineContent>
-              </TimelineItem>
-            ))}
-          </Timeline>
+          <Timeline data={timelineData} />
         </TimelineContainer>
 
         {/* Expertise Section */}

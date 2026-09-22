@@ -2,7 +2,7 @@ const SITE_URL = 'https://usmanmurtaza.netlify.app';
 const SITE_NAME = 'Usman Murtaza';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 const DEFAULT_DESCRIPTION =
-  'Senior Frontend Engineer and Full‑stack React developer crafting high‑performance SaaS interfaces, motion design, and glassmorphism UI. Available for hire.';
+  'Usman Murtaza is a Full Stack Developer and UI/UX-focused web developer building modern, responsive applications with React, JavaScript, Node.js, and AI-assisted workflows. Explore the Maniesta ecosystem and other portfolio projects.';
 
 export const siteMetadata = {
   siteName: SITE_NAME,
@@ -16,7 +16,7 @@ export const siteMetadata = {
 export const getMetaTags = (page, customData = {}) => {
   // Base defaults for all pages
   const defaults = {
-    title: `${SITE_NAME} – Full‑Stack Developer`,
+    title: `${SITE_NAME} | Full Stack Developer`,
     description: DEFAULT_DESCRIPTION,
     image: DEFAULT_IMAGE,
     url: SITE_URL,
@@ -27,43 +27,43 @@ export const getMetaTags = (page, customData = {}) => {
     twitterCreator: siteMetadata.twitterHandle,
     author: siteMetadata.author,
     keywords:
-      'frontend developer, react developer, full stack, SaaS, portfolio, usman murtaza, motion design, glassmorphism',
+      'usman murtaza, full stack developer, react developer, javascript developer, node.js developer, ui/ux designer, web developer, frontend developer, portfolio, maniesta',
   };
 
   // Per‑page overrides
   const pageMeta = {
     home: {
-      title: `Usman Murtaza | Full Stack Developer`,
+      title: `${SITE_NAME} | Full Stack Developer`,
       description: DEFAULT_DESCRIPTION,
       keywords:
-        'React Developer, Full Stack Developer, JavaScript, Node.js, SaaS, Portfolio, motion design, glassmorphism, frontend engineer',
+        'usman murtaza, full stack developer, react developer, javascript developer, node.js developer, ui/ux designer, web developer, frontend developer, portfolio, maniesta, resume builder, campus management system',
     },
     projects: {
-      title: `Featured Projects – ${SITE_NAME}`,
+      title: `Projects — ${SITE_NAME}`,
       description:
-        'Explore production‑grade projects including ResumeAI Pro, Maniesta Campus, and Zain Real Estate. Each one demonstrates deep technical skill and product thinking.',
+        'Selected projects by Usman Murtaza, including ResumeAI Pro, Maniesta Campus, Maniesta Resume AI, Zain Real Estate, Maniesta Suite, and the wider Maniesta ecosystem. Built with React, Node.js, Express, MongoDB, PostgreSQL, and modern front-end tooling.',
       keywords:
-        'React Projects, SaaS, Web Applications, Full Stack Projects, portfolio, usman murtaza',
+        'react projects, full stack projects, portfolio projects, maniesta, resumeai pro, maniesta campus, zain real estate, saas, web applications',
     },
     about: {
-      title: `About – ${SITE_NAME}`,
+      title: `About — ${SITE_NAME}`,
       description:
-        'Learn about my journey as a Senior Frontend Engineer, my technical expertise in React, Node.js, and modern UI, and what drives me to build exceptional web applications.',
+        'Learn about Usman Murtaza — a Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. Explore the Maniesta ecosystem and other portfolio work.',
       keywords:
-        'About Me, Full Stack Developer, React Developer, Karachi, Pakistan, senior frontend engineer',
+        'about usman murtaza, full stack developer, react developer, ui/ux designer, karachi, pakistan, maniesta',
     },
     contact: {
-      title: `Contact – ${SITE_NAME}`,
+      title: `Contact — ${SITE_NAME}`,
       description:
-        'Get in touch for project inquiries, collaboration opportunities, or freelance work. I respond within 24 hours.',
+        'Get in touch with Usman Murtaza for project inquiries, collaboration, or freelance work. Send a message and I will get back to you.',
       keywords:
-        'Contact Usman Murtaza, Hire React Developer, Freelance Developer, Karachi, senior frontend engineer',
+        'contact usman murtaza, hire react developer, freelance developer, karachi, full stack developer',
     },
     tools: {
-      title: `Tools & Utilities – ${SITE_NAME}`,
+      title: `Tools & Utilities — ${SITE_NAME}`,
       description:
-        'A collection of utility tools including calculators and productivity apps built with modern web technologies.',
-      keywords: 'Developer Tools, Utilities, Web Apps, Calculator, usman murtaza',
+        'A collection of lightweight utility tools and web applications built by Usman Murtaza — including calculators, notes, weather, and other quick-use utilities.',
+      keywords: 'developer tools, utilities, web apps, calculator, notes, weather, usman murtaza',
     },
   };
 

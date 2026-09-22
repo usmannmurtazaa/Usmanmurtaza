@@ -1,14 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
 import { education } from '../../data/constants';
-import TimelineDot from '@mui/lab/TimelineDot';
 import EducationCard from '../Cards/EducationCard';
+import Timeline from '../common/Timeline';
 import { useReducedMotion, fadeInUpVariants } from '../../motionConfig';
 import { Icon } from '../common/Icon';
 
@@ -150,13 +145,8 @@ const IconWrapper = styled.span`
 
 const TimelineContainer = styled.div`
   width: 100%;
-  max-width: 1000px;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
+  max-width: 1200px;
+  margin-top: 20px;
 `;
 
 const SkillsHighlight = styled(motion.div)`
@@ -246,8 +236,18 @@ const cardVariants = {
   },
 };
 
+/* ---------- Component ---------- */
+
 const Education = () => {
   const prefersReduced = useReducedMotion();
+
+  // Map education data into the shape expected by the custom Timeline:
+  // { title, content }. The school name becomes the sticky title; the
+  // EducationCard becomes the content.
+  const timelineData = education.map(item => ({
+    title: item.school,
+    content: <EducationCard education={item} />,
+  }));
 
   return (
     <Section id="education" aria-labelledby="education-heading">
@@ -338,37 +338,9 @@ const Education = () => {
           </StatCard>
         </StatsGrid>
 
-        {/* Timeline */}
+        {/* Timeline with tracing beam */}
         <TimelineContainer>
-          <Timeline position="alternate">
-            {education.map((item, index) => (
-              <TimelineItem key={index}>
-                <TimelineContent sx={{ py: '20px', px: 2 }}>
-                  <EducationCard education={item} />
-                </TimelineContent>
-                <TimelineSeparator>
-                  <TimelineDot
-                    variant={item.date.includes('Present') ? 'filled' : 'outlined'}
-                    color="secondary"
-                    sx={{
-                      width: 20,
-                      height: 20,
-                      boxShadow: item.date.includes('Present')
-                        ? '0 0 0 4px rgba(139, 92, 246, 0.2)'
-                        : 'none',
-                    }}
-                  />
-                  {index !== education.length - 1 && (
-                    <TimelineConnector
-                      sx={{
-                        background: 'linear-gradient(180deg, #8b5cf6 0%, #3b82f6 100%)',
-                      }}
-                    />
-                  )}
-                </TimelineSeparator>
-              </TimelineItem>
-            ))}
-          </Timeline>
+          <Timeline data={timelineData} />
         </TimelineContainer>
 
         {/* Skills Highlight */}

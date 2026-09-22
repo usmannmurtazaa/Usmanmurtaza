@@ -167,28 +167,30 @@ const About = () => {
           transition={{ duration: 0.7, delay: 0.2 }}
         >
           <Paragraph>
-            I am a detail-oriented <Highlight>Full Stack Developer</Highlight> with a strong
-            foundation in both <Highlight>frontend and backend development</Highlight>. My expertise
-            includes building modern, scalable web applications using core technologies like{' '}
-            <Highlight>React.js</Highlight>, <Highlight>JavaScript</Highlight>,{' '}
-            <Highlight>Node.js</Highlight>, and <Highlight>PostgreSQL</Highlight>.
+            I am a <Highlight>Full Stack Developer</Highlight> building modern, responsive web
+            applications with <Highlight>React</Highlight>, <Highlight>JavaScript</Highlight>, and{' '}
+            <Highlight>Node.js</Highlight>. My work spans front-end engineering, back-end APIs, and
+            UI/UX - from interface design and component architecture through to database integration
+            and deployment.
           </Paragraph>
 
           <Paragraph>
-            My portfolio highlights practical projects such as <Highlight>Vexa</Highlight>, a
-            feature‑rich project management application, and an{' '}
-            <Highlight>e‑commerce platform</Highlight> for Al Falah Leather. I am proficient in
-            creating <Highlight>responsive designs</Highlight>, optimizing{' '}
-            <Highlight>web performance</Highlight>, and implementing full‑stack solutions with tools
-            like <Highlight>Express</Highlight>, <Highlight>MongoDB</Highlight>, and{' '}
-            <Highlight>Redux</Highlight>.
+            My portfolio includes the <Highlight>Maniesta ecosystem</Highlight> -{' '}
+            <Highlight>Maniesta</Highlight>, <Highlight>Maniesta Campus</Highlight>,{' '}
+            <Highlight>Maniesta Resume AI</Highlight>, and other Maniesta-family tools - along with
+            projects like <Highlight>ResumeAI Pro</Highlight> and{' '}
+            <Highlight>Zain Real Estate</Highlight>, and client work on the{' '}
+            <Highlight>Al Falah Leather website</Highlight>. I focus on{' '}
+            <Highlight>responsive layouts</Highlight>, <Highlight>clean component design</Highlight>
+            , and full-stack implementations using <Highlight>Express</Highlight>,{' '}
+            <Highlight>MongoDB</Highlight>, and <Highlight>PostgreSQL</Highlight>.
           </Paragraph>
 
           <Paragraph>
-            Driven by a passion for clean code and impactful solutions, I focus on delivering
-            high‑quality, user‑centric applications. Explore my projects and experience to see how I
-            solve complex problems with efficient, modern <Highlight>web development</Highlight>{' '}
-            practices.
+            I enjoy turning ideas into working products: from problem framing and interface design
+            through implementation, integration, and iteration. Driven by a focus on clean code and
+            practical architecture, I build <Highlight>user-centric web applications</Highlight>{' '}
+            with modern <Highlight>web development</Highlight> practices.
           </Paragraph>
         </GlassCard>
 
@@ -202,17 +204,23 @@ const About = () => {
         >
           <ExpertiseCard variants={prefersReduced ? {} : cardVariants}>
             <h3>Frontend Expertise</h3>
-            <p>React.js, JavaScript, HTML5, CSS3, Redux, Next.js, Material UI, Bootstrap</p>
+            <p>
+              React.js, Next.js, Redux, JavaScript, HTML5, CSS3, Tailwind CSS, Material UI,
+              Bootstrap
+            </p>
           </ExpertiseCard>
 
           <ExpertiseCard variants={prefersReduced ? {} : cardVariants}>
             <h3>Backend Skills</h3>
-            <p>Node.js, Express.js, MongoDB, PostgreSQL, GraphQL, REST APIs</p>
+            <p>Node.js, Express.js, REST APIs, GraphQL, MongoDB, PostgreSQL</p>
           </ExpertiseCard>
 
           <ExpertiseCard variants={prefersReduced ? {} : cardVariants}>
             <h3>Development Focus</h3>
-            <p>Responsive Design, Web Performance, Scalable Architecture, Clean Code, UI/UX</p>
+            <p>
+              Responsive Design, UI/UX, Web Performance, Clean Code, AI-Assisted Application
+              Development
+            </p>
           </ExpertiseCard>
         </ExpertiseGrid>
 
@@ -223,7 +231,10 @@ const About = () => {
             <SocialMediaIcon href="https://github.com/usmannmurtazaa" aria-label="GitHub">
               <Icon name="github" size={22} />
             </SocialMediaIcon>
-            <SocialMediaIcon href="https://linkedin.com/in/usmannmurtazaa" aria-label="LinkedIn">
+            <SocialMediaIcon
+              href="https://www.linkedin.com/in/Usmannmurtazaa/"
+              aria-label="LinkedIn"
+            >
               <Icon name="linkedin" size={22} />
             </SocialMediaIcon>
             <SocialMediaIcon href="https://twitter.com/usman_murtazaa" aria-label="Twitter">

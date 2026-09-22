@@ -346,11 +346,11 @@ const Contact = () => {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Looking for a <strong>React Developer</strong> or <strong>Full Stack Engineer</strong>?
-          Whether you have a project in mind, need consultation on{' '}
-          <strong>web performance optimization</strong>, or want to discuss{' '}
-          <strong>modern UI development</strong> opportunities, I&apos;d love to connect. Let&apos;s
-          build something amazing together.
+          Looking for a <strong>Full Stack Developer</strong> or <strong>React specialist</strong>?
+          Whether you have a project in mind, need a modern{' '}
+          <strong>responsive web application</strong>, or want to discuss a role across{' '}
+          <strong>front-end or full-stack development</strong>, I&apos;d love to hear from you. Tell
+          me what you&apos;re building and let&apos;s see how I can help.
         </Desc>
 
         <FormCard
@@ -364,9 +364,10 @@ const Contact = () => {
         >
           <FormHeading>Send a Message</FormHeading>
           <FormSubtitle>
-            Interested in <strong>responsive web design</strong>,{' '}
-            <strong>JavaScript projects</strong>, or <strong>React.js development</strong>?
-            Let&apos;s discuss how I can help bring your ideas to life.
+            Interested in a <strong>React project</strong>, a{' '}
+            <strong>responsive web application</strong>, or a <strong>full-stack build</strong>{' '}
+            involving Node.js and modern tooling? Share a few details below and I&apos;ll get back
+            to you.
           </FormSubtitle>
 
           {error && (
@@ -409,7 +410,7 @@ const Contact = () => {
               Your Message <RequiredStar>*</RequiredStar>
             </InputLabel>
             <GlassTextarea
-              placeholder="Hello Usman, I'd like to discuss a project involving React.js and modern web technologies..."
+              placeholder="Hello Usman, I'd like to discuss a project..."
               name="message"
               rows="6"
               required

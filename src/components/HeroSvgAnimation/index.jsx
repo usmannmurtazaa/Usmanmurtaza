@@ -10,7 +10,7 @@ const SvgWrapper = styled(motion.div)`
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  opacity: ${({ reduced }) => (reduced ? 0.08 : 0.1)};
+  opacity: ${({ $reduced }) => ($reduced ? 0.08 : 0.1)};
   overflow: visible;
 
   svg {
@@ -23,7 +23,7 @@ const SvgWrapper = styled(motion.div)`
   /* Lighter on mobile: smaller footprint, slightly lower opacity so the
      rings do not compete with the hero content on small screens. */
   @media (max-width: 768px) {
-    opacity: ${({ reduced }) => (reduced ? 0.06 : 0.08)};
+    opacity: ${({ $reduced }) => ($reduced ? 0.06 : 0.08)};
 
     svg {
       max-width: 380px;
@@ -36,7 +36,7 @@ const HeroSvgAnimation = () => {
   const prefersReduced = useReducedMotion();
 
   return (
-    <SvgWrapper reduced={prefersReduced} aria-hidden="true">
+    <SvgWrapper $reduced={prefersReduced} aria-hidden="true">
       <svg
         viewBox="0 0 602 602"
         fill="none"

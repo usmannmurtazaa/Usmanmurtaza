@@ -10,10 +10,9 @@ const SvgWrapper = styled(motion.div)`
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  opacity: ${({ reduced }) => (reduced ? 0.08 : 0.1)};
+  opacity: ${({ $reduced }) => ($reduced ? 0.08 : 0.1)};
   overflow: hidden;
 
-  /* Hide entirely on mobile for performance */
   @media (max-width: 768px) {
     display: none;
   }
@@ -30,7 +29,7 @@ const HeroSvgAnimation = () => {
   const prefersReduced = useReducedMotion();
 
   return (
-    <SvgWrapper reduced={prefersReduced} aria-hidden="true">
+    <SvgWrapper $reduced={prefersReduced} aria-hidden="true">
       <svg
         viewBox="0 0 602 602"
         fill="none"

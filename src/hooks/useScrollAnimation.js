@@ -1,30 +1,25 @@
 import { useRef } from 'react';
 import { useInView } from 'framer-motion';
-import { useReducedMotion } from '../motionConfig'; // shared hook
+import { useReducedMotion, fadeInUpVariants } from '../motionConfig';
 
 /**
  * useScrollAnimation – returns a ref and animation props for Framer Motion.
  *
+ * Uses the shared `fadeInUpVariants` from motionConfig so the reveal timing
+ * and easing stay consistent with every other section on the site. The
+ * blur-filter that used to be part of this hook's default variants was
+ * removed for performance (animating a CSS blur filter forces per-frame
+ * GPU rasterization).
+ *
  * @param {object} options
- * @param {object} options.variants   – motion variants (defaults to fadeInUp)
- * @param {number} options.amount     – "amount" threshold for useInView (0 - 1)
- * @param {boolean} options.once      – only animate once
+ * @param {object} [options.variants] – motion variants (defaults to fadeInUpVariants)
+ * @param {number} [options.amount]   – "amount" threshold for useInView (0 – 1)
+ * @param {boolean} [options.once]    – only animate once
  * @returns {{ ref: React.Ref, animation: object }}
  */
 export const useScrollAnimation = ({ variants, amount = 0.2, once = true } = {}) => {
   const ref = useRef(null);
   const prefersReduced = useReducedMotion();
-
-  // Import fadeInUpVariants lazily to avoid circular dependency
-  let defaultVariants;
-  if (!variants) {
-    // We import dynamically inside the hook to avoid issues,
-    // but you can also import at the top if motionConfig doesn't import this hook.
-    defaultVariants = {
-      hidden: { opacity: 0, y: 24, filter: 'blur(4px)' },
-      visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
-    };
-  }
 
   const isInView = useInView(ref, { amount, once });
 
@@ -33,7 +28,7 @@ export const useScrollAnimation = ({ variants, amount = 0.2, once = true } = {})
     : {
         initial: 'hidden',
         animate: isInView ? 'visible' : 'hidden',
-        variants: variants || defaultVariants,
+        variants: variants || fadeInUpVariants,
         transition: { duration: 0.5, ease: 'easeOut' },
       };
 

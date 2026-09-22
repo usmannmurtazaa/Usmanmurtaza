@@ -1,5 +1,6 @@
 import { useState, lazy, Suspense } from 'react';
 import Layout from './components/common/Layout/Layout';
+import LiveBackground from './components/common/LiveBackground';
 import Hero from './components/HeroSection';
 import styled from 'styled-components';
 import './App.css';
@@ -9,6 +10,7 @@ const Skills = lazy(() => import('./components/Skills'));
 const Experience = lazy(() => import('./components/Experience'));
 const Projects = lazy(() => import('./components/Projects'));
 const Education = lazy(() => import('./components/Education'));
+const Certificates = lazy(() => import('./components/Certificates'));
 const Contact = lazy(() => import('./components/Contact'));
 const ProjectCaseStudy = lazy(() => import('./components/ProjectCaseStudy'));
 
@@ -39,6 +41,7 @@ function App() {
   return (
     <Layout>
       <Body>
+        <LiveBackground />
         <Hero />
         <Suspense fallback={<SectionFallback />}>
           <SectionWrapper>
@@ -48,6 +51,7 @@ function App() {
           <Projects openModal={openModal} setOpenModal={setOpenModal} />
           <SectionWrapper>
             <Education />
+            <Certificates />
             <Contact />
           </SectionWrapper>
         </Suspense>

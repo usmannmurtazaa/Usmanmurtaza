@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
 import styled from 'styled-components';
 import { Icon } from '../common/Icon';
-import { useReducedMotion, springTransition } from '../../motionConfig';
+import { useReducedMotion } from '../../motionConfig';
 import { trackEvent } from '../../analytics';
 import { toWebpSrcSet } from '../../utils/image';
 
@@ -17,7 +17,6 @@ const Card = styled(motion.div)`
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   border-radius: 1.25rem;
   box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.4));
-  overflow: hidden;
   padding: 26px 20px;
   display: flex;
   flex-direction: column;
@@ -27,7 +26,24 @@ const Card = styled(motion.div)`
     border-color 0.3s ease;
   position: relative;
   cursor: pointer;
-  margin: 0 auto; /* center inside grid cell */
+  margin: 0 auto;
+  transform-style: preserve-3d;
+
+  /* Keyboard focus — visible for keyboard users only. */
+  &:focus-visible {
+    outline: 2px solid var(--accent-glow, #8b5cf6);
+    outline-offset: 4px;
+    border-color: rgba(139, 92, 246, 0.5);
+  }
+
+  /* Highlight overlay that follows the pointer. Hidden by default,
+     fades in on hover. */
+  .comet-highlight {
+    opacity: 0;
+  }
+  &:hover .comet-highlight {
+    opacity: 1;
+  }
 
   ${({ featured }) =>
     featured &&
@@ -50,6 +66,16 @@ const Card = styled(motion.div)`
   }
 `;
 
+const HighlightOverlay = styled(motion.div)`
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+`;
+
 const FeaturedBadge = styled.div`
   position: absolute;
   top: 12px;
@@ -66,6 +92,8 @@ const FeaturedBadge = styled.div`
   align-items: center;
   gap: 6px;
   box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  /* Floating in 3D space so it stays above the image's translateZ. */
+  transform: translateZ(40px);
 `;
 
 const Image = styled.img`
@@ -75,6 +103,13 @@ const Image = styled.img`
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+
+  /* Depth: pops the image forward when the card tilts. Only on
+     hover-capable devices so touch devices keep a flat card. */
+  @media (hover: hover) {
+    transform: translateZ(20px);
+    will-change: transform;
+  }
 
   @media (max-width: 480px) {
     height: 150px;
@@ -178,7 +213,10 @@ const Avatar = styled.img`
   }
 `;
 
-const ViewButton = styled.button`
+/* Presentational only. The parent card carries the button role and
+   handles click + keyboard, so this must not be an interactive element
+   (nested buttons are invalid HTML). */
+const ViewButton = styled.div`
   width: 100%;
   padding: 10px;
   background: var(--accent-gradient, linear-gradient(135deg, #8b5cf6, #3b82f6));
@@ -187,7 +225,6 @@ const ViewButton = styled.button`
   font-weight: 700;
   border: none;
   border-radius: 10px;
-  cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -195,55 +232,115 @@ const ViewButton = styled.button`
   gap: 8px;
   margin-top: 8px;
   box-shadow: 0 0 0 rgba(139, 92, 246, 0);
+  position: relative;
+  /* Slight depth so the CTA floats with the image. */
+  transform: translateZ(28px);
 
   ${Card}:hover & {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+    transform: translateZ(28px) scale(1.02);
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
   }
 
-  &:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
+  ${Card}:focus-visible & {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
   }
 `;
 
 const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
   const prefersReduced = useReducedMotion();
 
+  // Motion values — these update the DOM directly and do NOT trigger
+  // React re-renders when the pointer moves.
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Springs smooth the tilt and the return-to-rest after pointer leaves.
+  const springConfig = { stiffness: 250, damping: 30, mass: 0.6 };
+  const rotateXSpring = useSpring(rotateX, springConfig);
+  const rotateYSpring = useSpring(rotateY, springConfig);
+
+  // Highlight gradient whose center follows the pointer.
+  const highlightBg = useMotionTemplate`radial-gradient(240px circle at ${mouseX}px ${mouseY}px, rgba(139, 92, 246, 0.16), transparent 70%)`;
+
   const handleClick = () => {
     trackEvent('click_project_card', 'portfolio', project.title);
     setOpenModal({ state: true, project });
   };
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      handleClick();
+    }
+  };
+
+  const handleMouseMove = e => {
+    if (prefersReduced) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    // ±5° range keeps the effect subtle.
+    rotateY.set(((x - centerX) / centerX) * 5);
+    rotateX.set(-((y - centerY) / centerY) * 5);
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+  };
+
   const description = project.solution || project.description || '';
   const imageSrc = project.image || project.img || '';
 
-  const motionProps = prefersReduced
-    ? {}
-    : {
-        whileHover: { y: -6, transition: springTransition },
-        whileTap: { scale: 0.98 },
-      };
+  // Only whileTap remains — the hover lift is superseded by the tilt.
+  const tapProps = prefersReduced ? {} : { whileTap: { scale: 0.98 } };
 
   return (
-    <Card featured={isFeatured ? 1 : 0} onClick={handleClick} {...motionProps}>
+    <Card
+      featured={isFeatured ? 1 : 0}
+      role="button"
+      tabIndex={0}
+      aria-label={`View project: ${project.title}`}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX: rotateXSpring,
+        rotateY: rotateYSpring,
+        transformPerspective: 1200,
+      }}
+      {...tapProps}
+    >
+      <HighlightOverlay className="comet-highlight" style={{ background: highlightBg }} />
+
       {isFeatured && (
         <FeaturedBadge>
           <Icon name="star" size={14} /> Featured
         </FeaturedBadge>
       )}
+
       {/* Project thumbnail. The <source> prefers a .webp variant when it
           exists in public/. toWebpSrcSet() percent-encodes spaces in the
           path so the browser does not drop the candidate as a bad descriptor
           (e.g. "ResumeAi Pro.webp" → "ResumeAi%20Pro.webp"). */}
-      <picture>
+      <picture style={{ display: 'contents' }}>
         <source srcSet={toWebpSrcSet(imageSrc)} type="image/webp" />
         <Image src={imageSrc} alt={project.title} loading="lazy" decoding="async" />
       </picture>
+
       <Tags>
         {(project.tags || []).slice(0, 3).map((tag, idx) => (
           <Tag key={idx}>{tag}</Tag>
         ))}
       </Tags>
+
       <Details>
         <Title>{project.title}</Title>
         {project.keyHighlight && (
@@ -254,6 +351,7 @@ const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
         <Date>{project.date}</Date>
         <Description>{description}</Description>
       </Details>
+
       {project.member?.length > 0 && (
         <Members>
           {project.member.map((member, idx) => (
@@ -261,7 +359,8 @@ const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
           ))}
         </Members>
       )}
-      <ViewButton>
+
+      <ViewButton aria-hidden="true">
         View Project <Icon name="external" size={16} />
       </ViewButton>
     </Card>

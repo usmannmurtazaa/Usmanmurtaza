@@ -1,7 +1,7 @@
 import { Bio, projects } from '../data/constants';
 
 /**
- * Person schema – comprehensive JSON-LD for a senior developer.
+ * Person schema – comprehensive JSON-LD for a full-stack developer.
  */
 export const getPersonSchema = () => ({
   '@context': 'https://schema.org',
@@ -10,10 +10,10 @@ export const getPersonSchema = () => ({
   name: Bio.name,
   givenName: 'Usman',
   familyName: 'Murtaza',
-  jobTitle: 'Senior Frontend Engineer & Full‑Stack Developer',
+  jobTitle: 'Full Stack Developer',
   description:
     Bio.description ||
-    'Senior Frontend Engineer and Full‑Stack React developer specialising in high‑performance SaaS interfaces, motion design, and modern glassmorphism UI.',
+    'Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js — with a growing focus on UI/UX and AI-assisted workflows.',
   url: 'https://usmanmurtaza.netlify.app',
   image: 'https://usmanmurtaza.netlify.app/og-image.jpg',
   sameAs: [Bio.github, Bio.linkedin, Bio.twitter, Bio.insta, Bio.facebook].filter(Boolean),
@@ -29,17 +29,22 @@ export const getPersonSchema = () => ({
   ],
   knowsAbout: [
     'React.js',
-    'Node.js',
     'JavaScript',
-    'PostgreSQL',
-    'MongoDB',
+    'Node.js',
     'Express.js',
-    'TypeScript',
+    'MongoDB',
+    'PostgreSQL',
     'Next.js',
     'Redux',
     'GraphQL',
-    'Motion Design',
-    'Glassmorphism UI',
+    'HTML5',
+    'CSS3',
+    'Tailwind CSS',
+    'Material UI',
+    'REST APIs',
+    'UI/UX Design',
+    'Responsive Design',
+    'AI Integration',
   ],
 });
 
@@ -51,9 +56,9 @@ export const getWebSiteSchema = () => ({
   '@type': 'WebSite',
   '@id': 'https://usmanmurtaza.netlify.app/#website',
   url: 'https://usmanmurtaza.netlify.app',
-  name: 'Usman Murtaza | Senior Frontend Engineer Portfolio',
+  name: 'Usman Murtaza Portfolio',
   description:
-    'Portfolio of Usman Murtaza – Senior Frontend Engineer and React specialist creating premium SaaS interfaces and web applications.',
+    'Portfolio of Usman Murtaza — Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. Explore the Maniesta ecosystem and other portfolio projects.',
   publisher: {
     '@id': 'https://usmanmurtaza.netlify.app/#person',
   },

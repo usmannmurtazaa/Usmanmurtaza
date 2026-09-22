@@ -2,6 +2,9 @@ import React from 'react';
 import HeroBackground from '../HeroBgAnimation';
 import HeroImageDecorator from '../HeroImageDecorator';
 import HeroSvgAnimation from '../HeroSvgAnimation';
+import ThreeDCard, { ThreeDLayer } from '../common/ThreeDCard';
+import Vortex from '../common/Vortex';
+import styled from 'styled-components';
 import {
   HeroContainer,
   HeroBg,
@@ -30,6 +33,49 @@ import { trackHireMeClick, trackViewProjectsClick, trackEvent } from '../../anal
 
 const BADGES = ['React.js', 'Node.js', 'JavaScript'];
 
+/* Vortex background layer.
+   Desktop: full hero area (inset: 0), sits above HeroBg (z-index 0)
+   and below HeroInnerContainer (z-index 2).
+   Mobile/tablet (<= 960px, when the hero stacks vertically): the layer
+   is constrained to the top region so particles render behind the hero
+   image instead of spreading down into the text area. */
+const VortexLayer = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+
+  @media (max-width: 960px) {
+    bottom: auto;
+    height: min(115vw, 520px);
+  }
+`;
+
+/* Sizing container for the 3D hero image. Keeps the image at the same
+   effective size the plain <picture> used to occupy, while giving the
+   3D card a proper width to transform within. The `> *` rule forces
+   the ThreeDCard's inner motion.div to fill this slot — without it
+   the reusable wrapper (display: inline-block) shrink-wraps the image
+   to its intrinsic width. */
+const HeroCardSlot = styled.div`
+  width: 100%;
+  max-width: 400px;
+
+  > * {
+    display: block;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 350px;
+  }
+
+  @media (max-width: 640px) {
+    max-width: 280px;
+  }
+`;
+
 const HeroSection = () => {
   return (
     <section id="hero" aria-label="Hero Section">
@@ -37,6 +83,10 @@ const HeroSection = () => {
         <HeroBg>
           <HeroBackground />
         </HeroBg>
+
+        <VortexLayer>
+          <Vortex opacity={0.4} particleCount={400} mobileParticleCount={150} />
+        </VortexLayer>
 
         <HeroInnerContainer>
           {/* ---------- Left Side ---------- */}
@@ -160,7 +210,7 @@ const HeroSection = () => {
             animate="visible"
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            {/* Geometric SVG animation behind the image */}
+            {/* Geometric SVG layer behind the image */}
             <div
               style={{
                 position: 'absolute',
@@ -175,25 +225,28 @@ const HeroSection = () => {
 
             <HeroImageDecorator />
 
-            {/* Hero image with WebP preferred.
-                To enable WebP: convert src/images/HeroImage.png to WebP
-                (using cwebp, sharp, or squoosh.app) and save the result as
-                public/HeroImage.webp. The <source> below is used by modern
-                browsers when that file exists; older browsers and the case
-                where the file is missing fall back to the bundled PNG. */}
-            <picture>
-              <source srcSet={`${process.env.PUBLIC_URL}/HeroImage.webp`} type="image/webp" />
-              <Img
-                src={HeroImg}
-                alt="Usman Murtaza - Full Stack React Developer creating modern web applications"
-                title="Usman Murtaza | React.js & Full Stack Developer"
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                width="400"
-                height="500"
-              />
-            </picture>
+            {/* Hero image with WebP preferred, wrapped in a 3D tilt card.
+                The ThreeDLayer adds a small translateZ depth so the image
+                floats forward slightly when the card tilts. */}
+            <HeroCardSlot>
+              <ThreeDCard maxTilt={12} perspective={1000}>
+                <ThreeDLayer $depth={30}>
+                  <picture style={{ display: 'contents' }}>
+                    <source srcSet={`${process.env.PUBLIC_URL}/HeroImage.webp`} type="image/webp" />
+                    <Img
+                      src={HeroImg}
+                      alt="Usman Murtaza - Full Stack React Developer creating modern web applications"
+                      title="Usman Murtaza | React.js & Full Stack Developer"
+                      loading="eager"
+                      decoding="async"
+                      fetchpriority="high"
+                      width="400"
+                      height="500"
+                    />
+                  </picture>
+                </ThreeDLayer>
+              </ThreeDCard>
+            </HeroCardSlot>
 
             {/* Static badges */}
             <div className="image-badge">

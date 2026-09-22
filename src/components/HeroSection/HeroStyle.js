@@ -27,13 +27,15 @@ export const HeroContainer = styled.section`
   display: flex;
   justify-content: center;
   position: relative;
-  padding: 20px 10px 40px 10px;
+  /* Top padding clears the floating navbar pill (top: 16px + height: 72px
+     ≈ 88px) plus ~16px breathing room. */
+  padding: 104px 10px 40px 10px;
   z-index: 1;
   overflow: hidden;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 95%, 0 100%);
 
   @media (max-width: 960px) {
-    padding: 40px 16px 60px 16px;
+    padding: 104px 16px 60px 16px;
   }
 
   /* On mobile the hero stacks vertically, so the diagonal clip that
@@ -44,7 +46,9 @@ export const HeroContainer = styled.section`
   }
 
   @media (max-width: 640px) {
-    padding: 60px 16px 60px 16px;
+    /* Mobile nav is smaller (12px top + 64px height ≈ 76px). 96px gives
+       a comfortable gap below it. */
+    padding: 96px 16px 60px 16px;
   }
 `;
 

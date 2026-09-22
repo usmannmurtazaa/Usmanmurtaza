@@ -13,33 +13,50 @@ export const Nav = styled.nav`
   background: ${bgGlass};
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid ${borderGlass};
+  border: 1px solid ${borderGlass};
+  border-radius: 1.5rem;
   box-shadow: ${shadowSm};
-  height: 80px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
 
-  /* 🔒 Fixed – always stays on top */
+  /* Floating pill — narrower than the viewport, centered horizontally.
+     Uses left/right + margin auto instead of transform so it does not
+     conflict with Framer Motion's transform-driven entrance animation. */
   position: fixed;
-  top: 0;
+  top: 16px;
   left: 0;
-  width: 100%;
+  right: 0;
+  margin: 0 auto;
+  width: calc(100% - 32px);
+  max-width: 1200px;
   z-index: 1100;
 
   transition: background 0.3s ease;
+
+  @media (max-width: 768px) {
+    top: 12px;
+    width: calc(100% - 24px);
+    height: 64px;
+    border-radius: 1.25rem;
+  }
 `;
 
 export const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 100%;
   z-index: 1;
   width: 100%;
   padding: 0 24px;
   max-width: 1200px;
+
+  @media (max-width: 640px) {
+    padding: 0 16px;
+  }
 `;
 
 export const NavLogo = styled.a`
@@ -162,18 +179,16 @@ export const MobileMenu = styled.div`
   justify-content: center;
   gap: 16px;
   position: absolute;
-  top: 80px;
+  /* Sits just below the floating pill nav. */
+  top: calc(100% + 8px);
   right: 0;
   width: 100%;
-  /* Fluid horizontal padding: 16px at 320px viewport, up to 40px at ~800px.
-     Keeps the mobile drawer content comfortably full-width on small screens
-     while still breathing at the top of the mobile breakpoint. */
   padding: 12px clamp(16px, 5vw, 40px) 24px clamp(16px, 5vw, 40px);
   background: ${bgGlass};
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid ${borderGlass};
-  border-radius: 0 0 1.5rem 1.5rem;
+  border-radius: 1.25rem;
   box-shadow: ${shadowMd};
   transition: all 0.3s ease;
   transform: ${({ $isOpen }) => ($isOpen ? 'translateY(0)' : 'translateY(-100%)')};
