@@ -20,13 +20,15 @@
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
 
   <!-- Google Fonts: preconnect + stylesheet.
-       Plus Jakarta Sans is the site-wide body font.
-       The calligraphy signature uses system fallbacks (Brush Script MT,
-       Lucida Handwriting) which render as a real signature look on most
-       platforms — no extra font download required. -->
+       - Plus Jakarta Sans → site-wide body font
+       - Yellowtail → calligraphy signature (primary)
+       - Dancing Script → calligraphy signature (fallback)
+       All three families are fetched in a single request.
+       display=swap keeps text visible during font load. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Yellowtail&family=Dancing+Script:wght@400;600&display=swap"
     rel="stylesheet" />
 
   <!-- Primary Meta Tags -->

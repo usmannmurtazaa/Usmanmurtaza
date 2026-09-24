@@ -115,9 +115,12 @@ const TextBlock = styled.span`
 
 const SignatureText = styled.span`
   display: inline-block;
-  /* System calligraphy font available on Windows. Kept as the sole
-     entry in the stack so the signature always renders in this style. */
-  font-family: 'Brush Script MT';
+  /* 'Yellowtail' (loaded via Google Fonts in index.html) is a casual brush
+     script that closely matches Brush Script MT. It renders on every
+     platform, so the signature looks the same on desktop and mobile.
+     The remaining families are graceful fallbacks if the webfont fails
+     to load or is blocked. */
+  font-family: 'Yellowtail', 'Dancing Script', 'Brush Script MT', 'Lucida Handwriting', cursive;
   font-size: ${({ $fontSize }) => $fontSize};
   font-weight: 400;
   white-space: nowrap;
