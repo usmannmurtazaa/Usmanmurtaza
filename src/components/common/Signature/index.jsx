@@ -81,6 +81,11 @@ const Wrapper = styled.span`
     border-radius: 6px;
   }
 
+  @media (max-width: 640px) {
+    gap: 7px;
+    min-height: ${({ $height }) => $height * 0.85}px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     transition: none;
 
@@ -101,6 +106,11 @@ const SignatureIcon = styled.svg`
   transform-origin: 50% 50%;
   animation: ${iconIn} 500ms ease-out 100ms forwards;
 
+  @media (max-width: 640px) {
+    width: ${({ $iconSize }) => $iconSize * 0.8}px;
+    height: ${({ $iconSize }) => $iconSize * 0.8}px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     opacity: 1;
     animation: none;
@@ -120,7 +130,8 @@ const SignatureText = styled.span`
      platform, so the signature looks the same on desktop and mobile.
      The remaining families are graceful fallbacks if the webfont fails
      to load or is blocked. */
-  font-family: 'Yellowtail', 'Dancing Script', 'Brush Script MT', 'Lucida Handwriting', cursive;
+  font-family: 'Yellowtail', 'Dancing Script', 'Brush Script MT',
+    'Lucida Handwriting', cursive;
   font-size: ${({ $fontSize }) => $fontSize};
   font-weight: 400;
   white-space: nowrap;
@@ -149,6 +160,12 @@ const SignatureText = styled.span`
   animation:
     ${textIn} 600ms ease-out 200ms forwards,
     ${shimmer} 6s linear 800ms infinite;
+
+  /* Scale text down on mobile. Uses calc() with the passed font-size,
+     which works because the prop carries a unit (e.g. "2.6rem"). */
+  @media (max-width: 640px) {
+    font-size: calc(${({ $fontSize }) => $fontSize} * 0.8);
+  }
 
   @media (prefers-reduced-motion: reduce) {
     opacity: 1;
@@ -180,6 +197,10 @@ const UnderlineSvg = styled.svg`
     stroke-dashoffset: 210;
     opacity: 0.55;
     animation: ${strokeDraw} 900ms ease-out 350ms forwards;
+  }
+
+  @media (max-width: 640px) {
+    bottom: -5px;
   }
 
   @media (prefers-reduced-motion: reduce) {
