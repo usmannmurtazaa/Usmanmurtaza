@@ -130,8 +130,7 @@ const SignatureText = styled.span`
      platform, so the signature looks the same on desktop and mobile.
      The remaining families are graceful fallbacks if the webfont fails
      to load or is blocked. */
-  font-family: 'Yellowtail', 'Dancing Script', 'Brush Script MT',
-    'Lucida Handwriting', cursive;
+  font-family: 'Yellowtail', 'Dancing Script', 'Brush Script MT', 'Lucida Handwriting', cursive;
   font-size: ${({ $fontSize }) => $fontSize};
   font-weight: 400;
   white-space: nowrap;
