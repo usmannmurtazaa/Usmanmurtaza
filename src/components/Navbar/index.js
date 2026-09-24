@@ -35,7 +35,7 @@ const Navbar = () => {
     >
       <NavbarContainer>
         <NavLogo href="/" aria-label="Usman Portfolio">
-          <Signature height={56} fontSize="2.6rem" iconSize={30} />
+          <Signature height={48} fontSize="2.2rem" iconSize={24} />
         </NavLogo>
 
         <MobileIcon onClick={() => setIsOpen(!isOpen)}>

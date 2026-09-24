@@ -159,17 +159,28 @@ export const ButtonContainer = styled.div`
   }
 `;
 
+/* Mobile hamburger icon. Uses flex centering instead of absolute
+   positioning so the SVG sits exactly on the vertical centerline of the
+   pill. Absolute + translateY(-50%) was off by a couple of pixels
+   because the SVG has baseline spacing from the surrounding font. */
 export const MobileIcon = styled.div`
   display: none;
   @media screen and (max-width: 768px) {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 24px;
-    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 6px;
+    border-radius: 8px;
+    line-height: 1;
     font-size: 1.5rem;
     cursor: pointer;
     color: ${textPrimary};
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
   }
 `;
 

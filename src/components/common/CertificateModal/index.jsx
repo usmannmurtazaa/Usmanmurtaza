@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
@@ -19,45 +20,49 @@ const Overlay = styled(motion.div)`
   align-items: center;
   justify-content: center;
   padding: 20px;
+
+  @media (max-width: 640px) {
+    padding: 0;
+    align-items: stretch;
+  }
 `;
 
-/* The image is constrained by viewport units directly. No parent height
-   math, no flex-basis tricks, no overflow clipping. max-width and
-   max-height alone guarantee the image never exceeds the viewport. */
-const ImageWrapper = styled.div`
+/* Modal panel. On desktop it is a centered card; on mobile it becomes a
+   full-screen sheet using 100dvh (dynamic viewport height, which handles
+   iOS Safari's URL bar correctly). The meta bar is a flex child of this
+   panel, so it never overlaps the image. */
+const Panel = styled(motion.div)`
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 90vh;
+  max-height: 90vh;
+  background: rgba(18, 18, 35, 0.96);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.65),
+    0 0 40px rgba(139, 92, 246, 0.15);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 100%;
-  max-height: 100%;
+  flex-direction: column;
+  overflow: hidden;
 
-  picture {
-    display: contents;
-  }
-
-  img {
-    max-width: 90vw;
-    max-height: 85vh;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    border-radius: 12px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
-
-    @media (max-width: 640px) {
-      max-width: 95vw;
-      max-height: 78vh;
-      border-radius: 8px;
-    }
+  @media (max-width: 640px) {
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: none;
   }
 `;
 
-/* Anchored to the viewport, not to any parent. Cannot be hidden. */
+/* Anchored inside the panel, not to the viewport, so it always sits in
+   the top-right corner of the modal regardless of scroll. */
 const CloseBtn = styled.button`
-  position: fixed;
-  top: 16px;
-  right: 16px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -68,7 +73,7 @@ const CloseBtn = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10001;
+  z-index: 100;
   padding: 0;
   transition:
     background 200ms ease,
@@ -78,8 +83,8 @@ const CloseBtn = styled.button`
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 
   svg {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     stroke-width: 2.5;
   }
 
@@ -99,8 +104,8 @@ const CloseBtn = styled.button`
   }
 
   @media (max-width: 640px) {
-    top: 12px;
-    right: 12px;
+    top: 10px;
+    right: 10px;
     width: 44px;
     height: 44px;
   }
@@ -114,30 +119,64 @@ const CloseBtn = styled.button`
   }
 `;
 
-/* Anchored to the bottom of the viewport, centered horizontally. */
+/* Image area fills all space above the meta bar. min-height: 0 is
+   required for a flex child to shrink below its intrinsic content size.
+   Generous padding plus the max-width/max-height on the img keep the
+   certificate visually smaller and centered with clear margins. */
+const ImageArea = styled.div`
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px 30px 40px;
+  overflow: auto;
+
+  picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  img {
+    max-width: 85%;
+    max-height: 85%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (max-width: 640px) {
+    padding: 60px 20px 20px 20px;
+
+    img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 4px;
+    }
+  }
+`;
+
+/* Meta bar sits directly below the image as a flex child of the panel.
+   Not fixed to the viewport, so it never overlaps the image and never
+   collides with the phone's home indicator or URL bar. */
 const Meta = styled.div`
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10001;
-  padding: 10px 20px;
-  background: rgba(0, 0, 0, 0.78);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  max-width: calc(100vw - 40px);
+  flex-shrink: 0;
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 10, 22, 0.85);
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  gap: 3px;
 
   @media (max-width: 640px) {
-    bottom: 12px;
-    padding: 8px 16px;
-    border-radius: 10px;
+    padding: 12px 16px 14px;
   }
 `;
 
@@ -145,18 +184,23 @@ const Issuer = styled.div`
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(238, 242, 248, 0.75);
+  color: rgba(238, 242, 248, 0.7);
   font-weight: 500;
+
+  @media (max-width: 640px) {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
 `;
 
 const Title = styled.div`
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
-  line-height: 1.3;
+  line-height: 1.35;
 
   @media (max-width: 640px) {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 `;
 
@@ -166,6 +210,17 @@ const overlayVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.2 } },
   exit: { opacity: 0, transition: { duration: 0.15 } },
+};
+
+const panelVariants = {
+  hidden: { opacity: 0, scale: 0.96, y: 12 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.28, ease: 'easeOut' },
+  },
+  exit: { opacity: 0, scale: 0.96, y: 12, transition: { duration: 0.18 } },
 };
 
 /* ---------- Component ---------- */
@@ -197,7 +252,7 @@ const CertificateModal = ({ open, certificate, onClose }) => {
 
   const { issuer, courseTitle, image } = certificate;
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {open && (
         <Overlay
@@ -211,30 +266,33 @@ const CertificateModal = ({ open, certificate, onClose }) => {
           aria-modal="true"
           aria-label={`${issuer} — ${courseTitle}`}
         >
-          <ImageWrapper onClick={e => e.stopPropagation()}>
-            <picture>
-              <source srcSet={toWebpSrcSet(image)} type="image/webp" />
-              <img src={image} alt={`${issuer} — ${courseTitle}`} />
-            </picture>
-          </ImageWrapper>
-
-          <Meta onClick={e => e.stopPropagation()}>
-            <Issuer>{issuer}</Issuer>
-            <Title>{courseTitle}</Title>
-          </Meta>
-
-          <CloseBtn
-            onClick={e => {
-              e.stopPropagation();
-              onClose();
-            }}
-            aria-label="Close certificate"
+          <Panel
+            variants={prefersReduced ? {} : panelVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            onClick={e => e.stopPropagation()}
           >
-            <Icon name="x" size={24} />
-          </CloseBtn>
+            <CloseBtn onClick={onClose} aria-label="Close certificate">
+              <Icon name="x" size={22} />
+            </CloseBtn>
+
+            <ImageArea>
+              <picture>
+                <source srcSet={toWebpSrcSet(image)} type="image/webp" />
+                <img src={image} alt={`${issuer} — ${courseTitle}`} />
+              </picture>
+            </ImageArea>
+
+            <Meta>
+              <Issuer>{issuer}</Issuer>
+              <Title>{courseTitle}</Title>
+            </Meta>
+          </Panel>
         </Overlay>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 

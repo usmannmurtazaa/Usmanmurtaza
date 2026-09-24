@@ -19,6 +19,23 @@ const iconIn = keyframes`
   }
 `;
 
+/* Continuous breathing pulse for the code icon. Runs forever after the
+   entrance animation finishes. Compositor-only (transform + filter). */
+const iconPulse = keyframes`
+  0% {
+  transform: scale(1);
+  filter: drop-shadow(0 0 0 rgba(155, 118, 242, 0.54));
+}
+50% {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 20px rgba(77, 19, 210, 0.85));
+}
+100% {
+  transform: scale(1);
+  filter: drop-shadow(0 0 0 rgba(155, 118, 242, 0.54)); /* ← same as 0% */
+}
+`;
+
 const textIn = keyframes`
   0% {
     opacity: 0;
@@ -56,7 +73,7 @@ const shimmer = keyframes`
 const Wrapper = styled.span`
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
   min-height: ${({ $height }) => $height}px;
   line-height: 1;
   cursor: pointer;
@@ -81,11 +98,6 @@ const Wrapper = styled.span`
     border-radius: 6px;
   }
 
-  @media (max-width: 640px) {
-    gap: 7px;
-    min-height: ${({ $height }) => $height * 0.85}px;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     transition: none;
 
@@ -102,14 +114,11 @@ const SignatureIcon = styled.svg`
   height: ${({ $iconSize }) => $iconSize}px;
   flex-shrink: 0;
   color: var(--accent-glow, #8b5cf6);
-  opacity: 0;
   transform-origin: 50% 50%;
-  animation: ${iconIn} 500ms ease-out 100ms forwards;
-
-  @media (max-width: 640px) {
-    width: ${({ $iconSize }) => $iconSize * 0.8}px;
-    height: ${({ $iconSize }) => $iconSize * 0.8}px;
-  }
+  /* Entrance plays once, then the continuous pulse takes over at 600ms. */
+  animation:
+    ${iconIn} 500ms ease-out 100ms forwards,
+    ${iconPulse} 3s ease-in-out 600ms infinite;
 
   @media (prefers-reduced-motion: reduce) {
     opacity: 1;
@@ -125,16 +134,16 @@ const TextBlock = styled.span`
 
 const SignatureText = styled.span`
   display: inline-block;
-  /* 'Yellowtail' (loaded via Google Fonts in index.html) is a casual brush
-     script that closely matches Brush Script MT. It renders on every
-     platform, so the signature looks the same on desktop and mobile.
-     The remaining families are graceful fallbacks if the webfont fails
-     to load or is blocked. */
-  font-family: 'Yellowtail', 'Dancing Script', 'Brush Script MT', 'Lucida Handwriting', cursive;
+  /* Mr Dafoe is the primary calligraphy font — a bold, flowing signature
+     script loaded from Google Fonts (see public/index.html). Mrs Saint
+     Delafield is the graceful fallback if the primary webfont fails to
+     load. Both are formal signature-style scripts. */
+  font-family: 'Mr Dafoe', 'Mrs Saint Delafield', cursive;
   font-size: ${({ $fontSize }) => $fontSize};
   font-weight: 400;
   white-space: nowrap;
   line-height: 1;
+  padding: 5px 5px;
   letter-spacing: 0.02em;
 
   /* Gradient shimmer across the calligraphy. The text is painted with
@@ -159,12 +168,6 @@ const SignatureText = styled.span`
   animation:
     ${textIn} 600ms ease-out 200ms forwards,
     ${shimmer} 6s linear 800ms infinite;
-
-  /* Scale text down on mobile. Uses calc() with the passed font-size,
-     which works because the prop carries a unit (e.g. "2.6rem"). */
-  @media (max-width: 640px) {
-    font-size: calc(${({ $fontSize }) => $fontSize} * 0.8);
-  }
 
   @media (prefers-reduced-motion: reduce) {
     opacity: 1;
@@ -198,10 +201,6 @@ const UnderlineSvg = styled.svg`
     animation: ${strokeDraw} 900ms ease-out 350ms forwards;
   }
 
-  @media (max-width: 640px) {
-    bottom: -5px;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     path {
       stroke-dashoffset: 0;
@@ -214,7 +213,7 @@ const UnderlineSvg = styled.svg`
 
 const Signature = ({
   children = 'Usman.',
-  fontSize = '2.4rem',
+  fontSize = '2.2rem',
   height = 52,
   iconSize = 28,
   className,
