@@ -27,7 +27,7 @@ export const getMetaTags = (page, customData = {}) => {
     twitterCreator: siteMetadata.twitterHandle,
     author: siteMetadata.author,
     keywords:
-      'usman murtaza, full stack developer, react developer, javascript developer, node.js developer, ui/ux designer, web developer, frontend developer, portfolio, maniesta',
+      'usman murtaza, usman murtaza developer, usman murtaza full stack developer, usman murtaza react developer, usman murtaza portfolio, full stack developer, react developer, javascript developer, node.js developer, ui/ux designer, web developer, frontend developer, portfolio, maniesta, maniesta by usman murtaza, maniesta developer, maniesta ecosystem',
   };
 
   // Per‑page overrides
@@ -36,31 +36,31 @@ export const getMetaTags = (page, customData = {}) => {
       title: `${SITE_NAME} | Full Stack Developer`,
       description: DEFAULT_DESCRIPTION,
       keywords:
-        'usman murtaza, full stack developer, react developer, javascript developer, node.js developer, ui/ux designer, web developer, frontend developer, portfolio, maniesta, resume builder, campus management system',
+        'usman murtaza, usman murtaza developer, usman murtaza full stack developer, usman murtaza react developer, usman murtaza portfolio, full stack developer, react developer, javascript developer, node.js developer, ui/ux designer, web developer, frontend developer, portfolio, maniesta, maniesta by usman murtaza, maniesta developer, maniesta ecosystem, maniesta campus, maniesta resume ai, resumeai pro, nexa calculator, zain real estate',
     },
     projects: {
-      title: `Projects — ${SITE_NAME}`,
+      title: `Projects | ${SITE_NAME}`,
       description:
         'Selected projects by Usman Murtaza, including ResumeAI Pro, Maniesta Campus, Maniesta Resume AI, Zain Real Estate, Maniesta Suite, and the wider Maniesta ecosystem. Built with React, Node.js, Express, MongoDB, PostgreSQL, and modern front-end tooling.',
       keywords:
         'react projects, full stack projects, portfolio projects, maniesta, resumeai pro, maniesta campus, zain real estate, saas, web applications',
     },
     about: {
-      title: `About — ${SITE_NAME}`,
+      title: `About | ${SITE_NAME}`,
       description:
         'Learn about Usman Murtaza — a Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. Explore the Maniesta ecosystem and other portfolio work.',
       keywords:
         'about usman murtaza, full stack developer, react developer, ui/ux designer, karachi, pakistan, maniesta',
     },
     contact: {
-      title: `Contact — ${SITE_NAME}`,
+      title: `Contact | ${SITE_NAME}`,
       description:
         'Get in touch with Usman Murtaza for project inquiries, collaboration, or freelance work. Send a message and I will get back to you.',
       keywords:
         'contact usman murtaza, hire react developer, freelance developer, karachi, full stack developer',
     },
     tools: {
-      title: `Tools & Utilities — ${SITE_NAME}`,
+      title: `Tools & Utilities | ${SITE_NAME}`,
       description:
         'A collection of lightweight utility tools and web applications built by Usman Murtaza — including calculators, notes, weather, and other quick-use utilities.',
       keywords: 'developer tools, utilities, web apps, calculator, notes, weather, usman murtaza',

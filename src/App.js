@@ -2,6 +2,7 @@ import { useState, lazy, Suspense } from 'react';
 import Layout from './components/common/Layout/Layout';
 import LiveBackground from './components/common/LiveBackground';
 import Hero from './components/HeroSection';
+import { SchemaMarkup } from './components/SEO';
 import styled from 'styled-components';
 import './App.css';
 import './styles/global.css';
@@ -41,6 +42,7 @@ function App() {
   return (
     <Layout>
       <Body>
+        <SchemaMarkup />
         <LiveBackground />
         <Hero />
         <Suspense fallback={<SectionFallback />}>

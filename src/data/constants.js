@@ -2,7 +2,7 @@
 export const SeoContent = {
   pageTitle: 'Usman Murtaza | Full Stack Developer',
   metaDescription:
-    'Usman Murtaza is a Full Stack Developer and UI/UX-focused web developer building modern, responsive applications with React, JavaScript, Node.js, and AI-assisted workflows. Explore the Maniesta ecosystem and other portfolio projects.',
+    'Usman Murtaza is a Full Stack Developer and the creator of the Maniesta ecosystem — building modern, responsive web applications with React, JavaScript, Node.js, and AI-assisted workflows. Explore Maniesta Campus, Maniesta Resume AI, ResumeAI Pro, Zain Real Estate, and other projects.',
 };
 
 // Professional Summary for website header/hero section

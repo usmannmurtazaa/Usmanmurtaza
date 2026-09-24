@@ -115,11 +115,9 @@ const TextBlock = styled.span`
 
 const SignatureText = styled.span`
   display: inline-block;
-  /* Only system-available calligraphy fonts. Ordered by platform:
-     Windows → macOS → Windows alt → last-resort handwriting → generic. */
-  font-family:
-    'Brush Script MT', 'Lucida Handwriting', 'Apple Chancery', 'Segoe Script', 'Snell Roundhand',
-    'Comic Sans MS', cursive;
+  /* System calligraphy font available on Windows. Kept as the sole
+     entry in the stack so the signature always renders in this style. */
+  font-family: 'Brush Script MT';
   font-size: ${({ $fontSize }) => $fontSize};
   font-weight: 400;
   white-space: nowrap;
@@ -192,7 +190,7 @@ const UnderlineSvg = styled.svg`
 /* ---------- Component ---------- */
 
 const Signature = ({
-  children = 'Usman',
+  children = 'Usman.',
   fontSize = '2.4rem',
   height = 52,
   iconSize = 28,
@@ -210,14 +208,14 @@ const Signature = ({
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        {/* Feather / quill — a small nod to calligraphy. */}
-        <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
-        <line x1="16" y1="8" x2="2" y2="22" />
-        <line x1="17.5" y1="15" x2="9" y2="15" />
+        {/* Code icon — </> — pairs with the calligraphy signature. */}
+        <path d="m18 16 4-4-4-4" />
+        <path d="m6 8-4 4 4 4" />
+        <path d="m14.5 4-5 16" />
       </SignatureIcon>
 
       <TextBlock>
