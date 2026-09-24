@@ -23,7 +23,7 @@ const Body = styled.div`
 
 const SectionWrapper = styled.div`
   width: 100%;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 98%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 60% 99%, 0 100%);
   background: transparent;
   position: relative;
   z-index: 1;
