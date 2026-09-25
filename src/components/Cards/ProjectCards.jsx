@@ -2,17 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { motion, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Icon } from '../common/Icon';
 import { useReducedMotion } from '../../motionConfig';
 import { trackEvent } from '../../analytics';
 import { toWebpSrcSet } from '../../utils/image';
+import { getProjectSlug } from '../../data/projectSlugs';
 
 /* ---------- Glassmorphism + Design Tokens ---------- */
 
-const Card = styled(motion.div)`
+const Card = styled(motion(Link))`
   width: 100%;
-  max-width: ${({ featured }) => (featured ? '400px' : '350px')};
-  min-height: ${({ featured }) => (featured ? '520px' : '490px')};
+  max-width: ${({ $featured }) => ($featured ? '400px' : '350px')};
+  min-height: ${({ $featured }) => ($featured ? '520px' : '490px')};
   background: var(--bg-glass, rgba(18, 18, 35, 0.6));
   border: 1px solid var(--border-glass, rgba(255, 255, 255, 0.1));
   border-radius: 1.25rem;
@@ -28,6 +30,8 @@ const Card = styled(motion.div)`
   cursor: pointer;
   margin: 0 auto;
   transform-style: preserve-3d;
+  text-decoration: none;
+  color: inherit;
 
   /* Keyboard focus — visible for keyboard users only. */
   &:focus-visible {
@@ -45,8 +49,8 @@ const Card = styled(motion.div)`
     opacity: 1;
   }
 
-  ${({ featured }) =>
-    featured &&
+  ${({ $featured }) =>
+    $featured &&
     `
     border-color: rgba(139, 92, 246, 0.4);
     box-shadow: var(--shadow-md, 0 8px 30px rgba(0,0,0,0.6)), 0 0 20px rgba(139,92,246,0.2);
@@ -92,7 +96,6 @@ const FeaturedBadge = styled.div`
   align-items: center;
   gap: 6px;
   box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-  /* Floating in 3D space so it stays above the image's translateZ. */
   transform: translateZ(40px);
 `;
 
@@ -104,8 +107,6 @@ const Image = styled.img`
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 
-  /* Depth: pops the image forward when the card tilts. Only on
-     hover-capable devices so touch devices keep a flat card. */
   @media (hover: hover) {
     transform: translateZ(20px);
     will-change: transform;
@@ -213,9 +214,8 @@ const Avatar = styled.img`
   }
 `;
 
-/* Presentational only. The parent card carries the button role and
-   handles click + keyboard, so this must not be an interactive element
-   (nested buttons are invalid HTML). */
+/* Presentational only. The parent Link is the clickable element, so
+   this stays as a decorative div (aria-hidden). */
 const ViewButton = styled.div`
   width: 100%;
   padding: 10px;
@@ -233,7 +233,6 @@ const ViewButton = styled.div`
   margin-top: 8px;
   box-shadow: 0 0 0 rgba(139, 92, 246, 0);
   position: relative;
-  /* Slight depth so the CTA floats with the image. */
   transform: translateZ(28px);
 
   ${Card}:hover & {
@@ -246,35 +245,21 @@ const ViewButton = styled.div`
   }
 `;
 
-const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
+const ProjectCard = ({ project, isFeatured }) => {
   const prefersReduced = useReducedMotion();
 
-  // Motion values — these update the DOM directly and do NOT trigger
-  // React re-renders when the pointer moves.
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Springs smooth the tilt and the return-to-rest after pointer leaves.
   const springConfig = { stiffness: 250, damping: 30, mass: 0.6 };
   const rotateXSpring = useSpring(rotateX, springConfig);
   const rotateYSpring = useSpring(rotateY, springConfig);
 
-  // Highlight gradient whose center follows the pointer.
   const highlightBg = useMotionTemplate`radial-gradient(240px circle at ${mouseX}px ${mouseY}px, rgba(139, 92, 246, 0.16), transparent 70%)`;
 
-  const handleClick = () => {
-    trackEvent('click_project_card', 'portfolio', project.title);
-    setOpenModal({ state: true, project });
-  };
-
-  const handleKeyDown = e => {
-    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-      e.preventDefault();
-      handleClick();
-    }
-  };
+  const href = `/projects/${getProjectSlug(project)}`;
 
   const handleMouseMove = e => {
     if (prefersReduced) return;
@@ -283,7 +268,6 @@ const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    // ±5° range keeps the effect subtle.
     rotateY.set(((x - centerX) / centerX) * 5);
     rotateX.set(-((y - centerY) / centerY) * 5);
     mouseX.set(x);
@@ -295,20 +279,22 @@ const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
     rotateY.set(0);
   };
 
+  const handleClick = () => {
+    trackEvent('click_project_card', 'portfolio', project.title);
+    // No preventDefault — the Link handles navigation.
+  };
+
   const description = project.solution || project.description || '';
   const imageSrc = project.image || project.img || '';
 
-  // Only whileTap remains — the hover lift is superseded by the tilt.
   const tapProps = prefersReduced ? {} : { whileTap: { scale: 0.98 } };
 
   return (
     <Card
-      featured={isFeatured ? 1 : 0}
-      role="button"
-      tabIndex={0}
+      $featured={isFeatured ? 1 : 0}
+      to={href}
       aria-label={`View project: ${project.title}`}
       onClick={handleClick}
-      onKeyDown={handleKeyDown}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -328,8 +314,7 @@ const ProjectCard = ({ project, setOpenModal, isFeatured }) => {
 
       {/* Project thumbnail. The <source> prefers a .webp variant when it
           exists in public/. toWebpSrcSet() percent-encodes spaces in the
-          path so the browser does not drop the candidate as a bad descriptor
-          (e.g. "ResumeAi Pro.webp" → "ResumeAi%20Pro.webp"). */}
+          path so the browser does not drop the candidate as a bad descriptor. */}
       <picture style={{ display: 'contents' }}>
         <source srcSet={toWebpSrcSet(imageSrc)} type="image/webp" />
         <Image src={imageSrc} alt={project.title} loading="lazy" decoding="async" />
@@ -389,7 +374,6 @@ ProjectCard.propTypes = {
     complexityScore: PropTypes.number,
     links: PropTypes.object,
   }).isRequired,
-  setOpenModal: PropTypes.func.isRequired,
   isFeatured: PropTypes.bool,
 };
 
