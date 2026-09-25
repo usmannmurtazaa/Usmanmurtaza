@@ -2,7 +2,7 @@
 export const SeoContent = {
   pageTitle: 'Usman Murtaza | Full Stack Developer',
   metaDescription:
-    'Usman Murtaza is a Full Stack Developer and the creator of the Maniesta ecosystem — building modern, responsive web applications with React, JavaScript, Node.js, and AI-assisted workflows. Explore Maniesta Campus, Maniesta Resume AI, ResumeAI Pro, Zain Real Estate, and other projects.',
+    'Usman Murtaza is a Full Stack Developer and the creator of the Maniesta ecosystem - building modern, responsive web applications with React, JavaScript, Node.js, and AI-assisted workflows. Explore Maniesta Campus, Maniesta Resume AI, ResumeAI Pro, Zain Real Estate, and other projects.',
 };
 
 // Professional Summary for website header/hero section
@@ -17,12 +17,13 @@ export const Bio = {
   roles: ['Full Stack Developer', 'Web Developer', 'UI/UX Designer', 'Programmer'],
   description:
     'A Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. I design and ship products end to end - from interface design and responsive UI/UX through front-end engineering, back-end APIs, and deployment. I created the Maniesta ecosystem (Maniesta, Maniesta Campus, Maniesta Resume AI, and other tools) and have delivered client projects including the Al Falah Leather website. I focus on clean code, practical architecture, and interfaces that stay fast and readable across devices, with a growing emphasis on AI-assisted features.',
+  email: 'usmanmurtazaportfolio@gmail.com',
   github: 'https://github.com/Usmannmurtazaa',
-  resume: 'https://drive.google.com/file/d/1zs_xeqmfLPlCOjVUCgstedOD2_oPpzoZ/view?usp=sharing',
+  resume: '/resume.pdf',
   linkedin: 'https://www.linkedin.com/in/Usmannmurtazaa/',
-  twitter: 'https://twitter.com/usman_murtazaa',
+  twitter: 'https://twitter.com/usmann_murtazaa',
   insta: 'https://www.instagram.com/usmannmurtazaa/',
-  facebook: 'https://www.facebook.com/princeusman04',
+  facebook: 'https://www.facebook.com/usmannmurtazaa',
 };
 
 export const skills = [
@@ -45,6 +46,11 @@ export const skills = [
         name: 'JavaScript',
         image:
           'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+      },
+      {
+        name: 'TypeScript',
+        image:
+          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
       },
       {
         name: 'HTML',
@@ -82,12 +88,20 @@ export const skills = [
         image: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png',
       },
       {
+        name: 'PHP',
+        image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg',
+      },
+      {
         name: 'Firebase',
         image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',
       },
       {
         name: 'MongoDB',
         image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
+      },
+      {
+        name: 'MySQL',
+        image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
       },
       {
         name: 'PostgreSQL',
@@ -116,12 +130,34 @@ export const skills = [
         image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
       },
       {
+        name: 'Docker',
+        image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+      },
+      {
+        name: 'Google Cloud',
+        image:
+          'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg',
+      },
+      {
         name: 'Figma',
         image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
       },
       {
         name: 'Python',
         image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+      },
+    ],
+  },
+  {
+    title: 'Testing',
+    skills: [
+      {
+        name: 'Jest',
+        image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg',
+      },
+      {
+        name: 'Vitest',
+        image: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg',
       },
     ],
   },

@@ -237,7 +237,7 @@ const About = () => {
             >
               <Icon name="linkedin" size={22} />
             </SocialMediaIcon>
-            <SocialMediaIcon href="https://twitter.com/usman_murtazaa" aria-label="Twitter">
+            <SocialMediaIcon href="https://twitter.com/usmann_murtazaa" aria-label="Twitter">
               <Icon name="twitter" size={22} />
             </SocialMediaIcon>
           </SocialMediaIcons>

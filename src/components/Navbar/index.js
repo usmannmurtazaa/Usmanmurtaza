@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Nav,
@@ -34,7 +35,7 @@ const Navbar = () => {
       animate="visible"
     >
       <NavbarContainer>
-        <NavLogo href="/" aria-label="Usman Portfolio">
+        <NavLogo as={Link} to="/" aria-label="Usman Portfolio">
           <Signature height={48} fontSize="2.2rem" iconSize={24} />
         </NavLogo>
 
@@ -43,11 +44,24 @@ const Navbar = () => {
         </MobileIcon>
 
         <NavItems>
-          <NavLink href="#about">About</NavLink>
-          <NavLink href="#skills">Skills</NavLink>
-          <NavLink href="#experience">Experience</NavLink>
-          <NavLink href="#projects">Projects</NavLink>
-          <NavLink href="#education">Education</NavLink>
+          <NavLink as={Link} to="/#about">
+            About
+          </NavLink>
+          <NavLink as={Link} to="/#skills">
+            Skills
+          </NavLink>
+          <NavLink as={Link} to="/#experience">
+            Experience
+          </NavLink>
+          <NavLink as={Link} to="/#projects">
+            Projects
+          </NavLink>
+          <NavLink as={Link} to="/#education">
+            Education
+          </NavLink>
+          <NavLink as={Link} to="/blog">
+            Blog
+          </NavLink>
         </NavItems>
 
         <ButtonContainer>
@@ -65,20 +79,23 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <MobileLink href="#about" onClick={() => setIsOpen(false)}>
+            <MobileLink as={Link} to="/#about" onClick={() => setIsOpen(false)}>
               About
             </MobileLink>
-            <MobileLink href="#skills" onClick={() => setIsOpen(false)}>
+            <MobileLink as={Link} to="/#skills" onClick={() => setIsOpen(false)}>
               Skills
             </MobileLink>
-            <MobileLink href="#experience" onClick={() => setIsOpen(false)}>
+            <MobileLink as={Link} to="/#experience" onClick={() => setIsOpen(false)}>
               Experience
             </MobileLink>
-            <MobileLink href="#projects" onClick={() => setIsOpen(false)}>
+            <MobileLink as={Link} to="/#projects" onClick={() => setIsOpen(false)}>
               Projects
             </MobileLink>
-            <MobileLink href="#education" onClick={() => setIsOpen(false)}>
+            <MobileLink as={Link} to="/#education" onClick={() => setIsOpen(false)}>
               Education
+            </MobileLink>
+            <MobileLink as={Link} to="/blog" onClick={() => setIsOpen(false)}>
+              Blog
             </MobileLink>
             <GitHubButton
               style={{

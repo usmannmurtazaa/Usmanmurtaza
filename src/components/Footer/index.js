@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Bio } from '../../data/constants';
 import { fadeInUpVariants } from '../../motionConfig';
 import { trackEvent } from '../../analytics';
@@ -18,10 +19,6 @@ const FooterContainer = styled.footer`
   margin-top: 2rem;
   position: relative;
   z-index: 1;
-
-  @media (max-width: 768px) {
-    padding: 2rem 0;
-  }
 `;
 
 const FooterWrapper = styled.div`
@@ -63,31 +60,28 @@ const Tagline = styled.p`
 
 const Nav = styled.nav`
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   margin-top: 1rem;
   display: flex;
   flex-direction: row;
-  gap: 2.5rem;
+  gap: 2rem;
   justify-content: center;
   flex-wrap: wrap;
 
   @media (max-width: 768px) {
-    gap: 1.5rem;
-  }
-
-  @media (max-width: 480px) {
-    gap: 1rem;
+    gap: 1.25rem;
   }
 `;
 
 const NavLink = styled.a`
   color: var(--text-primary, #f2f2f7);
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 500;
   transition: all 0.2s ease-in-out;
   padding: 4px 8px;
   border-radius: 6px;
+  cursor: pointer;
 
   &:hover {
     color: var(--accent-glow, #8b5cf6);
@@ -96,7 +90,7 @@ const NavLink = styled.a`
   }
 
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 `;
 
@@ -119,10 +113,6 @@ const SocialMediaIcons = styled.div`
   gap: 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
-
-  @media (max-width: 480px) {
-    gap: 1rem;
-  }
 `;
 
 const SocialMediaIcon = styled.a`
@@ -153,10 +143,6 @@ const Copyright = styled.div`
   line-height: 1.6;
   max-width: 800px;
   padding: 0 1rem;
-
-  @media (max-width: 480px) {
-    margin-top: 1.25rem;
-  }
 `;
 
 const CopyrightLine = styled.p`
@@ -192,12 +178,27 @@ function Footer() {
         </LogoSection>
 
         <Nav>
-          <NavLink href="#about">About</NavLink>
-          <NavLink href="#skills">Skills</NavLink>
-          <NavLink href="#experience">Experience</NavLink>
-          <NavLink href="#projects">Projects</NavLink>
-          <NavLink href="#education">Education</NavLink>
-          <NavLink href="#contact">Contact</NavLink>
+          <NavLink as={Link} to="/#about">
+            About
+          </NavLink>
+          <NavLink as={Link} to="/#skills">
+            Skills
+          </NavLink>
+          <NavLink as={Link} to="/#experience">
+            Experience
+          </NavLink>
+          <NavLink as={Link} to="/#projects">
+            Projects
+          </NavLink>
+          <NavLink as={Link} to="/#education">
+            Education
+          </NavLink>
+          <NavLink as={Link} to="/#contact">
+            Contact
+          </NavLink>
+          <NavLink as={Link} to="/blog">
+            Blog
+          </NavLink>
         </Nav>
 
         <SocialMediaSection

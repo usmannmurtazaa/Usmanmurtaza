@@ -1,19 +1,49 @@
 # robots.txt for Usman Murtaza's portfolio
 # https://usmanmurtaza.netlify.app
 
+# ── General crawlers ────────────────────────────────────────────────
 # Allow all well-behaved crawlers to index the entire site.
 User-agent: *
 Allow: /
 
-# Explicitly allow Google's crawlers so image search and previews
-# work correctly. These are permitted by the wildcard above as well;
-# listing them explicitly is a defensive measure against misconfigured
-# robots rules on some CDN setups.
+# ── Google crawlers ─────────────────────────────────────────────────
+# Explicit allow (defensive against misconfigured CDN rules).
 User-agent: Googlebot
 Allow: /
 
 User-agent: Googlebot-Image
 Allow: /
 
-# Sitemap reference — helps search engines discover every indexed URL.
+# ── Social preview bots ─────────────────────────────────────────────
+# These user agents fetch the page to render share cards (title,
+# description, and og:image). If they are blocked, links shared on
+# these platforms show no preview. Allowing them explicitly is the
+# standard practice and is recommended by each platform's own
+# documentation.
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: Pinterest
+Allow: /
+
+# ── Sitemap ─────────────────────────────────────────────────────────
 Sitemap: https://usmanmurtaza.netlify.app/sitemap.xml

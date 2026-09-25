@@ -10,6 +10,9 @@ const WEBSITE_ID = `${SITE_URL}/#website`;
  * The @id is stable so other entities (WebSite, projects, etc.) can reference
  * this exact person node. knowsAbout lists only technologies and disciplines
  * that are actually present in the portfolio data and project stacks.
+ *
+ * sameAs includes every social profile whose URL contains the person's
+ * name or handle — this helps Google reconcile them all into one entity.
  */
 export const getPersonSchema = () => ({
   '@context': 'https://schema.org',
@@ -24,6 +27,10 @@ export const getPersonSchema = () => ({
     'Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js — creator of the Maniesta ecosystem.',
   url: SITE_URL,
   image: `${SITE_URL}/og-image.jpg`,
+  // All five profiles now contain the handle "usmannmurtazaa" (or close
+  // variant), so Google can confidently reconcile them as the same
+  // person. Facebook was previously excluded when its URL did not
+  // include the name; it is now safe to include.
   sameAs: [Bio.github, Bio.linkedin, Bio.twitter, Bio.insta, Bio.facebook].filter(Boolean),
   knowsAbout: [
     'React.js',

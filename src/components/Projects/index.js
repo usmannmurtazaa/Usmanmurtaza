@@ -178,7 +178,7 @@ const Projects = ({ setOpenModal }) => {
           {toggle !== 'all' && (
             <>
               {' in '}
-              <CategoryTag category={toggle}>
+              <CategoryTag>
                 {toggle === 'web app'
                   ? 'Web Applications'
                   : toggle === 'e-commerce web app'
@@ -236,10 +236,6 @@ const Projects = ({ setOpenModal }) => {
 };
 
 Projects.propTypes = {
-  openModal: PropTypes.shape({
-    state: PropTypes.bool,
-    project: PropTypes.object,
-  }),
   setOpenModal: PropTypes.func.isRequired,
 };
 

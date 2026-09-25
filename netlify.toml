@@ -146,3 +146,12 @@
   for = "/robots.txt"
   [headers.values]
     Cache-Control = "public, max-age=3600"
+
+# Resume PDF - Serve inline so the browser opens it in a tab
+# instead of prompting to download.
+[[headers]]
+  for = "/resume.pdf"
+  [headers.values]
+    Content-Disposition = "inline"
+    Content-Type = "application/pdf"
+    Cache-Control = "public, max-age=3600"

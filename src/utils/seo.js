@@ -8,7 +8,7 @@ export const siteMetadata = {
   siteName: SITE_NAME,
   siteUrl: SITE_URL,
   defaultImage: DEFAULT_IMAGE,
-  twitterHandle: '@usman_murtazaa',
+  twitterHandle: '@usmann_murtazaa',
   defaultDescription: DEFAULT_DESCRIPTION,
   author: 'Usman Murtaza',
 };
