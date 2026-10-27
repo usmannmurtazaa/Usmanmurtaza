@@ -3,7 +3,7 @@
  *
  * Each post has metadata + a content array of typed blocks. The renderer
  * in `src/pages/Blog/BlogPost.jsx` switches on `block.type` to render
- * each one — no markdown parser needed.
+ * each one - no markdown parser needed.
  *
  * Block types:
  *   { type: 'paragraph', text: '...' }
@@ -24,7 +24,7 @@ export const blogPosts = [
     slug: 'how-i-built-maniesta-campus',
     title: 'How I Built Maniesta Campus: A Campus Management System with React and Node.js',
     description:
-      'A technical walkthrough of Maniesta Campus — a role-based campus management system with separate dashboards for admins, faculty, and students, built with React, Node.js, Express, and MongoDB.',
+      'A technical walkthrough of Maniesta Campus - a role-based campus management system with separate dashboards for admins, faculty, and students, built with React, Node.js, Express, and MongoDB.',
     date: '2026-09-24',
     readingTime: '6 min',
     tags: ['React', 'Node.js', 'MongoDB', 'Web Development'],
@@ -35,7 +35,7 @@ export const blogPosts = [
     content: [
       {
         type: 'paragraph',
-        text: 'Educational institutions run on paperwork and spreadsheets. Student records live in one file, attendance in another, grades somewhere else, and schedules — usually — in someone\'s head. I kept hearing the same complaint from small colleges and coaching centers: "We need something simple that just works." So I built Maniesta Campus — a role-based campus management system with separate dashboards for admins, faculty, and students.',
+        text: 'Educational institutions run on paperwork and spreadsheets. Student records live in one file, attendance in another, grades somewhere else, and schedules - usually - in someone\'s head. I kept hearing the same complaint from small colleges and coaching centers: "We need something simple that just works." So I built Maniesta Campus - a role-based campus management system with separate dashboards for admins, faculty, and students.',
       },
       {
         type: 'heading',
@@ -56,7 +56,7 @@ export const blogPosts = [
       },
       {
         type: 'paragraph',
-        text: "The core challenge was role-based access — one login system that serves three completely different user journeys. A student should never see admin controls, and a faculty member shouldn't be able to edit another faculty member's course. Traditional CRUD apps do not handle this well. You end up with if (user.role === 'admin') scattered everywhere. I wanted something cleaner.",
+        text: "The core challenge was role-based access - one login system that serves three completely different user journeys. A student should never see admin controls, and a faculty member shouldn't be able to edit another faculty member's course. Traditional CRUD apps do not handle this well. You end up with if (user.role === 'admin') scattered everywhere. I wanted something cleaner.",
       },
       {
         type: 'heading',
@@ -66,11 +66,11 @@ export const blogPosts = [
       {
         type: 'list',
         items: [
-          'React — the UI needed to render completely different dashboards based on role. Component composition made this natural.',
-          'Node.js + Express — a straightforward REST API that I could iterate on quickly.',
-          'MongoDB — campus data is hierarchical and evolves fast. Flexible schemas saved me from constant migrations.',
-          'JWT — stateless authentication means the API does not need session storage and can scale horizontally.',
-          'Tailwind CSS — fast UI iteration across three distinct dashboards.',
+          'React - the UI needed to render completely different dashboards based on role. Component composition made this natural.',
+          'Node.js + Express - a straightforward REST API that I could iterate on quickly.',
+          'MongoDB - campus data is hierarchical and evolves fast. Flexible schemas saved me from constant migrations.',
+          'JWT - stateless authentication means the API does not need session storage and can scale horizontally.',
+          'Tailwind CSS - fast UI iteration across three distinct dashboards.',
         ],
       },
       {
@@ -142,7 +142,7 @@ router.patch('/courses/:id/grades',
       },
       {
         type: 'paragraph',
-        text: 'This pattern scales. If I ever add a "teaching assistant" role, I just pass it into requireRole — no other code changes.',
+        text: 'This pattern scales. If I ever add a "teaching assistant" role, I just pass it into requireRole - no other code changes.',
       },
       {
         type: 'heading',
@@ -151,7 +151,7 @@ router.patch('/courses/:id/grades',
       },
       {
         type: 'paragraph',
-        text: 'On the frontend, I used a simple pattern — the auth context holds the user, and the dashboard component switches on the role:',
+        text: 'On the frontend, I used a simple pattern - the auth context holds the user, and the dashboard component switches on the role:',
       },
       {
         type: 'code',
@@ -173,7 +173,7 @@ router.patch('/courses/:id/grades',
       },
       {
         type: 'paragraph',
-        text: 'Each dashboard imports its own set of components. The shared pieces — navbar, notifications, profile, logout — live outside and are reused across all three. A protected route wrapper handles the auth check on the way in.',
+        text: 'Each dashboard imports its own set of components. The shared pieces - navbar, notifications, profile, logout - live outside and are reused across all three. A protected route wrapper handles the auth check on the way in.',
       },
       {
         type: 'heading',
@@ -185,7 +185,7 @@ router.patch('/courses/:id/grades',
         items: [
           'Design RBAC before writing features. Retrofitting access control into an existing app is brutal.',
           'Keep JWTs thin. Only store what the token actually needs to prove identity. Fetch the rest.',
-          'Data-driven grading beats code-driven grading. Every institution has its own scale — make it configurable.',
+          'Data-driven grading beats code-driven grading. Every institution has its own scale - make it configurable.',
           'Component composition in React scales beautifully for dashboards. Three completely different UIs coexisting in one app turned out to be much cleaner than I expected.',
         ],
       },
@@ -210,7 +210,7 @@ router.patch('/courses/:id/grades',
     slug: 'building-resumeai-pro',
     title: 'Building ResumeAI Pro: An AI-Powered Resume Builder with React and Firebase',
     description:
-      'How I designed and shipped ResumeAI Pro — an AI-powered resume builder that generates ATS-friendly resumes using the OpenAI API, Firebase authentication, and a React front end.',
+      'How I designed and shipped ResumeAI Pro - an AI-powered resume builder that generates ATS-friendly resumes using the OpenAI API, Firebase authentication, and a React front end.',
     date: '2026-09-20',
     readingTime: '5 min',
     tags: ['React', 'Firebase', 'AI', 'SaaS'],
@@ -240,7 +240,7 @@ router.patch('/courses/:id/grades',
       {
         type: 'list',
         items: [
-          'React for the UI — the editor needed to be fast and predictable',
+          'React for the UI - the editor needed to be fast and predictable',
           'Firebase for authentication and Firestore storage of multi-resume data',
           'Tailwind CSS for the layout system',
           'OpenAI API for content generation',
@@ -276,7 +276,7 @@ const { suggestions } = await response.json();`,
       },
       {
         type: 'paragraph',
-        text: 'Firebase Auth gave me email/password and Google sign-in out of the box. The multi-resume model is simple: each user document contains an array of resumes, each resume has sections, and every section has an ID. When a user edits, only the affected section is written back to Firestore — not the whole document.',
+        text: 'Firebase Auth gave me email/password and Google sign-in out of the box. The multi-resume model is simple: each user document contains an array of resumes, each resume has sections, and every section has an ID. When a user edits, only the affected section is written back to Firestore - not the whole document.',
       },
       {
         type: 'heading',
@@ -286,7 +286,7 @@ const { suggestions } = await response.json();`,
       {
         type: 'list',
         items: [
-          'Rate-limit AI generation from day one — it is the most expensive resource per user.',
+          'Rate-limit AI generation from day one - it is the most expensive resource per user.',
           'Cache generated variants so a user can revisit past suggestions without a new API call.',
           'Add a preview mode that mimics how the resume renders in common ATS parsers.',
         ],
@@ -307,7 +307,7 @@ const { suggestions } = await response.json();`,
     slug: 'why-i-built-the-maniesta-ecosystem',
     title: 'Why I Built the Maniesta Ecosystem',
     description:
-      'A short note on the Maniesta ecosystem — the family of web products I have been building under one brand, and the thinking behind why I chose to consolidate rather than scatter.',
+      'A short note on the Maniesta ecosystem - the family of web products I have been building under one brand, and the thinking behind why I chose to consolidate rather than scatter.',
     date: '2026-09-15',
     readingTime: '3 min',
     tags: ['Maniesta', 'Web Development', 'Product'],
@@ -318,7 +318,7 @@ const { suggestions } = await response.json();`,
     content: [
       {
         type: 'paragraph',
-        text: 'Maniesta is a name I gave to the collection of web products I have been building over the past year — a campus management system, a resume builder, a productivity suite, a set of everyday utilities, and a handful of smaller projects. What started as separate side projects gradually became one brand.',
+        text: 'Maniesta is a name I gave to the collection of web products I have been building over the past year - a campus management system, a resume builder, a productivity suite, a set of everyday utilities, and a handful of smaller projects. What started as separate side projects gradually became one brand.',
       },
       {
         type: 'heading',
@@ -354,7 +354,7 @@ const { suggestions } = await response.json();`,
       },
       {
         type: 'paragraph',
-        text: 'More products will follow. All of them will live under the same roof — because a name means more than a folder of repositories.',
+        text: 'More products will follow. All of them will live under the same roof - because a name means more than a folder of repositories.',
       },
     ],
   },
@@ -366,5 +366,5 @@ export const getBlogPostBySlug = slug => blogPosts.find(post => post.slug === sl
 
 export const getAllBlogSlugs = () => blogPosts.map(post => post.slug);
 
-// Posts sorted newest first — used by the list page.
+// Posts sorted newest first - used by the list page.
 export const getSortedBlogPosts = () => [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : -1));

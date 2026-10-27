@@ -40,7 +40,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- ── Project case studies — Featured ─────────────────────────── -->
+  <!-- ── Project case studies - Featured ─────────────────────────── -->
   <url>
     <loc>https://usmanmurtaza.netlify.app/projects/resumeai-pro</loc>
     <lastmod>2026-09-25</lastmod>
@@ -62,7 +62,7 @@
     <priority>0.85</priority>
   </url>
 
-  <!-- ── Project case studies — Secondary ────────────────────────── -->
+  <!-- ── Project case studies - Secondary ────────────────────────── -->
   <url>
     <loc>https://usmanmurtaza.netlify.app/projects/zain-real-estate</loc>
     <lastmod>2026-09-25</lastmod>
@@ -126,7 +126,7 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- ── Project case studies — Utility ──────────────────────────── -->
+  <!-- ── Project case studies - Utility ──────────────────────────── -->
   <url>
     <loc>https://usmanmurtaza.netlify.app/projects/nexa-calculator</loc>
     <lastmod>2026-09-25</lastmod>

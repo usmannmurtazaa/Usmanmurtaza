@@ -4,7 +4,7 @@
  * Background: the `srcset` attribute is space-delimited. A URL in `srcset`
  * is terminated by the first whitespace, and anything after it is interpreted
  * as a descriptor (like `2x` or `100w`). This means filenames that contain
- * spaces — e.g. "ResumeAi Pro.png" — must be percent-encoded when passed to
+ * spaces - e.g. "ResumeAi Pro.png" - must be percent-encoded when passed to
  * `srcset`, otherwise the browser drops the candidate entirely.
  *
  * The `src` attribute is more lenient and can take the raw path with spaces.

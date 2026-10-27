@@ -19,7 +19,7 @@ const Wrapper = styled(motion.div)`
  * which is what creates the layered parallax when the parent tilts.
  *
  * Because the parent applies `preserve-3d`, the translateZ is not
- * flattened — the layer literally sits above or below the card plane
+ * flattened - the layer literally sits above or below the card plane
  * in 3D space.
  */
 export const ThreeDLayer = styled.div`
@@ -34,7 +34,7 @@ const ThreeDCard = ({ children, className, maxTilt = 15, perspective = 1200 }) =
   const ref = useRef(null);
   const prefersReduced = useReducedMotion();
 
-  // Motion values — updated directly, no React re-renders on move.
+  // Motion values - updated directly, no React re-renders on move.
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
 

@@ -39,7 +39,7 @@ const Card = styled.article`
     }
   }
 
-  /* Subtle dot grid decoration — top-right corner */
+  /* Subtle dot grid decoration - top-right corner */
   &::before {
     content: '';
     position: absolute;
@@ -273,13 +273,13 @@ const Certificate = ({
   topLabel = 'Certificate',
 }) => {
   return (
-    <Card aria-label={`${issuer} — ${courseTitle}`}>
+    <Card aria-label={`${issuer} - ${courseTitle}`}>
       <Inner>
         <div>
           <Header>
             <IssuerBlock>
               <Mark aria-hidden="true">
-                {/* Abstract geometric mark — not a logo, not an imitation of
+                {/* Abstract geometric mark - not a logo, not an imitation of
                     any real brandmark. A simple hexagon outline with an
                     inner accent dot. */}
                 <svg

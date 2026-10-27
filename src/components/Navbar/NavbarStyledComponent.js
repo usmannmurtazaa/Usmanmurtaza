@@ -104,8 +104,9 @@ export const NavLink = styled.a`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
-  padding: 4px 8px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border-bottom: 2px solid transparent;
 
   &:hover {
     color: ${accent};
@@ -113,9 +114,14 @@ export const NavLink = styled.a`
     transform: translateY(-2px);
   }
 
-  &.active {
-    border-bottom: 2px solid ${accent};
-  }
+  ${({ $active }) =>
+    $active &&
+    `
+    color: #ffffff;
+    background: rgba(139, 92, 246, 0.15);
+    border-bottom-color: ${accent};
+    transform: translateY(-2px);
+  `}
 `;
 
 export const GitHubButton = styled.a`
@@ -228,10 +234,6 @@ export const MobileMenuLink = styled.a`
   &:hover {
     color: ${accent};
   }
-
-  &.active {
-    border-bottom: 2px solid ${accent};
-  }
 `;
 
 export const MobileMenuButton = styled.a`
@@ -263,14 +265,22 @@ export const MobileLink = styled.a`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  width: max-content;
 
   &:hover {
     color: ${accent};
+    background: rgba(139, 92, 246, 0.05);
   }
 
-  &.active {
-    border-bottom: 2px solid ${accent};
-  }
+  ${({ $active }) =>
+    $active &&
+    `
+    color: ${accent};
+    background: rgba(139, 92, 246, 0.15);
+    font-weight: 700;
+  `}
 `;
 
 export const MobileNavLogo = styled.a`

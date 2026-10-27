@@ -264,7 +264,7 @@ const CertificateModal = ({ open, certificate, onClose }) => {
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label={`${issuer} — ${courseTitle}`}
+          aria-label={`${issuer} - ${courseTitle}`}
         >
           <Panel
             variants={prefersReduced ? {} : panelVariants}
@@ -280,7 +280,7 @@ const CertificateModal = ({ open, certificate, onClose }) => {
             <ImageArea>
               <picture>
                 <source srcSet={toWebpSrcSet(image)} type="image/webp" />
-                <img src={image} alt={`${issuer} — ${courseTitle}`} />
+                <img src={image} alt={`${issuer} - ${courseTitle}`} />
               </picture>
             </ImageArea>
 

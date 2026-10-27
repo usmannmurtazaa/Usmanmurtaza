@@ -1,9 +1,10 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Layout from './components/common/Layout/Layout';
 import LiveBackground from './components/common/LiveBackground';
 import Hero from './components/HeroSection';
 import { SchemaMarkup } from './components/SEO';
+import NotFound from './components/NotFound';
 import { useReducedMotion } from './motionConfig';
 import styled from 'styled-components';
 import './App.css';
@@ -17,7 +18,6 @@ const Certificates = lazy(() => import('./components/Certificates'));
 const LatestPosts = lazy(() => import('./components/LatestPosts'));
 const Testimonials = lazy(() => import('./components/Testimonials'));
 const Contact = lazy(() => import('./components/Contact'));
-const ProjectCaseStudy = lazy(() => import('./components/ProjectCaseStudy'));
 const BlogList = lazy(() => import('./pages/Blog/BlogList'));
 const BlogPost = lazy(() => import('./pages/Blog/BlogPost'));
 const ProjectCase = lazy(() => import('./pages/Project/ProjectCase'));
@@ -44,13 +44,7 @@ const SectionFallback = styled.div`
 `;
 
 /* ---------- Home page ---------- */
-/* All the existing portfolio content, plus the modal state that used to
-   live in App. Extracted so that the router can render it as the `/`
-   route without the modal state leaking into the router layer.
-   The `useEffect` handles hash-based scrolling so a link like `/#about`
-   from the blog page lands on the About section, not the page top. */
 function HomePage() {
-  const [openModal, setOpenModal] = useState({ state: false, project: null });
   const location = useLocation();
   const prefersReduced = useReducedMotion();
 
@@ -83,7 +77,7 @@ function HomePage() {
           <Skills />
           <Experience />
         </SectionWrapper>
-        <Projects openModal={openModal} setOpenModal={setOpenModal} />
+        <Projects />
         <SectionWrapper>
           <Education />
           <Certificates />
@@ -92,11 +86,6 @@ function HomePage() {
           <Contact />
         </SectionWrapper>
       </Suspense>
-      {openModal.state && (
-        <Suspense fallback={null}>
-          <ProjectCaseStudy openModal={openModal} setOpenModal={setOpenModal} />
-        </Suspense>
-      )}
     </>
   );
 }
@@ -116,7 +105,7 @@ function App() {
               <Route path="/blog" element={<BlogList />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/projects/:slug" element={<ProjectCase />} />
-              <Route path="*" element={<HomePage />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </Body>

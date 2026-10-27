@@ -25,7 +25,7 @@
   backface-visibility: hidden;
 }
 
-/* Gradient variants — softer, calmer, and cheaper than before. */
+/* Gradient variants - softer, calmer, and cheaper than before. */
 
 .blob-deep {
   background: radial-gradient(
@@ -59,7 +59,7 @@
   );
 }
 
-/* Blur levels — reduced from the previous heavy values. */
+/* Blur levels - reduced from the previous heavy values. */
 
 .blur-xl {
   filter: blur(16px);

@@ -41,7 +41,7 @@ const Row = styled.div`
 `;
 
 const LeftCol = styled.div`
-  /* On mobile the left column collapses — the title moves above the
+  /* On mobile the left column collapses - the title moves above the
      content in the right column. On desktop it becomes a sticky sidebar
      that parks below the navbar as you scroll. */
   position: sticky;
@@ -167,7 +167,7 @@ const BeamTrack = styled.div`
   pointer-events: none;
 `;
 
-/* The animated fill — height is driven by scroll progress. */
+/* The animated fill - height is driven by scroll progress. */
 const BeamFill = styled(motion.div)`
   position: absolute;
   left: 0;

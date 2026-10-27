@@ -8,7 +8,7 @@
  *
  * When adding a new project to `constants.js`, add a matching entry
  * here. If the map is missing an entry, `getProjectSlug` falls back to
- * `project-${id}` so the page still works — it will just have a less
+ * `project-${id}` so the page still works - it will just have a less
  * friendly URL.
  */
 

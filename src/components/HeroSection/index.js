@@ -55,7 +55,7 @@ const VortexLayer = styled.div`
 /* Sizing container for the 3D hero image. Keeps the image at the same
    effective size the plain <picture> used to occupy, while giving the
    3D card a proper width to transform within. The `> *` rule forces
-   the ThreeDCard's inner motion.div to fill this slot — without it
+   the ThreeDCard's inner motion.div to fill this slot - without it
    the reusable wrapper (display: inline-block) shrink-wraps the image
    to its intrinsic width. */
 const HeroCardSlot = styled.div`

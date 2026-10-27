@@ -89,7 +89,7 @@ body,
 
 /* ── Base aurora gradient mesh ──
    Four layered radial gradients create depth and warmth on the dark base.
-   No backdrop-filter, no animation — this is the static foundation that
+   No backdrop-filter, no animation - this is the static foundation that
    the LiveBackground component layers motion on top of. */
 body::before {
   content: '';
@@ -108,7 +108,7 @@ body::before {
    A very faint 60px grid pattern rendered with two repeating linear
    gradients (vertical + horizontal). It is fixed to the viewport, so it
    never scrolls, and masked with a radial gradient so the grid fades
-   toward the edges — giving a concentrated, engineered feel near the
+   toward the edges - giving a concentrated, engineered feel near the
    viewport center and clean space toward the corners. Rendered via
    html::before (body::before is the gradient, body::after is the noise).
    No image file, no JS, no animation. */

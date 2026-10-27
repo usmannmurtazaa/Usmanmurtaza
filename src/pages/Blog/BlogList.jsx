@@ -166,7 +166,7 @@ const BlogList = () => {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           Technical write-ups on full-stack development, React patterns, and building
-          production-grade web applications. Everything here reflects real projects — no tutorials
+          production-grade web applications. Everything here reflects real projects - no tutorials
           written for the sake of tutorials.
         </Subtitle>
 

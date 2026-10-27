@@ -48,7 +48,7 @@ export const getMetaTags = (page, customData = {}) => {
     about: {
       title: `About | ${SITE_NAME}`,
       description:
-        'Learn about Usman Murtaza — a Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. Explore the Maniesta ecosystem and other portfolio work.',
+        'Learn about Usman Murtaza - a Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. Explore the Maniesta ecosystem and other portfolio work.',
       keywords:
         'about usman murtaza, full stack developer, react developer, ui/ux designer, karachi, pakistan, maniesta',
     },
@@ -62,7 +62,7 @@ export const getMetaTags = (page, customData = {}) => {
     tools: {
       title: `Tools & Utilities | ${SITE_NAME}`,
       description:
-        'A collection of lightweight utility tools and web applications built by Usman Murtaza — including calculators, notes, weather, and other quick-use utilities.',
+        'A collection of lightweight utility tools and web applications built by Usman Murtaza - including calculators, notes, weather, and other quick-use utilities.',
       keywords: 'developer tools, utilities, web apps, calculator, notes, weather, usman murtaza',
     },
   };

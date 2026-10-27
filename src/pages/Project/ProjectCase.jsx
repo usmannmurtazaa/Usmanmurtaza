@@ -464,7 +464,7 @@ const ProjectCase = () => {
     name: project.title,
     description: project.problem || project.description || '',
     url: canonical,
-    // Only include the image if we have an absolute URL — otherwise
+    // Only include the image if we have an absolute URL - otherwise
     // omit the field so validators do not complain about a relative
     // or empty value.
     ...(absoluteImage ? { image: absoluteImage } : {}),

@@ -134,7 +134,7 @@ const TextBlock = styled.span`
 
 const SignatureText = styled.span`
   display: inline-block;
-  /* Mr Dafoe is the primary calligraphy font — a bold, flowing signature
+  /* Mr Dafoe is the primary calligraphy font - a bold, flowing signature
      script loaded from Google Fonts (see public/index.html). Mrs Saint
      Delafield is the graceful fallback if the primary webfont fails to
      load. Both are formal signature-style scripts. */
@@ -234,7 +234,7 @@ const Signature = ({
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        {/* Code icon — </> — pairs with the calligraphy signature. */}
+        {/* Code icon - </> - pairs with the calligraphy signature. */}
         <path d="m18 16 4-4-4-4" />
         <path d="m6 8-4 4 4 4" />
         <path d="m14.5 4-5 16" />

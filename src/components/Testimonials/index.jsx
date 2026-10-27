@@ -128,7 +128,7 @@ const Track = styled.div`
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
-    /* Drop the compositor hint — the animation is off, so promoting the
+    /* Drop the compositor hint - the animation is off, so promoting the
        track to its own layer is pure waste. */
     will-change: auto;
     flex-wrap: wrap;

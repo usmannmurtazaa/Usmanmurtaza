@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import ProjectCard from '../Cards/ProjectCards';
 import {
@@ -39,7 +38,7 @@ const statCardVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
-const Projects = ({ setOpenModal }) => {
+const Projects = () => {
   const prefersReduced = useReducedMotion();
   const [toggle, setToggle] = useState('all');
 
@@ -141,12 +140,7 @@ const Projects = ({ setOpenModal }) => {
           <>
             <FeaturedContainer>
               {featuredProjects.map(project => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  setOpenModal={setOpenModal}
-                  isFeatured={true}
-                />
+                <ProjectCard key={project.id} project={project} isFeatured={true} />
               ))}
             </FeaturedContainer>
             <SectionDivider />
@@ -206,12 +200,7 @@ const Projects = ({ setOpenModal }) => {
               {filteredProjects
                 .filter(p => p.level === 'secondary')
                 .map(project => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    setOpenModal={setOpenModal}
-                    isFeatured={false}
-                  />
+                  <ProjectCard key={project.id} project={project} isFeatured={false} />
                 ))}
             </CardContainer>
           </>
@@ -233,10 +222,6 @@ const Projects = ({ setOpenModal }) => {
       </Wrapper>
     </Container>
   );
-};
-
-Projects.propTypes = {
-  setOpenModal: PropTypes.func.isRequired,
 };
 
 export default Projects;

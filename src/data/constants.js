@@ -1,14 +1,14 @@
 // SEO & Page Meta Content
 export const SeoContent = {
-  pageTitle: 'Usman Murtaza | Full Stack Developer',
+  pageTitle: 'Usman Murtaza | Full Stack Developer, React & UI/UX',
   metaDescription:
-    'Usman Murtaza is a Full Stack Developer and the creator of the Maniesta ecosystem - building modern, responsive web applications with React, JavaScript, Node.js, and AI-assisted workflows. Explore Maniesta Campus, Maniesta Resume AI, ResumeAI Pro, Zain Real Estate, and other projects.',
+    'Usman Murtaza is a Full Stack Developer and the creator of the Maniesta ecosystem - building modern, responsive web applications with React, JavaScript, Node.js, and AI-assisted workflows. Explore Maniesta Campus, Maniesta Career OS, Maniesta Academic Portal, and other projects.',
 };
 
 // Professional Summary for website header/hero section
 export const ProfessionalSummary = `I am a Full Stack Developer and UI/UX-focused web developer who builds modern, responsive web applications with React, JavaScript, Node.js, and modern tooling. My work spans front-end engineering, back-end APIs, responsive UI/UX, and AI-assisted application development.
 
-I have designed and shipped practical products under the Maniesta ecosystem - including Maniesta Campus, Maniesta Resume AI, Maniesta Suite, and other Maniesta-family tools - alongside client work such as the Al Falah Leather website and platforms like Zain Real Estate and ResumeAI Pro. My focus is on clean component architecture, responsive layouts, and interfaces that stay fast and readable across devices.
+I have designed and shipped practical products under the Maniesta ecosystem - including Maniesta Campus, Maniesta Career OS, Maniesta Academic Portal, and other Maniesta-family tools - alongside client work such as the Al Falah Leather website and platforms like Zain Real Estate. My focus is on clean component architecture, responsive layouts, and interfaces that stay fast and readable across devices.
 
 I enjoy turning ideas into working products: from problem framing and interface design through implementation, integration, and iteration. My current stack centers on React, Node.js, Express, MongoDB, and PostgreSQL, with a growing emphasis on AI-assisted features and modern web performance.`;
 
@@ -16,7 +16,7 @@ export const Bio = {
   name: 'Usman Murtaza',
   roles: ['Full Stack Developer', 'Web Developer', 'UI/UX Designer', 'Programmer'],
   description:
-    'A Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. I design and ship products end to end - from interface design and responsive UI/UX through front-end engineering, back-end APIs, and deployment. I created the Maniesta ecosystem (Maniesta, Maniesta Campus, Maniesta Resume AI, and other tools) and have delivered client projects including the Al Falah Leather website. I focus on clean code, practical architecture, and interfaces that stay fast and readable across devices, with a growing emphasis on AI-assisted features.',
+    'A Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. I design and ship products end to end - from interface design and responsive UI/UX through front-end engineering, back-end APIs, and deployment. I created the Maniesta ecosystem (Maniesta, Maniesta Campus, Maniesta Career OS, and other tools) and have delivered client projects including the Al Falah Leather website. I focus on clean code, practical architecture, and interfaces that stay fast and readable across devices, with a growing emphasis on AI-assisted features.',
   email: 'usmanmurtazaportfolio@gmail.com',
   github: 'https://github.com/Usmannmurtazaa',
   resume: '/resume.pdf',
@@ -234,8 +234,44 @@ export const projects = [
   // ============================================================
 
   {
+    id: 17,
+    title: 'Maniesta Academic Portal',
+    date: '2026',
+    problem:
+      'Traditional methods of tracking university marks involve messy spreadsheets, losing screenshots in phone galleries, and manually recalculating CGPA. Furthermore, university portals are often slow and lack modern UX.',
+    solution:
+      'A full-stack, AI-powered web application designed for university students to track their academic progress, calculate their CGPA, manage evidence-backed marks, and generate printable transcripts. It uses Llama 3.2 Vision AI to automate the extraction of marks from result screenshots.',
+    technicalChallenge:
+      'Running the Next.js 15 backend at the edge using Cloudflare Workers and OpenNext, implementing Edge AI for image processing without sending data to third-party servers, and ensuring strict data validation via Drizzle ORM constraints.',
+    myRole:
+      'Sole developer - designed the serverless edge architecture (Cloudflare Workers, D1, KV), implemented the AI screenshot scanning, and built the glassmorphism UI.',
+    stack: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS',
+      'Cloudflare Workers',
+      'D1',
+      'Drizzle ORM',
+      'Workers AI',
+    ],
+    impact: 'Not publicly measured yet',
+    links: {
+      live: 'https://portal.maniesta.workers.dev/',
+      github: '',
+    },
+    image: `${process.env.PUBLIC_URL}/Maniesta-portal1.png`,
+    tags: ['Next.js', 'TypeScript', 'Edge Computing', 'AI', 'Cloudflare', 'Drizzle ORM'],
+    category: 'Web App',
+    level: 'featured',
+    categoryNormalized: 'Education',
+    complexityScore: 10,
+    keyHighlight: '100% serverless edge architecture with Llama 3.2 Vision AI',
+  },
+
+  {
     id: 1,
-    title: 'ResumeAI Pro - AI Powered Resume Builder SaaS',
+    title: 'Maniesta Career OS (Formerly ResumeAI Pro)',
     date: '2025',
     problem:
       'Job seekers spend hours crafting resumes that often fail ATS filters, reducing their chances of landing interviews.',
@@ -248,8 +284,8 @@ export const projects = [
     stack: ['React', 'Firebase', 'Tailwind CSS', 'OpenAI API'],
     impact: 'Not publicly measured yet',
     links: {
-      live: 'https://resumeaixpro.netlify.app/',
-      github: 'https://github.com/usmannmurtazaa/ResumeAI-Pro',
+      live: 'https://maniesta-career.netlify.app/',
+      github: 'https://github.com/usmannmurtazaa/Maniesta-resumeai',
     },
     image: `${process.env.PUBLIC_URL}/ResumeAi Pro.png`,
     tags: ['React', 'Firebase', 'Tailwind CSS', 'AI', 'SaaS', 'Resume Builder'],
@@ -341,6 +377,32 @@ export const projects = [
     categoryNormalized: 'Real Estate',
     complexityScore: 7,
     keyHighlight: 'Property search with interactive maps and filtering',
+  },
+
+  {
+    id: 18,
+    title: 'Maniesta Real Estate - Luxury Property in Dubai',
+    date: '2025',
+    problem:
+      'International buyers exploring Dubai property face fragmented listings, unclear investment assumptions, and no structured way to compare communities by lifestyle, timing, and realistic rental yield.',
+    solution:
+      'A research-led real estate experience under the Maniesta brand that guides buyers from lifestyle intent to a focused property shortlist - presenting Dubai communities, local market context, transparent investment assumptions, and an interactive AED rental-yield calculator instead of an endless listing feed.',
+    technicalChallenge:
+      'Building an interactive rental-yield calculator with live AED inputs and gross/net yield output, and structuring the community-first discovery flow so buyers compare areas by intent and assumptions rather than raw listings.',
+    myRole: 'Solo developer - product design, UI, rental calculator logic, and frontend build.',
+    stack: ['React', 'Vite', 'Tailwind CSS', 'Netlify'],
+    impact: 'Not publicly measured yet',
+    links: {
+      live: 'https://maniesta-real-estate.netlify.app/',
+      github: '',
+    },
+    image: `${process.env.PUBLIC_URL}/Maniesta-real.png`,
+    tags: ['React', 'Vite', 'Real Estate', 'Dubai', 'Investment', 'Maniesta'],
+    category: 'Web App',
+    level: 'secondary',
+    categoryNormalized: 'Real Estate',
+    complexityScore: 7,
+    keyHighlight: 'Community discovery with a live AED rental-yield calculator',
   },
 
   {
@@ -663,6 +725,6 @@ export const TimeLineData = [
   },
   {
     year: '2025',
-    text: 'Launched the Maniesta ecosystem - Maniesta, Maniesta Campus, Maniesta Resume AI, and other products - and continued shipping AI-assisted and utility-focused web apps.',
+    text: 'Launched the Maniesta ecosystem - Maniesta, Maniesta Campus, Maniesta Career OS, Maniesta Academic Portal, and other products - and continued shipping AI-assisted and utility-focused web apps.',
   },
 ];

@@ -5,7 +5,7 @@ import styled, { keyframes } from 'styled-components';
 /* ---------- Keyframes ----------
    Only transform and opacity animate. No layout, no paint, no blur.
    Durations are deliberately long (28–40s) so the motion is barely
-   perceptible while scrolling — a "live" feeling, not a distracting one.
+   perceptible while scrolling - a "live" feeling, not a distracting one.
 */
 
 const driftA = keyframes`
@@ -60,7 +60,7 @@ const Wrapper = styled.div`
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  /* No background on the wrapper itself — the base colour comes from
+  /* No background on the wrapper itself - the base colour comes from
      body / body::before. Only the blobs paint on this layer. */
 `;
 

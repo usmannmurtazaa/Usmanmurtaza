@@ -99,7 +99,7 @@ const SkillsContainer = styled.div`
   width: 100%;
   /* minmax 380px ensures each card is wide enough (>= 380px) that after
      its own 36px horizontal padding the inner pill grid has at least
-     308px — enough for two pills per row. With minmax 350px there was a
+     308px - enough for two pills per row. With minmax 350px there was a
      narrow tablet window (~773-831px viewport) where two cards fit but
      each was too small to show more than one pill per row. */
   display: grid;

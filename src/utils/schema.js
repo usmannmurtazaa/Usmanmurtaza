@@ -12,7 +12,7 @@ const WEBSITE_ID = `${SITE_URL}/#website`;
  * that are actually present in the portfolio data and project stacks.
  *
  * sameAs includes every social profile whose URL contains the person's
- * name or handle — this helps Google reconcile them all into one entity.
+ * name or handle - this helps Google reconcile them all into one entity.
  */
 export const getPersonSchema = () => ({
   '@context': 'https://schema.org',
@@ -24,7 +24,7 @@ export const getPersonSchema = () => ({
   jobTitle: 'Full Stack Developer',
   description:
     Bio.description ||
-    'Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js — creator of the Maniesta ecosystem.',
+    'Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js - creator of the Maniesta ecosystem.',
   url: SITE_URL,
   image: `${SITE_URL}/og-image.jpg`,
   // All five profiles now contain the handle "usmannmurtazaa" (or close
@@ -84,7 +84,7 @@ export const getWebSiteSchema = () => ({
   url: SITE_URL,
   name: 'Usman Murtaza Portfolio',
   description:
-    'Portfolio of Usman Murtaza — Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. Creator of the Maniesta ecosystem.',
+    'Portfolio of Usman Murtaza - Full Stack Developer building modern, responsive web applications with React, JavaScript, and Node.js. Creator of the Maniesta ecosystem.',
   inLanguage: 'en',
   publisher: { '@id': PERSON_ID },
   about: { '@id': PERSON_ID },
@@ -105,7 +105,7 @@ export const getWebApplicationSchema = customProjects => {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     '@id': `${SITE_URL}/#projects`,
-    name: `${Bio.name} — Projects and Maniesta Ecosystem`,
+    name: `${Bio.name} - Projects and Maniesta Ecosystem`,
     description: 'Web applications and Maniesta-family products created by Usman Murtaza.',
     itemListElement: allProjects.map((p, index) => ({
       '@type': 'SoftwareApplication',

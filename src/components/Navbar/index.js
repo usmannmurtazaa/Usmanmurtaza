@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Nav,
@@ -20,12 +20,45 @@ import { useReducedMotion } from '../../motionConfig';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
   const prefersReduced = useReducedMotion();
+  const location = useLocation();
+
+  const isHomePage = location.pathname === '/';
+  const isBlogPage = location.pathname.startsWith('/blog');
 
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.2 } },
   };
+
+  // Scroll Spy logic to highlight the active section (only runs on the homepage)
+  useEffect(() => {
+    if (!isHomePage) return undefined;
+
+    const sections = ['about', 'skills', 'experience', 'projects', 'education'];
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-40% 0px -40% 0px', // Triggers when section is in the middle 20% of the screen
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(id => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [isHomePage]);
 
   return (
     <Nav
@@ -44,22 +77,26 @@ const Navbar = () => {
         </MobileIcon>
 
         <NavItems>
-          <NavLink as={Link} to="/#about">
+          <NavLink as={Link} to="/#about" $active={isHomePage && activeSection === 'about'}>
             About
           </NavLink>
-          <NavLink as={Link} to="/#skills">
+          <NavLink as={Link} to="/#skills" $active={isHomePage && activeSection === 'skills'}>
             Skills
           </NavLink>
-          <NavLink as={Link} to="/#experience">
+          <NavLink
+            as={Link}
+            to="/#experience"
+            $active={isHomePage && activeSection === 'experience'}
+          >
             Experience
           </NavLink>
-          <NavLink as={Link} to="/#projects">
+          <NavLink as={Link} to="/#projects" $active={isHomePage && activeSection === 'projects'}>
             Projects
           </NavLink>
-          <NavLink as={Link} to="/#education">
+          <NavLink as={Link} to="/#education" $active={isHomePage && activeSection === 'education'}>
             Education
           </NavLink>
-          <NavLink as={Link} to="/blog">
+          <NavLink as={Link} to="/blog" $active={isBlogPage}>
             Blog
           </NavLink>
         </NavItems>
@@ -79,22 +116,47 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <MobileLink as={Link} to="/#about" onClick={() => setIsOpen(false)}>
+            <MobileLink
+              as={Link}
+              to="/#about"
+              onClick={() => setIsOpen(false)}
+              $active={isHomePage && activeSection === 'about'}
+            >
               About
             </MobileLink>
-            <MobileLink as={Link} to="/#skills" onClick={() => setIsOpen(false)}>
+            <MobileLink
+              as={Link}
+              to="/#skills"
+              onClick={() => setIsOpen(false)}
+              $active={isHomePage && activeSection === 'skills'}
+            >
               Skills
             </MobileLink>
-            <MobileLink as={Link} to="/#experience" onClick={() => setIsOpen(false)}>
+            <MobileLink
+              as={Link}
+              to="/#experience"
+              onClick={() => setIsOpen(false)}
+              $active={isHomePage && activeSection === 'experience'}
+            >
               Experience
             </MobileLink>
-            <MobileLink as={Link} to="/#projects" onClick={() => setIsOpen(false)}>
+            <MobileLink
+              as={Link}
+              to="/#projects"
+              onClick={() => setIsOpen(false)}
+              $active={isHomePage && activeSection === 'projects'}
+            >
               Projects
             </MobileLink>
-            <MobileLink as={Link} to="/#education" onClick={() => setIsOpen(false)}>
+            <MobileLink
+              as={Link}
+              to="/#education"
+              onClick={() => setIsOpen(false)}
+              $active={isHomePage && activeSection === 'education'}
+            >
               Education
             </MobileLink>
-            <MobileLink as={Link} to="/blog" onClick={() => setIsOpen(false)}>
+            <MobileLink as={Link} to="/blog" onClick={() => setIsOpen(false)} $active={isBlogPage}>
               Blog
             </MobileLink>
             <GitHubButton

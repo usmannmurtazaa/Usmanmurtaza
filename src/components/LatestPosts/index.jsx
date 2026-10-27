@@ -149,7 +149,7 @@ const LatestPosts = ({ limit = 3 }) => {
   const allPosts = getSortedBlogPosts();
   const posts = allPosts.slice(0, limit);
 
-  // Nothing to show — render nothing so the home page does not have an
+  // Nothing to show - render nothing so the home page does not have an
   // empty section.
   if (posts.length === 0) return null;
 

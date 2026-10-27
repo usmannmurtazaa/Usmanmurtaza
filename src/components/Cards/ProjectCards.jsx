@@ -33,7 +33,7 @@ const Card = styled(motion(Link))`
   text-decoration: none;
   color: inherit;
 
-  /* Keyboard focus — visible for keyboard users only. */
+  /* Keyboard focus - visible for keyboard users only. */
   &:focus-visible {
     outline: 2px solid var(--accent-glow, #8b5cf6);
     outline-offset: 4px;
@@ -281,7 +281,7 @@ const ProjectCard = ({ project, isFeatured }) => {
 
   const handleClick = () => {
     trackEvent('click_project_card', 'portfolio', project.title);
-    // No preventDefault — the Link handles navigation.
+    // No preventDefault - the Link handles navigation.
   };
 
   const description = project.solution || project.description || '';

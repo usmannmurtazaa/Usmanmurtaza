@@ -497,7 +497,7 @@ const BlogPost = () => {
 
         <Footer>
           <p>
-            Thanks for reading. If this was useful, feel free to reach out — I am always happy to
+            Thanks for reading. If this was useful, feel free to reach out - I am always happy to
             discuss React, Node.js, or building products from scratch.
           </p>
           <div className="links">

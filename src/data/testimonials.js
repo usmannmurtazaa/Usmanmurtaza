@@ -8,7 +8,7 @@
  * adding it here.
  *
  * When this array is empty, the Testimonials section on the home page
- * renders nothing — no empty section, no placeholder content.
+ * renders nothing - no empty section, no placeholder content.
  *
  * Shape of each entry:
  *   {
@@ -22,7 +22,7 @@
  *     sourceUrl: 'https://...',         // optional, links the source for verification
  *   }
  *
- * Example shape (do not paste fake content — this is only a reference):
+ * Example shape (do not paste fake content - this is only a reference):
  *
  *   {
  *     id: 'sample-1',
@@ -39,7 +39,7 @@
 
 export const testimonials = [
   // ─────────────────────────────────────────────────────────────────
-  // SLOT 1 — FILLED (real testimonial, LinkedIn comment on the
+  // SLOT 1 - FILLED (real testimonial, LinkedIn comment on the
   // How I Built Maniesta Campus" article, posted on Dev.to)
   // ─────────────────────────────────────────────────────────────────
   {
@@ -55,7 +55,7 @@ export const testimonials = [
   },
 
   // ─────────────────────────────────────────────────────────────────
-  // SLOT 2 — TEMPLATE — suggested source: LinkedIn recommendation
+  // SLOT 2 - TEMPLATE - suggested source: LinkedIn recommendation
   // from a freelance client
   // ─────────────────────────────────────────────────────────────────
   {
