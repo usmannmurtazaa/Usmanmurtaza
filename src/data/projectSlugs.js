@@ -14,7 +14,7 @@
 
 export const PROJECT_SLUGS = {
   0: 'nexa-calculator',
-  1: 'resumeai-pro',
+  1: 'maniesta-career-os',
   2: 'zain-real-estate',
   4: 'maniesta-campus',
   5: 'maniesta-suite',
@@ -29,6 +29,8 @@ export const PROJECT_SLUGS = {
   14: 'maniesta-play',
   15: 'maniesta-weather',
   16: 'maniesta-notes',
+  17: 'maniesta-academic-portal',
+  18: 'maniesta-real-estate',
 };
 
 /**
